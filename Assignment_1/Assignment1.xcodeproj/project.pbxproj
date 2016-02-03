@@ -67,7 +67,7 @@
 		6D5A86A119AE5C710066C1FD = {
 			isa = PBXGroup;
 			children = (
-				6D5A86B319AE5C710066C1FD /* NYUCodebase */,
+				6D5A86B319AE5C710066C1FD /* Assignment1 */,
 				6D5A86D119AE5C710066C1FD /* NYUCodebaseTests */,
 				6D5A86AC19AE5C710066C1FD /* Frameworks */,
 				6D5A86AB19AE5C710066C1FD /* Products */,
@@ -104,12 +104,13 @@
 			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		6D5A86B319AE5C710066C1FD /* NYUCodebase */ = {
+		6D5A86B319AE5C710066C1FD /* Assignment1 */ = {
 			isa = PBXGroup;
 			children = (
 				6D5A86E119AE5CAA0066C1FD /* Code */,
 				6D5A86B419AE5C710066C1FD /* Supporting Files */,
 			);
+			name = Assignment1;
 			path = NYUCodebase;
 			sourceTree = "<group>";
 		};
