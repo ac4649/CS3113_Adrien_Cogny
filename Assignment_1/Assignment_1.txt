@@ -1,0 +1,7 @@
+Assignment 1:
+
+- Create a simple 2D scene using textured polygons.
+- You can use any images you want, but feel free to use the assets in the class github repo.
+- At least one element must be animated.
+- You must use at least 3 di erent textures.
+- Commit the source to your github repository and email me the link.
