@@ -4,4 +4,59 @@
    <FileRef
       location = "self:/Users/adriencogny/Documents/OneDrive/Documents/NYU Poly/Junior Year/S_2016/CS 3113 - Game Programming/CS3113_Adrien_Cogny/CS3113_Adrien_Cogny/Assignment_1/Assignment1.xcodeproj">
    </FileRef>
+   <Group
+      location = "group:Assignment1"
+      name = "Assignment1">
+      <FileRef
+         location = "group:Assignment1-Info.plist">
+      </FileRef>
+      <Group
+         location = "group:en.lproj"
+         name = "en.lproj">
+         <FileRef
+            location = "group:Credits.rtf">
+         </FileRef>
+         <FileRef
+            location = "group:InfoPlist.strings">
+         </FileRef>
+      </Group>
+      <FileRef
+         location = "group:fragment.glsl">
+      </FileRef>
+      <FileRef
+         location = "group:fragment_textured.glsl">
+      </FileRef>
+      <Group
+         location = "group:Images.xcassets"
+         name = "Images.xcassets">
+         <Group
+            location = "group:AppIcon.appiconset"
+            name = "AppIcon.appiconset">
+            <FileRef
+               location = "group:Contents.json">
+            </FileRef>
+         </Group>
+      </Group>
+      <FileRef
+         location = "group:main.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:Matrix.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:Matrix.h">
+      </FileRef>
+      <FileRef
+         location = "group:ShaderProgram.cpp">
+      </FileRef>
+      <FileRef
+         location = "group:ShaderProgram.h">
+      </FileRef>
+      <FileRef
+         location = "group:vertex.glsl">
+      </FileRef>
+      <FileRef
+         location = "group:vertex_textured.glsl">
+      </FileRef>
+   </Group>
 </Workspace>
