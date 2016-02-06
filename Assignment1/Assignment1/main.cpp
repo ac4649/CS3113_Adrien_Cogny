@@ -55,17 +55,23 @@ int main(int argc, char *argv[])
     
     GLuint smileyTexture = LoadTexture("happy.gif");
     
-    Matrix projectionMatrix;
-    Matrix modelMatrix;
-    Matrix viewMatrix;
+    Matrix medalProjectionMatrix;
+    Matrix medalModelMatrix;
+    Matrix medalViewMatrix;
     
+    Matrix smileyProjectionMatrix;
+    Matrix smileyModelMatrix;
+    Matrix smileyViewMatrix;
     
-    projectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
+    medalProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
+    smileyProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
     
     glUseProgram(program.programID);
     
     
     
+    
+    float lastFrameTicks = 0.0f;
     
     
     
@@ -80,13 +86,19 @@ int main(int argc, char *argv[])
         }
         
         glClear(GL_COLOR_BUFFER_BIT);
+        
+        
+        //get the time
+        
+        float ticks = (float)SDL_GetTicks()/1000.0f;
+        float elapsed = ticks;
+        
 
-        
-        program.setModelMatrix(modelMatrix);
-        program.setProjectionMatrix(projectionMatrix);
-        program.setViewMatrix(viewMatrix);
-        
         //generate the medal
+        
+        program.setModelMatrix(medalModelMatrix);
+        program.setProjectionMatrix(medalProjectionMatrix);
+        program.setViewMatrix(medalViewMatrix);
         
         glBindTexture(GL_TEXTURE_2D, medalTexture);
         
@@ -107,10 +119,16 @@ int main(int argc, char *argv[])
         glDisableVertexAttribArray(program.positionAttribute);
         glDisableVertexAttribArray(program.texCoordAttribute);
         
+        float angleRotation = elapsed * (1*3.14159621/180);
+        
+        medalModelMatrix.Rotate(angleRotation);
         
         
         
         //generate the happy face texture
+        program.setModelMatrix(smileyModelMatrix);
+        program.setProjectionMatrix(smileyProjectionMatrix);
+        program.setViewMatrix(smileyViewMatrix);
         
         glBindTexture(GL_TEXTURE_2D, smileyTexture);
         
@@ -128,6 +146,10 @@ int main(int argc, char *argv[])
         
         glDisableVertexAttribArray(program.positionAttribute);
         glDisableVertexAttribArray(program.texCoordAttribute);
+        
+        float smileyXTranslate = elapsed*1;
+        
+        smileyProjectionMatrix.Translate(smileyXTranslate, 0.01, 0);
         
         
         SDL_GL_SwapWindow(displayWindow);
