@@ -53,28 +53,50 @@ int main(int argc, char *argv[])
     //textures
     GLuint medalTexture = LoadTexture("flat_medal1.png");
     
-    GLuint smileyTexture = LoadTexture("happy.gif");
-    
     Matrix medalProjectionMatrix;
     Matrix medalModelMatrix;
     Matrix medalViewMatrix;
+    
+    medalProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
+    
+    GLuint smileyTexture = LoadTexture("happy.gif");
     
     Matrix smileyProjectionMatrix;
     Matrix smileyModelMatrix;
     Matrix smileyViewMatrix;
     
-    medalProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
     smileyProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
     
+    
+    GLuint diceTexture = LoadTexture("dieWhite_border1.png");
+    
+    
+    Matrix diceProjectionMatrix;
+    Matrix diceModelMatrix;
+    Matrix diceViewMatrix;
+    
+    diceProjectionMatrix.setOrthoProjection(-3.55,3.55,-2.0f,2.0f,-1.0f, 1.0f);
+
+    
     glUseProgram(program.programID);
+    
+    
+    //x, y, z locations
+    
+    float medalX = 0.0f;
+    float medalY = 0.0f;
+    float medalZ = 0.0f;
+    
+    float smileyX = -0.8f;
+    float smileyY = -0.8f;
+    float smileyZ = 0.0f;
+
     
     
     
     
     float lastFrameTicks = 0.0f;
-    
-    
-    
+
     
     SDL_Event event;
     bool done = false;
@@ -91,7 +113,8 @@ int main(int argc, char *argv[])
         //get the time
         
         float ticks = (float)SDL_GetTicks()/1000.0f;
-        float elapsed = ticks;
+        float elapsed = ticks - lastFrameTicks;
+        lastFrameTicks = ticks;
         
 
         //generate the medal
@@ -119,7 +142,7 @@ int main(int argc, char *argv[])
         glDisableVertexAttribArray(program.positionAttribute);
         glDisableVertexAttribArray(program.texCoordAttribute);
         
-        float angleRotation = elapsed * (1*3.14159621/180);
+        float angleRotation = angleRotation + elapsed * (0.1*3.14159621/180);
         
         medalModelMatrix.Rotate(angleRotation);
         
@@ -132,7 +155,8 @@ int main(int argc, char *argv[])
         
         glBindTexture(GL_TEXTURE_2D, smileyTexture);
         
-        float smileyVertex[] = {-1, -1, -0.6, -1, -0.6, -0.6, -1, -1, -0.6, -0.6, -1, -0.6};
+        //start the texture in the center of the screen and then translate it down by 0.5
+        float smileyVertex[] = {-0.2, -0.2, 0.2, -0.2, 0.2, 0.2, -0.2, -0.2, 0.2, 0.2, -0.2, 0.2};
         glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, smileyVertex);
         glEnableVertexAttribArray(program.positionAttribute);
         
@@ -147,12 +171,55 @@ int main(int argc, char *argv[])
         glDisableVertexAttribArray(program.positionAttribute);
         glDisableVertexAttribArray(program.texCoordAttribute);
         
+        smileyProjectionMatrix.identity();
+        smileyProjectionMatrix.Translate(0, -0.5, 0.0);
+        
         float smileyXTranslate = elapsed*1;
+        smileyX = smileyX + smileyXTranslate;
         
-        smileyProjectionMatrix.Translate(smileyXTranslate, 0.01, 0);
+        if (smileyX > 1.0)
+        {
+            smileyX = -smileyX;
+        }
         
+        smileyProjectionMatrix.Translate(smileyX,0, 0);
+        
+        
+        
+        //generate the dice
+        program.setModelMatrix(diceModelMatrix);
+        program.setProjectionMatrix(diceProjectionMatrix);
+        program.setViewMatrix(diceViewMatrix);
+        
+        glBindTexture(GL_TEXTURE_2D, diceTexture);
+        
+        //start the texture in the center of the screen and then translate it up by 1.0
+        float diceVertices[] = {-0.2, -0.2, 0.2, -0.2, 0.2, 0.2, -0.2, -0.2, 0.2, 0.2, -0.2, 0.2};
+        
+        glVertexAttribPointer(program.positionAttribute, 2, GL_FLOAT, false, 0, diceVertices);
+        glEnableVertexAttribArray(program.positionAttribute);
+        
+        float dicetexCoord[] = {0.0, 1.0, 1.0, 1.0, 1.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0};
+        
+        glVertexAttribPointer(program.texCoordAttribute, 2, GL_FLOAT, false, 0, dicetexCoord);
+        glEnableVertexAttribArray(program.texCoordAttribute);
+        
+        
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        
+        
+        glDisableVertexAttribArray(program.positionAttribute);
+        glDisableVertexAttribArray(program.texCoordAttribute);
+        
+        float diceScale = 1+sin(ticks);
+        
+        std::cout << diceScale << std::endl;
+        diceModelMatrix.identity();
+        diceModelMatrix.Translate(0.0, 1.0, 0.0);
+        diceModelMatrix.Scale(diceScale, diceScale, 0.0);
         
         SDL_GL_SwapWindow(displayWindow);
+        
     }
     
     SDL_Quit();
