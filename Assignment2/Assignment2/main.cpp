@@ -79,7 +79,7 @@ void resetBoard()
     leftPaddle.y = 0;
     leftPaddle.width = totalUnitsWidth/100;
     leftPaddle.height = totalUnitsHeight/4;
-    leftPaddle.speed = 5;
+    leftPaddle.speed = 10;
     leftPaddle.direction_x = 0;
     leftPaddle.direction_y = 1.5;
     
@@ -87,15 +87,15 @@ void resetBoard()
     rightPaddle.y = 0;
     rightPaddle.width = totalUnitsWidth/100;
     rightPaddle.height = totalUnitsHeight/4;
-    rightPaddle.speed = 5;
+    rightPaddle.speed = 10;
     rightPaddle.direction_x = 0;
     rightPaddle.direction_y = 1.5;
     
     ball.x = 0;
     ball.y = 0;
-    ball.height = 1;
-    ball.width = 1;
-    ball.speed = 7;
+    ball.height = 0.5;
+    ball.width = 0.5;
+    ball.speed = 15;
     ball.direction_x = 0.5;
     ball.direction_y = 0.5;
     
@@ -170,6 +170,23 @@ void ProcessEvents(ShaderProgram* program)
                 
                 //if up is pressed,move the right paddle up
                 rightPaddle.y = rightPaddle.y-rightPaddle.speed*rightPaddle.direction_y*elapsed;
+                
+                //std::cout << rightPaddle.y << std::endl;
+            }
+            
+            if(event.key.keysym.scancode == SDL_SCANCODE_W)
+            {
+                
+                //if up is pressed,move the right paddle up
+                leftPaddle.y = leftPaddle.y+leftPaddle.speed*leftPaddle.direction_y*elapsed;
+                
+                //std::cout << rightPaddle.y << std::endl;
+            }
+            else if(event.key.keysym.scancode == SDL_SCANCODE_S)
+            {
+                
+                //if up is pressed,move the right paddle up
+                leftPaddle.y = leftPaddle.y-leftPaddle.speed*leftPaddle.direction_y*elapsed;
                 
                 //std::cout << rightPaddle.y << std::endl;
             }
@@ -249,20 +266,44 @@ void Update(ShaderProgram* program)
     
     if (ball.x + ball.width/2 > rightPaddle.x - rightPaddle.width/2)
     {
-        if (ball.y - ball.height/2 < rightPaddle.y + rightPaddle.height/2)
+        
+        std::cout << "Checking right paddle collision" << std::endl;
+        std::cout << rightPaddle.y - rightPaddle.height/2 <<  " < " <<  ball.y + ball.height << " < " << rightPaddle.y + rightPaddle.height/2 << std::endl;
+        
+        
+        if (ball.y - ball.height/2 < rightPaddle.y + rightPaddle.height/2 && ball.y + ball.height/2 > rightPaddle.y - rightPaddle.height/2)
         {
-            //std::cout << "Colided with the right paddle" << std::endl;
+            std::cout << "Colided with the  right paddle" << std::endl;
             //collided with left paddle
-            ball.direction_x = -ball.direction_x;
-            ball.direction_y = -ball.direction_y;
             
-        }
-        else if (ball.y + ball.height/2 > rightPaddle.y - rightPaddle.height/2)
-        {
-            //std::cout << "Colided with the right paddle" << std::endl;
-            //collided with left paddle
+            // make the direction of the ball not simply the current negative, go sith the sin of the distance between the ball and the center of the paddle
+            
+            float distanceToCenter = rightPaddle.y - ball.y;
+            std::cout << "Distance to Center: " << distanceToCenter << std::endl;
+            /*
+            if (distanceToCenter < 0) {
+                std::cout << "Sin: " << sin(distanceToCenter) << std::endl;
+                ball.direction_x = ball.direction_x*sin(distanceToCenter);
+                std::cout << ball.direction_x << std::endl;
+            }
+            else if (distanceToCenter > 0) {
+                ball.direction_x = -ball.direction_x*sin(distanceToCenter);
+                std::cout << ball.direction_x << std::endl;
+            }
+            else
+            {
+                ball.direction_x = -ball.direction_x;
+                std::cout << ball.direction_x << std::endl;
+            }
+             */
+            
             ball.direction_x = -ball.direction_x;
-            ball.direction_y = -ball.direction_y;
+            
+            std::cout << ball.direction_y << " * " << sin(distanceToCenter) << " = " << ball.direction_y*sin(distanceToCenter) << std::endl;
+            ball.direction_y = -ball.direction_y*cos(distanceToCenter);
+            std::cout << ball.direction_y << std::endl;
+
+            
         }
         else
         {
@@ -274,22 +315,29 @@ void Update(ShaderProgram* program)
     }
     
     
-    if (ball.x + ball.width/2 < leftPaddle.x - leftPaddle.width/2)
+    if (ball.x - ball.width/2 < leftPaddle.x + leftPaddle.width/2)
     {
-        if (ball.y - ball.height/2 < leftPaddle.y + leftPaddle.height/2)
+        if (ball.y - ball.height/2 < leftPaddle.y + leftPaddle.height/2 && ball.y + ball.height/2 > leftPaddle.y - leftPaddle.height/2)
         {
-            //std::cout << "Colided with the left paddle" << std::endl;
+            std::cout << "Colided with the left paddle" << std::endl;
             //collided with left paddle
-            ball.direction_x = -ball.direction_x;
-            ball.direction_y = -ball.direction_y;
+            float distanceToCenter = leftPaddle.y - ball.y;
             
-        }
-        else if (ball.y + ball.height/2 > leftPaddle.y - leftPaddle.height/2)
-        {
-            //std::cout << "Colided with the left paddle" << std::endl;
-            //collided with left paddle
+            
             ball.direction_x = -ball.direction_x;
-            ball.direction_y = -ball.direction_y;
+            
+            if (distanceToCenter < 0)
+            {
+                //this means it is lower half
+                ball.direction_y = -ball.direction_y*cos(distanceToCenter);
+            }
+            else
+            {
+                ball.direction_y = ball.direction_y*cos(distanceToCenter);
+            }
+            std::cout << ball.direction_y << std::endl;
+
+            
         }
         else
         {
