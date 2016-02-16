@@ -364,60 +364,64 @@ void Render(ShaderProgram* program)
         
         //ball display
         //ball left triangle
+
+        ball.x-ball.width/2,ball.y+ball.height/2,
         ball.x-ball.width/2,ball.y-ball.height/2,
-        ball.x-ball.width/2,ball.y+ball.height/2,
-        ball.x+ball.width/2,ball.y-ball.height/2,
-        
-        // ball right triangle
-        ball.x-ball.width/2,ball.y+ball.height/2,
-        ball.x+ball.width/2,ball.y-ball.height/2,
         ball.x+ball.width/2,ball.y+ball.height/2,
+    
+        // ball right triangle
         
+        ball.x+ball.width/2,ball.y+ball.height/2,
+        ball.x-ball.width/2,ball.y-ball.height/2,
+        ball.x+ball.width/2,ball.y-ball.height/2,
         
         //left paddle display
         //left paddle left triangle
-        leftPaddle.x-leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
+        
         leftPaddle.x-leftPaddle.width/2,leftPaddle.y+leftPaddle.height/2,
-        leftPaddle.x+leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
+        leftPaddle.x-leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
+        leftPaddle.x+leftPaddle.width/2,leftPaddle.y+leftPaddle.height/2,
+        
         
         // left paddle right triangle
-        leftPaddle.x-leftPaddle.width/2,leftPaddle.y+leftPaddle.height/2,
-        leftPaddle.x+leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
+        
         leftPaddle.x+leftPaddle.width/2,leftPaddle.y+leftPaddle.height/2,
+        leftPaddle.x-leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
+        leftPaddle.x+leftPaddle.width/2,leftPaddle.y-leftPaddle.height/2,
         
         //right paddle display
         //right paddle left triangle
-        rightPaddle.x-rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
         rightPaddle.x-rightPaddle.width/2,rightPaddle.y+rightPaddle.height/2,
-        rightPaddle.x+rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
+        rightPaddle.x-rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
+        rightPaddle.x+rightPaddle.width/2,rightPaddle.y+rightPaddle.height/2,
         
         // right paddle right triangle
-        rightPaddle.x-rightPaddle.width/2,rightPaddle.y+rightPaddle.height/2,
-        rightPaddle.x+rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
         rightPaddle.x+rightPaddle.width/2,rightPaddle.y+rightPaddle.height/2,
+        rightPaddle.x-rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
+        rightPaddle.x+rightPaddle.width/2,rightPaddle.y-rightPaddle.height/2,
         
 
         //top wall display
         //top wall left triangle
-        topWall.x-topWall.width/2,topWall.y-topWall.height/2,
         topWall.x-topWall.width/2,topWall.y+topWall.height/2,
-        topWall.x+topWall.width/2,topWall.y-topWall.height/2,
+        topWall.x-topWall.width/2,topWall.y-topWall.height/2,
+        topWall.x+topWall.width/2,topWall.y+topWall.height/2,
         
         // top wall right triangle
-        topWall.x-topWall.width/2,topWall.y+topWall.height/2,
-        topWall.x+topWall.width/2,topWall.y-topWall.height/2,
         topWall.x+topWall.width/2,topWall.y+topWall.height/2,
+        topWall.x-topWall.width/2,topWall.y-topWall.height/2,
+        topWall.x+topWall.width/2,topWall.y-topWall.height/2,
 
         //bottom wall display
         //bottom wall left triangle
-        bottomWall.x-bottomWall.width/2,bottomWall.y-bottomWall.height/2,
         bottomWall.x-bottomWall.width/2,bottomWall.y+bottomWall.height/2,
-        bottomWall.x+bottomWall.width/2,bottomWall.y-bottomWall.height/2,
+        bottomWall.x-bottomWall.width/2,bottomWall.y-bottomWall.height/2,
+        bottomWall.x+bottomWall.width/2,bottomWall.y+bottomWall.height/2,
         
         // bottom wall right triangle
-        bottomWall.x-bottomWall.width/2,bottomWall.y+bottomWall.height/2,
-        bottomWall.x+bottomWall.width/2,bottomWall.y-bottomWall.height/2,
-        bottomWall.x+bottomWall.width/2,bottomWall.y+bottomWall.height/2
+        bottomWall.x+bottomWall.width/2,bottomWall.y+bottomWall.height/2,
+        bottomWall.x-bottomWall.width/2,bottomWall.y-bottomWall.height/2,
+        bottomWall.x+bottomWall.width/2,bottomWall.y-bottomWall.height/2
     };
     
     
