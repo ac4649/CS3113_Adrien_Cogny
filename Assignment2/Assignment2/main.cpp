@@ -267,19 +267,19 @@ void Update(ShaderProgram* program)
     if (ball.x + ball.width/2 > rightPaddle.x - rightPaddle.width/2)
     {
         
-        std::cout << "Checking right paddle collision" << std::endl;
-        std::cout << rightPaddle.y - rightPaddle.height/2 <<  " < " <<  ball.y + ball.height << " < " << rightPaddle.y + rightPaddle.height/2 << std::endl;
+        //std::cout << "Checking right paddle collision" << std::endl;
+        //std::cout << rightPaddle.y - rightPaddle.height/2 <<  " < " <<  ball.y + ball.height << " < " << rightPaddle.y + rightPaddle.height/2 << std::endl;
         
         
         if (ball.y - ball.height/2 < rightPaddle.y + rightPaddle.height/2 && ball.y + ball.height/2 > rightPaddle.y - rightPaddle.height/2)
         {
-            std::cout << "Colided with the  right paddle" << std::endl;
+            //std::cout << "Colided with the  right paddle" << std::endl;
             //collided with left paddle
             
             // make the direction of the ball not simply the current negative, go sith the sin of the distance between the ball and the center of the paddle
             
             float distanceToCenter = rightPaddle.y - ball.y;
-            std::cout << "Distance to Center: " << distanceToCenter << std::endl;
+            //std::cout << "Distance to Center: " << distanceToCenter << std::endl;
             /*
             if (distanceToCenter < 0) {
                 std::cout << "Sin: " << sin(distanceToCenter) << std::endl;
@@ -299,15 +299,15 @@ void Update(ShaderProgram* program)
             
             ball.direction_x = -ball.direction_x;
             
-            std::cout << ball.direction_y << " * " << sin(distanceToCenter) << " = " << ball.direction_y*sin(distanceToCenter) << std::endl;
+            //std::cout << ball.direction_y << " * " << sin(distanceToCenter) << " = " << ball.direction_y*sin(distanceToCenter) << std::endl;
             ball.direction_y = -ball.direction_y*cos(distanceToCenter);
-            std::cout << ball.direction_y << std::endl;
+            //std::cout << ball.direction_y << std::endl;
 
             
         }
         else
         {
-            std::cout << "Didn't hit the paddle, it's out of bounds, reset" << std::endl;
+            //std::cout << "Didn't hit the paddle, it's out of bounds, reset" << std::endl;
             std::cout << "left Player wins" << std::endl;
             resetBoard();
         }
@@ -319,7 +319,7 @@ void Update(ShaderProgram* program)
     {
         if (ball.y - ball.height/2 < leftPaddle.y + leftPaddle.height/2 && ball.y + ball.height/2 > leftPaddle.y - leftPaddle.height/2)
         {
-            std::cout << "Colided with the left paddle" << std::endl;
+            //std::cout << "Colided with the left paddle" << std::endl;
             //collided with left paddle
             float distanceToCenter = leftPaddle.y - ball.y;
             
@@ -335,13 +335,13 @@ void Update(ShaderProgram* program)
             {
                 ball.direction_y = ball.direction_y*cos(distanceToCenter);
             }
-            std::cout << ball.direction_y << std::endl;
+            //std::cout << ball.direction_y << std::endl;
 
             
         }
         else
         {
-            std::cout << "Didn't hit the paddle, it's out of bounds, reset" << std::endl;
+            //std::cout << "Didn't hit the paddle, it's out of bounds, reset" << std::endl;
             std::cout << "right Player wins" << std::endl;
 
             resetBoard();
