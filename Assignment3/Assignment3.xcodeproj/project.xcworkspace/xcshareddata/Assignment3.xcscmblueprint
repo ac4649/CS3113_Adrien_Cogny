@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "D13BBB9E5E03DF2CFD955379C42BB5D36BDD2C94",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "D13BBB9E5E03DF2CFD955379C42BB5D36BDD2C94" : 0,
+    "87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "E0617F43-61EF-44D9-8D3A-BD74AC20392F",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "D13BBB9E5E03DF2CFD955379C42BB5D36BDD2C94" : "CS3113_AC_GITHUB\/",
+    "87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC" : "CS3113_AC_GITHUB\/Assignment3\/Assignment3\/CS3113\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "Assignment3",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "Assignment3\/Assignment3.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ivansafrin\/CS3113.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "87B8BDFD3B7109C7EE5C9A42582B5A75074E57CC"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/ac4649\/CS3113_Adrien_Cogny.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "D13BBB9E5E03DF2CFD955379C42BB5D36BDD2C94"
+    }
+  ]
+}

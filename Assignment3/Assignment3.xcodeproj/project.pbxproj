@@ -18,6 +18,9 @@
 		4D7AABF81C7B5C2A0028A8CD /* ShaderProgram.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D7AABEC1C7B5C2A0028A8CD /* ShaderProgram.cpp */; };
 		4D7AABF91C7B5C2A0028A8CD /* vertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABEE1C7B5C2A0028A8CD /* vertex.glsl */; };
 		4D7AABFA1C7B5C2A0028A8CD /* vertex_textured.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABEF1C7B5C2A0028A8CD /* vertex_textured.glsl */; };
+		4D9B40CF1C7D0EF000D439DE /* sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B40CD1C7D0EF000D439DE /* sheet.png */; };
+		4D9B40D01C7D0EF000D439DE /* sheet.xml in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B40CE1C7D0EF000D439DE /* sheet.xml */; };
+		4D9B40D21C7D54E400D439DE /* purpleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D9B40D11C7D54E400D439DE /* purpleBackground.png */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
 		6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */; };
@@ -38,6 +41,9 @@
 		4D7AABED1C7B5C2A0028A8CD /* ShaderProgram.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaderProgram.h; sourceTree = "<group>"; };
 		4D7AABEE1C7B5C2A0028A8CD /* vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex.glsl; sourceTree = "<group>"; };
 		4D7AABEF1C7B5C2A0028A8CD /* vertex_textured.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex_textured.glsl; sourceTree = "<group>"; };
+		4D9B40CD1C7D0EF000D439DE /* sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet.png; sourceTree = "<group>"; };
+		4D9B40CE1C7D0EF000D439DE /* sheet.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = sheet.xml; sourceTree = "<group>"; };
+		4D9B40D11C7D54E400D439DE /* purpleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBackground.png; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* Assignment3.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment3.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -68,6 +74,9 @@
 		4D7AABE01C7B5C2A0028A8CD /* Assignment3 */ = {
 			isa = PBXGroup;
 			children = (
+				4D9B40D11C7D54E400D439DE /* purpleBackground.png */,
+				4D9B40CD1C7D0EF000D439DE /* sheet.png */,
+				4D9B40CE1C7D0EF000D439DE /* sheet.xml */,
 				4D7AABE11C7B5C2A0028A8CD /* Credits.rtf */,
 				4D7AABE31C7B5C2A0028A8CD /* InfoPlist.strings */,
 				4D7AABE51C7B5C2A0028A8CD /* fragment.glsl */,
@@ -195,13 +204,16 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D9B40D21C7D54E400D439DE /* purpleBackground.png in Resources */,
 				4D7AABF21C7B5C2A0028A8CD /* fragment.glsl in Resources */,
 				4D7AABF41C7B5C2A0028A8CD /* Images.xcassets in Resources */,
 				4D7AABF01C7B5C2A0028A8CD /* Credits.rtf in Resources */,
 				4D7AABF31C7B5C2A0028A8CD /* fragment_textured.glsl in Resources */,
 				4D7AABF91C7B5C2A0028A8CD /* vertex.glsl in Resources */,
+				4D9B40D01C7D0EF000D439DE /* sheet.xml in Resources */,
 				4D7AABF11C7B5C2A0028A8CD /* InfoPlist.strings in Resources */,
 				4D7AABFA1C7B5C2A0028A8CD /* vertex_textured.glsl in Resources */,
+				4D9B40CF1C7D0EF000D439DE /* sheet.png in Resources */,
 				4D7AABF71C7B5C2A0028A8CD /* NYUCodebase-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -337,6 +349,11 @@
 					/Library/Frameworks/SDL2.framework/Versions/A/Headers,
 				);
 				INFOPLIST_FILE = "Assignment3/NYUCodebase-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Assignment3/CS3113/libraries/ios/SDL_libs_phone",
+					"$(PROJECT_DIR)/Assignment3/CS3113/libraries/ios/SDL_libs_simulator",
+				);
 				PRODUCT_NAME = Assignment3;
 				WRAPPER_EXTENSION = app;
 			};
@@ -360,6 +377,11 @@
 					/Library/Frameworks/SDL2.framework/Versions/A/Headers,
 				);
 				INFOPLIST_FILE = "Assignment3/NYUCodebase-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Assignment3/CS3113/libraries/ios/SDL_libs_phone",
+					"$(PROJECT_DIR)/Assignment3/CS3113/libraries/ios/SDL_libs_simulator",
+				);
 				PRODUCT_NAME = Assignment3;
 				WRAPPER_EXTENSION = app;
 			};
