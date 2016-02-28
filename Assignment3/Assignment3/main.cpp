@@ -636,6 +636,7 @@ void updateGame(ShaderProgram* program, float elapsed)
         if (bullets[i]->y - bullets[i]->height/2 > totalUnitsHeight/2)
         {
             //remove bullet;
+            delete bullets[i];
             bullets.erase(bullets.begin()+i);
         }
         
@@ -652,7 +653,9 @@ void updateGame(ShaderProgram* program, float elapsed)
         if (enemyBullets[i]->y - enemyBullets[i]->height/2 < -totalUnitsHeight/2)
         {
             //remove bullet;
+            delete enemyBullets[i];
             enemyBullets.erase(enemyBullets.begin()+i);
+            
         }
         
         
@@ -677,13 +680,15 @@ void updateGame(ShaderProgram* program, float elapsed)
             
             if  (distanceBetweenInvaderCenterAndBulletTop < invaderRadius)
             {
-                std::cout << "HIT invader = " << i << std::endl;
-                std::cout << "invaderRadius = " << invaderRadius << "\n distance between center and top of bullet = " << distanceBetweenInvaderCenterAndBulletTop << std::endl;
+                //std::cout << "HIT invader = " << i << std::endl;
+                //std::cout << "invaderRadius = " << invaderRadius << "\n distance between center and top of bullet = " << distanceBetweenInvaderCenterAndBulletTop << std::endl;
                 
+                delete invaders[i];
+                delete bullets[j];
                 invaders.erase(invaders.begin()+i);
                 bullets.erase(bullets.begin()+j);
                 
-                std::cout << "Number of Invaders left = " << invaders.size() << std::endl;
+                //std::cout << "Number of Invaders left = " << invaders.size() << std::endl;
                 
             }
             
@@ -701,7 +706,7 @@ void updateGame(ShaderProgram* program, float elapsed)
         
         if (theFiredBullet != nullptr)
         {
-            std::cout << "New Enemy Bullet" << std::endl;
+            //std::cout << "New Enemy Bullet" << std::endl;
             //if a bullet was fired;
             enemyBullets.push_back(theFiredBullet);
             
@@ -714,6 +719,8 @@ void updateGame(ShaderProgram* program, float elapsed)
     {
         if (enemyBullets[i]->x + enemyBullets[i]->width > player.x-player.width && enemyBullets[i]->x - enemyBullets[i]->width > player.x-player.width)
         {
+            
+            
             
         }
     }
