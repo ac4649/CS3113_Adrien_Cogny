@@ -720,7 +720,10 @@ void updateGame(ShaderProgram* program, float elapsed)
         if (enemyBullets[i]->x + enemyBullets[i]->width > player.x-player.width && enemyBullets[i]->x - enemyBullets[i]->width > player.x-player.width)
         {
             
-            
+            if (enemyBullets[i]->y - enemyBullets[i]->height < player.y + player.height)
+            {
+                std::cout << "YOU GOT SHOT - TRY AGAIN" << std::endl;
+            }
             
         }
     }
