@@ -134,7 +134,7 @@ public:
             return nullptr;
         }
         
-        std::cout << "Fired a new Bullet" << std::endl;
+        //std::cout << "Fired a new Bullet" << std::endl;
         
         Bullet* newBullet = new Bullet;
         newBullet->x = this->x;
@@ -763,17 +763,17 @@ void updateGame(ShaderProgram* program, float elapsed)
     //check collision detection between player and enemy bullets
     for (int i = 0; i < enemyBullets.size(); i++)
     {
-        if (enemyBullets[i]->x + enemyBullets[i]->width > player.x-player.width && enemyBullets[i]->x - enemyBullets[i]->width > player.x-player.width)
+        if (enemyBullets[i]->x + enemyBullets[i]->width < player.x-player.width || enemyBullets[i]->x - enemyBullets[i]->width > player.x-player.width || enemyBullets[i]->y + enemyBullets[i]->height < player.y-player.height || enemyBullets[i]->y - enemyBullets[i]->height > player.y + player.height)
         {
-            
-            if (enemyBullets[i]->y - enemyBullets[i]->height < player.y + player.height)
-            {
-                std::cout << "YOU GOT SHOT - TRY AGAIN" << std::endl;
-            }
-            
+            //no collision
+        }
+        else
+        {
+            std::cout << "YOU GOT SHOT" << std::endl;
+            enemyBullets.erase(enemyBullets.begin()+i);
+
         }
     }
-    
     
     
 }
@@ -879,6 +879,12 @@ int main(int argc, char *argv[])
             updateGame(program, fixedElapsed);
             
             renderGame(program);
+            
+            std::cout << "Number of Player Bullets = " << bullets.size() << std::endl;
+            std::cout << "Number of Enemy Bullets = " << enemyBullets.size() << std::endl;
+            
+            std::cout << "PAUSE" << std::endl;
+            
         }
         else
         {
