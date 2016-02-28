@@ -175,8 +175,50 @@ std::vector<GLuint> invaderSprites;
 Matrix menuModelMatrix;
 
 Entity menuBackground;
-Entity menuText;
 Entity menuButton;
+
+//drawing text function
+void DrawText(ShaderProgram *program, int fontTexture, std::string text, float size, float spacing, float startX,float startY)
+{
+    float texture_size = 1.0/16.0f;
+    std::vector<float> vertexData;
+    std::vector<float> texCoordData;
+    for(int i=0; i < text.size(); i++)
+    {
+        float texture_x = (float)(((int)text[i]) % 16) / 16.0f;
+        float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
+        
+        vertexData.insert(vertexData.end(),
+        {
+            (startX+(size+spacing) * i) + (-0.5f * size), 0.5f * size,
+            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size,
+            (startX+(size+spacing) * i) + (0.5f * size), 0.5f * size,
+            (startX+(size+spacing) * i) + (0.5f * size),  -0.5f * size,
+            (startX+(size+spacing) * i) + (0.5f * size),  0.5f * size,
+            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size,
+        });
+        
+        texCoordData.insert(texCoordData.end(),
+        {
+            texture_x, texture_y,
+            texture_x, texture_y + texture_size,
+            texture_x + texture_size, texture_y,
+            texture_x + texture_size, texture_y + texture_size,
+            texture_x + texture_size, texture_y,
+            texture_x, texture_y + texture_size,
+        });
+    }
+    
+    glUseProgram(program->programID);
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertexData.data());
+    glEnableVertexAttribArray(program->positionAttribute);
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoordData.data());
+    glEnableVertexAttribArray(program->texCoordAttribute);
+    glBindTexture(GL_TEXTURE_2D, fontTexture);
+    glDrawArrays(GL_TRIANGLES, 0, text.size() * 6);
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+}
 
 
 //DrawBullet
@@ -539,6 +581,10 @@ void renderMenu(ShaderProgram* program)
     
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
+    
+    int textFontTexture = LoadTexture("font1.png");
+    
+    DrawText(program, textFontTexture, "PLAY SPACE INVADERS", 0.3f, 0.00000000001f,-2.5,0);
     
     SDL_GL_SwapWindow(displayWindow);
     glClear(GL_COLOR_BUFFER_BIT);
