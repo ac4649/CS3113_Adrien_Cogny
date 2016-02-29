@@ -880,10 +880,10 @@ int main(int argc, char *argv[])
             
             renderGame(program);
             
-            std::cout << "Number of Player Bullets = " << bullets.size() << std::endl;
-            std::cout << "Number of Enemy Bullets = " << enemyBullets.size() << std::endl;
+            //std::cout << "Number of Player Bullets = " << bullets.size() << std::endl;
+            //std::cout << "Number of Enemy Bullets = " << enemyBullets.size() << std::endl;
             
-            std::cout << "PAUSE" << std::endl;
+            //std::cout << "PAUSE" << std::endl;
             
         }
         else
