@@ -10,13 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "374"
-            endingLineNumber = "374"
-            landmarkName = "DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity* displayedEntity, int spriteX, int spriteY, int spriteHeight, int spriteWidth)"
-            landmarkType = "7">
+            startingLineNumber = "401"
+            endingLineNumber = "401">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -26,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "316"
-            endingLineNumber = "316"
+            startingLineNumber = "341"
+            endingLineNumber = "341"
             landmarkName = "DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEntity)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +40,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "489"
-            endingLineNumber = "489"
+            startingLineNumber = "520"
+            endingLineNumber = "520"
             landmarkName = "setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,11 +56,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478370387.318622"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "852"
-            endingLineNumber = "852"
+            startingLineNumber = "916"
+            endingLineNumber = "916"
             landmarkName = "main(int argc, char *argv[])"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,11 +72,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478370387.318622"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "801"
-            endingLineNumber = "801"
+            startingLineNumber = "865"
+            endingLineNumber = "865"
             landmarkName = "renderGame(ShaderProgram* program)"
             landmarkType = "7">
          </BreakpointContent>
@@ -90,12 +88,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478305622.265489"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "128"
-            endingLineNumber = "128"
-            landmarkName = "fire(float directionY)"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "fire()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -106,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "688"
-            endingLineNumber = "688"
+            startingLineNumber = "727"
+            endingLineNumber = "727"
             landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
@@ -122,7 +120,23 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "723"
+            endingLineNumber = "723"
+            landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assignment3/main.cpp"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "684"
@@ -138,11 +152,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "651"
-            endingLineNumber = "651"
+            startingLineNumber = "695"
+            endingLineNumber = "695"
             landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
@@ -154,11 +168,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "660"
-            endingLineNumber = "660"
+            startingLineNumber = "711"
+            endingLineNumber = "711"
             landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
@@ -170,11 +184,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "672"
-            endingLineNumber = "672"
+            startingLineNumber = "795"
+            endingLineNumber = "795"
             landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
@@ -186,27 +200,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "747"
-            endingLineNumber = "747"
-            landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assignment3/main.cpp"
-            timestampString = "478370387.318622"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "784"
-            endingLineNumber = "784"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
             landmarkName = "renderGame(ShaderProgram* program)"
             landmarkType = "7">
          </BreakpointContent>
@@ -218,11 +216,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478370387.318622"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "809"
-            endingLineNumber = "809"
+            startingLineNumber = "873"
+            endingLineNumber = "873"
             landmarkName = "renderGame(ShaderProgram* program)"
             landmarkType = "7">
          </BreakpointContent>
@@ -234,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478370387.318622"
+            timestampString = "478565136.274011"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "824"
-            endingLineNumber = "824"
+            startingLineNumber = "888"
+            endingLineNumber = "888"
             landmarkName = "renderGame(ShaderProgram* program)"
             landmarkType = "7">
          </BreakpointContent>
@@ -250,11 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "482"
-            endingLineNumber = "482"
+            startingLineNumber = "512"
+            endingLineNumber = "512"
             landmarkName = "setup()"
             landmarkType = "7">
          </BreakpointContent>
@@ -266,12 +264,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478324764.64413"
+            timestampString = "478564929.937597"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
+            startingLineNumber = "515"
+            endingLineNumber = "515"
             landmarkName = "setup()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assignment3/main.cpp"
+            timestampString = "478565136.274011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "833"
+            endingLineNumber = "833"
+            landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -282,28 +296,44 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment3/main.cpp"
-            timestampString = "478370069.624725"
+            timestampString = "478565136.274011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "950"
+            endingLineNumber = "950"
+            landmarkName = "main(int argc, char *argv[])"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assignment3/main.cpp"
+            timestampString = "478565136.274011"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "812"
+            endingLineNumber = "812"
+            landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Assignment3/main.cpp"
+            timestampString = "478565140.343853"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "772"
             endingLineNumber = "772"
             landmarkName = "updateGame(ShaderProgram* program, float elapsed)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assignment3/main.cpp"
-            timestampString = "478370384.15329"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "886"
-            endingLineNumber = "886"
-            landmarkName = "main(int argc, char *argv[])"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

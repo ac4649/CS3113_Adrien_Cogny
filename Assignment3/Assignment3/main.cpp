@@ -89,8 +89,30 @@ public:
     
 };
 
-class Entity {
+class Entity{
 public:
+    
+    Entity():
+    x(0.0),
+    y(0.0),
+    width(0.0),
+    height(0.0),
+    rotation(0.0),
+    textureID(0),
+    textureLocationX(0.0),
+    textureLocationY(0.0),
+    textureWidth(0.0),
+    textureHeight(0.0),
+    textureSheetHeight(0.0),
+    textureSheetWidth(0.0),
+    speed(0.0),
+    direction_x(0.0),
+    direction_y(0.0),
+    fireSpeed(0.0),
+    lastFired(0.0),
+    fireDirection_Y(0.0),
+    fireDirection_X(0.0)
+    {};
     
     void Draw();
     
@@ -117,11 +139,13 @@ public:
     
     float fireSpeed; //rate of fire (number of bullet per second)
     float lastFired; //last time the bullet was fired -> timestamp to compare with elapsed time
+    float fireDirection_Y;
+    float fireDirection_X;
     
     Matrix modelMatrix;
     
     
-    Bullet* fire(float directionY)
+    Bullet* fire()
     {
         
         float curTicks = (float)SDL_GetTicks()/1000.0f;
@@ -144,8 +168,8 @@ public:
         newBullet->width = 0.01;
         newBullet->height = 0.3;
         
-        newBullet->direction_x = 0;
-        newBullet->direction_y = directionY;
+        newBullet->direction_x = fireDirection_X;
+        newBullet->direction_y = fireDirection_Y;
         
         newBullet->textureID = LoadTexture("sheet.png");
         newBullet->textureLocationX = 0;
@@ -166,7 +190,7 @@ public:
 // game entities
 Entity player;
 std::vector<Entity*> invaders;
-std::vector<Bullet*> bullets; //keeps the bullets fired by the player
+std::vector<Bullet*> playerBullets; //keeps the bullets fired by the player
 std::vector<Bullet*> enemyBullets; //keeps the enemy's bullets
 std::vector<GLuint> invaderSprites;
 
@@ -261,7 +285,7 @@ void DrawBullet(ShaderProgram *program, Bullet *displayedEntity)
     
     
 }
-
+/*
 //spritesheet display
 void DrawSpriteSheetSprite(ShaderProgram *program, int index, int spriteCountX, int spriteCountY)
 {
@@ -296,6 +320,7 @@ void DrawSpriteSheetSprite(ShaderProgram *program, int index, int spriteCountX, 
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
 }
+*/
 
 //spritesheet display
 // if the entity contains the sprite location as well as the height and width on the sprite sheet.
@@ -337,6 +362,8 @@ void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEnt
 
     
 }
+
+/*
 //if location, height and width on the sprite sheet need to be specified.
 void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity* displayedEntity, int spriteX, int spriteY, int spriteHeight, int spriteWidth)
 {
@@ -377,7 +404,7 @@ void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity* displayedEnt
     
 }
 
-
+*/
 //setup function
 ShaderProgram *setup() // will return the shaderProgram pointer
 {
@@ -422,6 +449,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     player.direction_x = 1;
     player.direction_y = 0;
     player.fireSpeed = 1; // fires 1 bullet every second.
+    player.fireDirection_Y = 1.0;
+    player.fireDirection_X = 0.0;
     
     
     //Add the ennemies to the ennemies vector
@@ -480,6 +509,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             
             enemy->direction_y = 0;
             enemy->fireSpeed = rand()%2; // fires random timeing.
+            enemy->fireDirection_Y = -1.0;
+            enemy->fireDirection_X = 0.0;
             
             invaders.push_back(enemy);
             
@@ -605,12 +636,14 @@ bool ProcessGameEvents(float elapsed)
             {
                 // player fire bullet in the positive x direction
                 
-                Bullet* theFiredBullet = player.fire(1.0f);
+                Bullet* theFiredBullet = player.fire();
+                
+                //std::cout << "Player: " << theFiredBullet << std::endl;
                 
                 if (theFiredBullet != nullptr)
                 {
                     //if a bullet was fired;
-                    bullets.push_back(theFiredBullet);
+                    playerBullets.push_back(theFiredBullet);
 
                 }
             }
@@ -649,41 +682,47 @@ void updateGame(ShaderProgram* program, float elapsed)
         if (invaders[i]->x + invaders[i]->width/2 > totalUnitsWidth/2)
         {
             //colides with right side
-            
             invaders[i]->y = invaders[i]->y - invaders[i]->height;
             invaders[i]->direction_x = -invaders[i]->direction_x;
             
-            invaders[i]->x = invaders[i]->x - fabs(totalUnitsWidth/2 - invaders[i]->x); // remove the collision from the wall
+            float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
+            //std::cout << "Penetration = " << penetration << std::endl;
+            
+            invaders[i]->x = invaders[i]->x - penetration; // remove the collision from the wall
             
 
             
         }
         if (invaders[i]->x - invaders[i]->width/2 < (-totalUnitsWidth/2))
         {
+            
+            float penetration = fabs(invaders[i]->x+totalUnitsWidth/2);
+            //std::cout << "Penetration = " << penetration << std::endl;
+            
             //colides with left side
             
             invaders[i]->y = invaders[i]->y - invaders[i]->height;
             invaders[i]->direction_x = -invaders[i]->direction_x;
             
-            invaders[i]->x = invaders[i]->x + fabs(invaders[i]->x+totalUnitsWidth/2); // remove the collision from the wall
+            invaders[i]->x = invaders[i]->x + penetration; // remove the collision from the wall
             
         }
     }
     
     //update bullets
     
-    for (int i = 0; i < bullets.size(); i++) {
+    for (int i = 0; i < playerBullets.size(); i++) {
         
-        bullets[i]->y = bullets[i]->y + bullets[i]->speed*elapsed*bullets[i]->direction_y;
+        playerBullets[i]->y = playerBullets[i]->y + playerBullets[i]->speed*elapsed*playerBullets[i]->direction_y;
         
         
         //if the bullets go off the screen, delete them
         
-        if (bullets[i]->y - bullets[i]->height/2 > totalUnitsHeight/2)
+        if (playerBullets[i]->y - playerBullets[i]->height/2 > totalUnitsHeight/2)
         {
             //remove bullet;
-            delete bullets[i];
-            bullets.erase(bullets.begin()+i);
+            delete playerBullets[i];
+            playerBullets.erase(playerBullets.begin()+i);
         }
         
         
@@ -713,28 +752,37 @@ void updateGame(ShaderProgram* program, float elapsed)
     for (int i = 0; i < invaders.size(); i++)
     {
         
-        for (int j = 0; j < bullets.size(); j++)
+        for (int j = 0; j < playerBullets.size(); j++)
         {
-            //do circle-line collision on the bullets
+            //do circle-line collision on the bullets and invaders
             
             
             float invaderRadius = sqrtf(invaders[i]->width/2*invaders[i]->width/2+invaders[i]->height/2*invaders[i]->height/2);
             
-            float distanceBetweenInvaderCenterAndBulletTop = sqrtf((invaders[i]->x - bullets[j]->x)*(invaders[i]->x - bullets[j]->x) + (invaders[i]->y - bullets[j]->y)*(invaders[i]->y - bullets[j]->y));
+            float deltaX = invaders[i]->x - playerBullets[j]->x;
+            float deltaY = invaders[i]->y - playerBullets[j]->y;
+                                             
+            
+            float distanceBetweenInvaderCenterAndBulletTop = sqrtf(deltaX*deltaX + deltaY*deltaY);
             
             //std::cout << "invaderRadius = " << invaderRadius << "distance between centers = " << distanceBetweenInvaderCenterAndBulletTop << std::endl;
             
             if  (distanceBetweenInvaderCenterAndBulletTop < invaderRadius)
             {
-                //std::cout << "HIT invader = " << i << std::endl;
+                
+                
+                std::cout << "HIT invader = " << i << std::endl;
+                std::cout << "Bullet number = " << j << std::endl;
                 //std::cout << "invaderRadius = " << invaderRadius << "\n distance between center and top of bullet = " << distanceBetweenInvaderCenterAndBulletTop << std::endl;
                 
                 delete invaders[i];
-                delete bullets[j];
+                delete playerBullets[j];
                 invaders.erase(invaders.begin()+i);
-                bullets.erase(bullets.begin()+j);
+                playerBullets.erase(playerBullets.begin()+j);
                 
                 //std::cout << "Number of Invaders left = " << invaders.size() << std::endl;
+                
+                
                 
             }
             
@@ -748,13 +796,16 @@ void updateGame(ShaderProgram* program, float elapsed)
     for (int i = 0; i < invaders.size(); i++)
     {
         //std::cout << "Fire" << std::endl;
-        Bullet* theFiredBullet = invaders[i]->fire(-1.0f);
+        Bullet* theFiredBullet = invaders[i]->fire();
         
         if (theFiredBullet != nullptr)
         {
             //std::cout << "New Enemy Bullet" << std::endl;
             //if a bullet was fired;
+            //std::cout << "Enemy: " << theFiredBullet << std::endl;
+            
             enemyBullets.push_back(theFiredBullet);
+            
             
         }
     }
@@ -763,13 +814,26 @@ void updateGame(ShaderProgram* program, float elapsed)
     //check collision detection between player and enemy bullets
     for (int i = 0; i < enemyBullets.size(); i++)
     {
-        if (enemyBullets[i]->x + enemyBullets[i]->width < player.x-player.width || enemyBullets[i]->x - enemyBullets[i]->width > player.x-player.width || enemyBullets[i]->y + enemyBullets[i]->height < player.y-player.height || enemyBullets[i]->y - enemyBullets[i]->height > player.y + player.height)
+        
+        //std::cout << "Enemy Bullet right Side: " << enemyBullets[i]->x + enemyBullets[i]->width/2 << " vs Player left side" << player.x-player.width/2  << std::endl;
+        
+        //std::cout << "Enemy Bullet left Side: " << enemyBullets[i]->x - enemyBullets[i]->width/2 << " vs Player Right side x" << player.x-player.width/2  << std::endl;
+        
+        //std::cout << "Enemy Bullet top Side: " << enemyBullets[i]->y + enemyBullets[i]->height/2  << " vs Player bottom side x" << player.y-player.height/2  << std::endl;
+        
+        
+        //std::cout << "Enemy Bullet bottom Side: " << enemyBullets[i]->y - enemyBullets[i]->height/2  << " vs Player top side x" << player.y + player.height/2  << std::endl;
+        
+        if (enemyBullets[i]->x + enemyBullets[i]->width/2 < player.x-player.width/2 || enemyBullets[i]->x - enemyBullets[i]->width/2 > player.x-player.width/2 || enemyBullets[i]->y + enemyBullets[i]->height/2 < player.y-player.height/2 || enemyBullets[i]->y - enemyBullets[i]->height/2 > player.y + player.height/2)
         {
             //no collision
         }
         else
         {
-            std::cout << "YOU GOT SHOT" << std::endl;
+            std::cout << "YOU GOT SHOT by bullet " << i << std::endl;
+            std::cout << "Player (xmax, xmin, ymax, ymin): (" << player.x+player.width/2 << ", " << player.x-player.width/2 << ", " << player.y + player.height/2 << ", " << player.y - player.height/2 << ")" << std::endl;
+            std::cout << "Bullet (xmax, xmin, ymax, ymin): (" << enemyBullets[i]->x+enemyBullets[i]->width/2 << ", " << enemyBullets[i]->x-enemyBullets[i]->width/2 << ", " << enemyBullets[i]->y + enemyBullets[i]->height/2 << ", " << enemyBullets[i]->y - enemyBullets[i]->height/2 << ")" << std::endl;
+            delete enemyBullets[i];
             enemyBullets.erase(enemyBullets.begin()+i);
 
         }
@@ -801,11 +865,11 @@ void renderGame(ShaderProgram* program)
 
     }
     
-    for (int i = 0; i < bullets.size(); i++)
+    for (int i = 0; i < playerBullets.size(); i++)
     {
         //std::cout << "Bullet " << i << " x = " << bullets[i]->x << " y = " << bullets[i]->y << std::endl;
-        glBindTexture(GL_TEXTURE_2D, bullets[i]->textureID);
-        DrawBullet(program, bullets[i]);
+        glBindTexture(GL_TEXTURE_2D, playerBullets[i]->textureID);
+        DrawBullet(program, playerBullets[i]);
         
     }
     
