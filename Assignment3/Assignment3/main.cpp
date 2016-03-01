@@ -200,6 +200,7 @@ Matrix menuModelMatrix;
 
 Entity menuBackground;
 Entity menuButton;
+Entity menuText;
 
 //drawing text function
 void DrawText(ShaderProgram *program, int fontTexture, std::string text, float size, float spacing, float startX,float startY)
@@ -425,7 +426,11 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     glUseProgram(program->programID);
     
-    
+    //load menu textures
+    menuBackground.textureID = LoadTexture("purpleBackground.png");
+    menuText.textureID = LoadTexture("font1.png");
+    menuButton.textureID = LoadTexture("sheet.png");
+
     
     //load all the textures for the enemies into
     
@@ -529,6 +534,24 @@ bool ProcessMenuEvents()
         if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
             return true;
         }
+        else if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            {
+                // player fire bullet in the positive x direction
+                
+                Bullet* theFiredBullet = player.fire();
+                
+                //std::cout << "Player: " << theFiredBullet << std::endl;
+                
+                if (theFiredBullet != nullptr)
+                {
+                    inMenu = false;
+                    inGame = true;
+                    std::cout << "Starting Game" << std::endl;
+                }
+            }
+        }
         else if(event.type == SDL_MOUSEBUTTONDOWN)
         {
             
@@ -565,7 +588,7 @@ void updateMenu(ShaderProgram* program, float elapsed)
     menuBackground.height = totalUnitsHeight;
     menuBackground.width = totalUnitsWidth;
     
-    menuBackground.textureID = LoadTexture("purpleBackground.png");
+    //menuBackground.textureID = LoadTexture("purpleBackground.png");
     menuBackground.textureLocationX = 0;
     menuBackground.textureLocationY = 0;
     menuBackground.textureHeight = 256;
@@ -579,17 +602,14 @@ void updateMenu(ShaderProgram* program, float elapsed)
     menuButton.height = 0.6*39/222*totalUnitsHeight;
     menuButton.width = 0.6*222/222*totalUnitsWidth;
     
-    menuButton.textureID = LoadTexture("sheet.png");
+    //menuButton.textureID = LoadTexture("sheet.png");
     menuButton.textureLocationX = 0;
     menuButton.textureLocationY = 0;
     menuButton.textureHeight = 39;
     menuButton.textureWidth = 222;
     menuButton.textureSheetHeight = 1024;
     menuButton.textureSheetWidth = 1024;
-    
-    
-    //generate the text;
-    
+
     
 }
 
@@ -613,9 +633,7 @@ void renderMenu(ShaderProgram* program)
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
     
-    int textFontTexture = LoadTexture("font1.png");
-    
-    DrawText(program, textFontTexture, "PLAY SPACE INVADERS", 0.3f, 0.00000000001f,-2.5,0);
+    DrawText(program, menuText.textureID, "PLAY SPACE INVADERS", 0.3f, 0.00000000001f,-2.5,0);
     
     SDL_GL_SwapWindow(displayWindow);
     glClear(GL_COLOR_BUFFER_BIT);
