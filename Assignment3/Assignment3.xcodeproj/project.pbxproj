@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D3B11001C869A88006B47E7 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B10FE1C869A88006B47E7 /* Entity.cpp */; };
+		4D3B11031C869B1E006B47E7 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B11011C869B1E006B47E7 /* Bullet.cpp */; };
 		4D7AABF01C7B5C2A0028A8CD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE11C7B5C2A0028A8CD /* Credits.rtf */; };
 		4D7AABF11C7B5C2A0028A8CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE31C7B5C2A0028A8CD /* InfoPlist.strings */; };
 		4D7AABF21C7B5C2A0028A8CD /* fragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE51C7B5C2A0028A8CD /* fragment.glsl */; };
@@ -29,6 +31,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D3B10FE1C869A88006B47E7 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		4D3B10FF1C869A88006B47E7 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		4D3B11011C869B1E006B47E7 /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bullet.cpp; sourceTree = "<group>"; };
+		4D3B11021C869B1E006B47E7 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
 		4D7AABE21C7B5C2A0028A8CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4D7AABE41C7B5C2A0028A8CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D7AABE51C7B5C2A0028A8CD /* fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment.glsl; sourceTree = "<group>"; };
@@ -86,6 +92,10 @@
 				4D7AABE61C7B5C2A0028A8CD /* fragment_textured.glsl */,
 				4D7AABE71C7B5C2A0028A8CD /* Images.xcassets */,
 				4D7AABE81C7B5C2A0028A8CD /* main.cpp */,
+				4D3B11021C869B1E006B47E7 /* Bullet.h */,
+				4D3B11011C869B1E006B47E7 /* Bullet.cpp */,
+				4D3B10FF1C869A88006B47E7 /* Entity.h */,
+				4D3B10FE1C869A88006B47E7 /* Entity.cpp */,
 				4D7AABE91C7B5C2A0028A8CD /* Matrix.cpp */,
 				4D7AABEA1C7B5C2A0028A8CD /* Matrix.h */,
 				4D7AABEB1C7B5C2A0028A8CD /* NYUCodebase-Info.plist */,
@@ -229,6 +239,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D3B11031C869B1E006B47E7 /* Bullet.cpp in Sources */,
+				4D3B11001C869A88006B47E7 /* Entity.cpp in Sources */,
 				4D7AABF81C7B5C2A0028A8CD /* ShaderProgram.cpp in Sources */,
 				4D7AABF61C7B5C2A0028A8CD /* Matrix.cpp in Sources */,
 				4D7AABF51C7B5C2A0028A8CD /* main.cpp in Sources */,
