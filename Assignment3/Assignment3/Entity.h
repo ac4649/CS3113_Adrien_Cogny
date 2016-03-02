@@ -105,7 +105,7 @@ public:
         newBullet->direction_x = fireDirection_X;
         newBullet->direction_y = fireDirection_Y;
         
-        newBullet->textureID = LoadTexture("sheet.png");
+        //newBullet->textureID = LoadTexture("sheet.png");
         newBullet->textureLocationX = 0;
         newBullet->textureLocationY = 0;
         newBullet->textureWidth = 222;
