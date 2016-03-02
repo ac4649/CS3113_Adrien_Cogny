@@ -45,7 +45,8 @@ public:
     fireSpeed(0.0),
     lastFired(0.0),
     fireDirection_Y(0.0),
-    fireDirection_X(0.0)
+    fireDirection_X(0.0),
+    bulletTexture(0)
     {};
     
     void Draw();
@@ -76,6 +77,9 @@ public:
     float fireDirection_Y;
     float fireDirection_X;
     
+    
+    int bulletTexture;
+    
     Matrix modelMatrix;
     
     
@@ -105,7 +109,7 @@ public:
         newBullet->direction_x = fireDirection_X;
         newBullet->direction_y = fireDirection_Y;
         
-        //newBullet->textureID = LoadTexture("sheet.png");
+        newBullet->textureID = bulletTexture;
         newBullet->textureLocationX = 0;
         newBullet->textureLocationY = 0;
         newBullet->textureWidth = 222;

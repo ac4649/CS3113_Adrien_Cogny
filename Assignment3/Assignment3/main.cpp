@@ -330,6 +330,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     player.fireSpeed = 1; // fires 1 bullet every second.
     player.fireDirection_Y = 1.0;
     player.fireDirection_X = 0.0;
+    player.bulletTexture = LoadTexture("sheet.png");
     
     
     //Add the ennemies to the ennemies vector
@@ -390,6 +391,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             enemy->fireSpeed = rand()%2; // fires random timeing.
             enemy->fireDirection_Y = -1.0;
             enemy->fireDirection_X = 0.0;
+            
+            enemy->bulletTexture = LoadTexture("sheet.png");
+
             
             invaders.push_back(enemy);
             
