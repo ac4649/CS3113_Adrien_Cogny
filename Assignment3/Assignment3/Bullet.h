@@ -27,15 +27,7 @@ public:
     float speed;
     float direction_x;
     float direction_y;
-    
-    int textureID;
-    float textureLocationX;
-    float textureLocationY;
-    float textureWidth;
-    float textureHeight;
-    
-    float textureSheetHeight;
-    float textureSheetWidth;
+
     
     Matrix modelMatrix;
     

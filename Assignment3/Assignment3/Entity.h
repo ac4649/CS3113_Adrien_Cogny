@@ -109,15 +109,6 @@ public:
         newBullet->direction_x = fireDirection_X;
         newBullet->direction_y = fireDirection_Y;
         
-        newBullet->textureID = bulletTexture;
-        newBullet->textureLocationX = 0;
-        newBullet->textureLocationY = 0;
-        newBullet->textureWidth = 222;
-        newBullet->textureHeight = 39;
-        
-        newBullet->textureSheetWidth = 1024;
-        newBullet->textureSheetHeight = 1024;
-        
         lastFired = curTicks;
         
         return newBullet;

@@ -123,20 +123,10 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
 //DrawBullet
 void DrawBullet(ShaderProgram *program, Bullet *displayedEntity)
 {
+    program->setModelMatrix(displayedEntity->modelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
     
-    float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
-    float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
-    float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
-    float spriteNormalizedHeight = displayedEntity->textureHeight/displayedEntity->textureSheetHeight;
-    
-    GLfloat texCoords[] = {
-        u, v+spriteNormalizedHeight,
-        u+spriteNormalizedWidth, v,
-        u, v,
-        u+spriteNormalizedWidth, v,
-        u, v+spriteNormalizedHeight,
-        u+spriteNormalizedWidth, v+spriteNormalizedHeight
-    };
     
     float vertices[] =
     {
@@ -152,9 +142,7 @@ void DrawBullet(ShaderProgram *program, Bullet *displayedEntity)
     
     glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
     glEnableVertexAttribArray(program->positionAttribute);
-    
-    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
-    glEnableVertexAttribArray(program->texCoordAttribute);
+
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
     
@@ -201,6 +189,11 @@ void DrawSpriteSheetSprite(ShaderProgram *program, int index, int spriteCountX, 
 // if the entity contains the sprite location as well as the height and width on the sprite sheet.
 void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEntity)
 {
+    
+    program->setModelMatrix(displayedEntity->modelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
+    
     float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
     float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
     float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
@@ -308,6 +301,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     //load all the textures for the enemies into
     
+    int theMainTextureID = LoadTexture("sheet.png");
+    
     
     //create the player
     player.x = 0;
@@ -315,7 +310,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     player.height = SPRITESIDEPERCENT/100*totalUnitsHeight;
     player.width = SPRITESIDEPERCENT/100*totalUnitsHeight;
     
-    player.textureID = LoadTexture("sheet.png");
+    player.textureID = theMainTextureID;
     player.textureLocationX = 0;
     player.textureLocationY = 941;
     player.textureHeight = 75;
@@ -330,7 +325,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     player.fireSpeed = 1; // fires 1 bullet every second.
     player.fireDirection_Y = 1.0;
     player.fireDirection_X = 0.0;
-    player.bulletTexture = LoadTexture("sheet.png");
+    player.bulletTexture = theMainTextureID;
     
     
     //Add the ennemies to the ennemies vector
@@ -366,7 +361,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             enemy->height = SPRITESIDEPERCENT/100*totalUnitsHeight;
             enemy->width = SPRITESIDEPERCENT/100*totalUnitsWidth;
             
-            enemy->textureID = LoadTexture("sheet.png");
+            enemy->textureID = theMainTextureID;
             enemy->textureLocationX = 444;
             enemy->textureLocationY = 0;
             enemy->textureHeight = 91;
@@ -392,7 +387,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             enemy->fireDirection_Y = -1.0;
             enemy->fireDirection_X = 0.0;
             
-            enemy->bulletTexture = LoadTexture("sheet.png");
+            enemy->bulletTexture = theMainTextureID;
 
             
             invaders.push_back(enemy);
@@ -416,18 +411,10 @@ bool ProcessMenuEvents()
         {
             if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
             {
-                // player fire bullet in the positive x direction
-                
-                Bullet* theFiredBullet = player.fire();
-                
-                //std::cout << "Player: " << theFiredBullet << std::endl;
-                
-                if (theFiredBullet != nullptr)
-                {
+
                     inMenu = false;
                     inGame = true;
                     std::cout << "Starting Game" << std::endl;
-                }
             }
         }
         else if(event.type == SDL_MOUSEBUTTONDOWN)
@@ -466,7 +453,6 @@ void updateMenu(ShaderProgram* program, float elapsed)
     menuBackground.height = totalUnitsHeight;
     menuBackground.width = totalUnitsWidth;
     
-    //menuBackground.textureID = LoadTexture("purpleBackground.png");
     menuBackground.textureLocationX = 0;
     menuBackground.textureLocationY = 0;
     menuBackground.textureHeight = 256;
@@ -480,7 +466,6 @@ void updateMenu(ShaderProgram* program, float elapsed)
     menuButton.height = 0.6*39/222*totalUnitsHeight;
     menuButton.width = 0.6*222/222*totalUnitsWidth;
     
-    //menuButton.textureID = LoadTexture("sheet.png");
     menuButton.textureLocationX = 0;
     menuButton.textureLocationY = 0;
     menuButton.textureHeight = 39;
@@ -764,7 +749,6 @@ void renderGame(ShaderProgram* program)
     for (int i = 0; i < playerBullets.size(); i++)
     {
         //std::cout << "Bullet " << i << " x = " << bullets[i]->x << " y = " << bullets[i]->y << std::endl;
-        glBindTexture(GL_TEXTURE_2D, playerBullets[i]->textureID);
         DrawBullet(program, playerBullets[i]);
         
     }
@@ -772,7 +756,6 @@ void renderGame(ShaderProgram* program)
     for (int i = 0; i < enemyBullets.size(); i++)
     {
         //std::cout << "Bullet " << i << " x = " << bullets[i]->x << " y = " << bullets[i]->y << std::endl;
-        glBindTexture(GL_TEXTURE_2D, enemyBullets[i]->textureID);
         DrawBullet(program, enemyBullets[i]);
         
     }
