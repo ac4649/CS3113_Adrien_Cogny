@@ -18,7 +18,7 @@ Bullet* Entity::fire()
     //std::cout << 1/fireSpeed << " vs ";
     //std::cout << curTicks-lastFired << std::endl;
     
-    if (curTicks-lastFired < 1/fireSpeed)
+    if (curTicks-lastFired < fireSpeed)
     {
         return nullptr;
     }

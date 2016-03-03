@@ -72,7 +72,7 @@ public:
     float direction_x;
     float direction_y;
     
-    float fireSpeed; //rate of fire (number of bullet per second)
+    float fireSpeed; //rate of fire
     float lastFired; //last time the bullet was fired -> timestamp to compare with elapsed time
     float fireDirection_Y;
     float fireDirection_X;

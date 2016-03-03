@@ -87,6 +87,26 @@ Entity menuBackground;
 Entity menuButton;
 Entity menuText;
 
+
+void cleanUp()
+{
+    //remove any ennemies and bullets
+    
+    for (int i = 0 ; i < invaders.size(); i++) {
+        delete invaders[i];
+    }
+    for (int i = 0; i < enemyBullets.size(); i++) {
+        delete enemyBullets[i];
+    }
+    for (int i = 0; i < playerBullets.size(); i++) {
+        delete playerBullets[i];
+    }
+    
+    delete player;
+    
+    
+}
+
 //drawing text function
 void DrawText(ShaderProgram *program, int fontTexture, std::string text, float size, float spacing, float startX,float startY)
 {
@@ -343,8 +363,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //std::cout << offset << std::endl;
     std::cout << numberLines << std::endl;
     
-    //for (int j = 0; j < (totalUnitsHeight/4)/(SPRITESIDEPERCENT/100*totalUnitsHeight); j++)
-    //{
+    for (int j = 0; j < 4; j++)
+    {
 
         for (int i = 0; i < numberEnemiesPerLine; i++)
         {
@@ -354,7 +374,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             //create the enemy
             //enemy->x = i*(SPRITESIDEPERCENT/100*totalUnitsWidth)+offset-totalUnitsWidth/2;
             enemy->x = i*SPRITESIDEPERCENT/100*totalUnitsWidth;
-            enemy->y = totalUnitsHeight/2-(SPRITESIDEPERCENT/100*totalUnitsHeight);//-j*SPRITESIDEPERCENT/100*totalUnitsHeight;
+            enemy->y = totalUnitsHeight/2-(SPRITESIDEPERCENT/100*totalUnitsHeight)+j*SPRITESIDEPERCENT/100*totalUnitsHeight;//-j*SPRITESIDEPERCENT/100*totalUnitsHeight;
             
             //std::cout << "New Enemy (" << i << "," << j << ") x = " << enemy->x << " y = " << enemy->y << std::endl;
             
@@ -383,7 +403,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
              */
             
             enemy->direction_y = 0;
-            enemy->fireSpeed = rand()%2 + 0.001; // fires random timeing but still fires at a min rate of 0.001
+            enemy->fireSpeed = rand()%10 + 1; // fires random timeing but still fires at a min rate of 0.001
             enemy->fireDirection_Y = -1.0;
             enemy->fireDirection_X = 0.0;
             
@@ -395,7 +415,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             invaders.push_back(enemy);
             
         }
-    //}
+    }
     
     
     /*
@@ -572,21 +592,28 @@ bool ProcessGameEvents(float elapsed)
         {
             if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
             {
-                // player fire bullet in the positive x direction
-                
-                Bullet* theFiredBullet = player->fire();
-                
-                //std::cout << "Player: " << theFiredBullet << std::endl;
-                
-                if (theFiredBullet != nullptr)
-                {
-                    //if a bullet was fired;
-                    playerBullets.push_back(theFiredBullet);
 
-                }
                 if (won == true)
                 {
                     // the user wants to play again
+                    won = false;
+                    cleanUp();
+                    setup();
+                }
+                else
+                {
+                    // player fire bullet in the positive x direction
+                    
+                    Bullet* theFiredBullet = player->fire();
+                    
+                    //std::cout << "Player: " << theFiredBullet << std::endl;
+                    
+                    if (theFiredBullet != nullptr)
+                    {
+                        //if a bullet was fired;
+                        playerBullets.push_back(theFiredBullet);
+                        
+                    }
                 }
             }
         }
@@ -783,7 +810,7 @@ void updateGame(ShaderProgram* program, float elapsed)
         won = true;
         
     }
-    else
+    else if (lost != true)
     {
         
         //show the score
@@ -820,7 +847,8 @@ void updateGame(ShaderProgram* program, float elapsed)
 
         //clear the screen
         DrawText(program, menuText.textureID, "YOU HAVE LOST", 0.3f, 0.00000000001f,-4,0);
-        //done = true;
+        done = true;
+        
 
     }
     
@@ -880,6 +908,8 @@ void renderGame(ShaderProgram* program)
     glClear(GL_COLOR_BUFFER_BIT);
     
 }
+
+
 
 
 int main(int argc, char *argv[])
@@ -945,6 +975,7 @@ int main(int argc, char *argv[])
         
     }
     
+    cleanUp();
     
     
     SDL_Quit();
