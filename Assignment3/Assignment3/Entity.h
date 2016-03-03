@@ -82,52 +82,13 @@ public:
     
     Matrix modelMatrix;
     
-    
-    Bullet* fire()
-    {
-        
-        float curTicks = (float)SDL_GetTicks()/1000.0f;
-        
-        //std::cout << 1/fireSpeed << " vs ";
-        //std::cout << curTicks-lastFired << std::endl;
-        
-        if (curTicks-lastFired < 1/fireSpeed)
-        {
-            return nullptr;
-        }
-        
-        //std::cout << "Fired a new Bullet" << std::endl;
-        
-        Bullet* newBullet = new Bullet;
-        newBullet->x = this->x;
-        newBullet->y = this->y;
-        
-        newBullet->speed = 6;
-        newBullet->width = 0.01;
-        newBullet->height = 0.3;
-        
-        newBullet->direction_x = fireDirection_X;
-        newBullet->direction_y = fireDirection_Y;
-        
-        lastFired = curTicks;
-        
-        return newBullet;
-    }
+    Bullet* fire(); // will fire a bullet -> this is only useful
+    bool collidesWithEntity(Entity* theEntity); // check collisions with other entities
+    bool collidesWithBullet(Bullet* theBullet); // check collisions with bullets
+
     
     //load texture function
-    GLuint LoadTexture(const char *image_path)
-    {
-        SDL_Surface *surface = IMG_Load(image_path);
-        GLuint textureID;
-        glGenTextures(1, &textureID);
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA,
-                     GL_UNSIGNED_BYTE, surface->pixels);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        SDL_FreeSurface(surface);
-        return textureID;
-    }
+    GLuint LoadTexture(const char *image_path);
     
 };
 

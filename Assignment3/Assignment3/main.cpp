@@ -26,7 +26,7 @@
 
 SDL_Window* displayWindow;
 
-
+bool done = false;
 bool inMenu = true;
 bool inGame = false;
 
@@ -40,6 +40,7 @@ float lastFrameTicks = 0.0f;
 
 int numberEnemiesPerLine;
 
+int score;
 
 Matrix projectionMatrix;
 Matrix viewMatrix;
@@ -120,13 +121,30 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
 }
 
 
+
 //DrawBullet
 void DrawBullet(ShaderProgram *program, Bullet *displayedEntity)
 {
+    
+    glBindTexture(GL_TEXTURE_2D, displayedEntity->textureID);
+    
     program->setModelMatrix(displayedEntity->modelMatrix);
     program->setProjectionMatrix(projectionMatrix);
     program->setViewMatrix(viewMatrix);
+ 
+    float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
+    float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
+    float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
+    float spriteNormalizedHeight = displayedEntity->textureHeight/displayedEntity->textureSheetHeight;
     
+    GLfloat texCoords[] = {
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v,
+        u, v,
+        u+spriteNormalizedWidth, v,
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v+spriteNormalizedHeight
+    };
     
     float vertices[] =
     {
@@ -142,53 +160,23 @@ void DrawBullet(ShaderProgram *program, Bullet *displayedEntity)
     
     glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
     glEnableVertexAttribArray(program->positionAttribute);
-
-    
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    
-    
-}
-/*
-//spritesheet display
-void DrawSpriteSheetSprite(ShaderProgram *program, int index, int spriteCountX, int spriteCountY)
-{
-    float u = (float)(((int)index) % spriteCountX) / (float) spriteCountX;
-    float v = (float)(((int)index) / spriteCountX) / (float) spriteCountY;
-    float spriteWidth = 1.0/(float)spriteCountX;
-    float spriteHeight = 1.0/(float)spriteCountY;
-    GLfloat texCoords[] = {
-        u, v+spriteHeight,
-        u+spriteWidth, v,
-        u, v,
-        u+spriteWidth, v,
-        u, v+spriteHeight,
-        u+spriteWidth, v+spriteHeight
-    };
-    
-    float vertices[] =
-    {
-        -0.5f, -0.5f,
-        0.5f, 0.5f,
-        -0.5f, 0.5f,
-        0.5f, 0.5f,
-        -0.5f,-0.5f,
-        0.5f, -0.5f};
-    
-    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
-    glEnableVertexAttribArray(program->positionAttribute);
     
     glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
     glEnableVertexAttribArray(program->texCoordAttribute);
     
     glDrawArrays(GL_TRIANGLES, 0, 6);
-    
+ 
+ 
 }
-*/
 
 //spritesheet display
 // if the entity contains the sprite location as well as the height and width on the sprite sheet.
 void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEntity)
 {
+    
+    //bind the texture
+    glBindTexture(GL_TEXTURE_2D, displayedEntity->textureID);
+
     
     program->setModelMatrix(displayedEntity->modelMatrix);
     program->setProjectionMatrix(projectionMatrix);
@@ -487,7 +475,6 @@ void renderMenu(ShaderProgram* program)
     
     menuModelMatrix.identity(); //resets to initial position
     
-    glBindTexture(GL_TEXTURE_2D, menuBackground.textureID);
     DrawSpriteUnorderedSheetSprite(program, &menuBackground);
     
     glBindTexture(GL_TEXTURE_2D, menuButton.textureID);
@@ -695,29 +682,22 @@ void updateGame(ShaderProgram* program, float elapsed)
     //check collision detection between player and enemy bullets
     for (int i = 0; i < enemyBullets.size(); i++)
     {
-        
-        //std::cout << "Enemy Bullet right Side: " << enemyBullets[i]->x + enemyBullets[i]->width/2 << " vs Player left side" << player.x-player.width/2  << std::endl;
-        
-        //std::cout << "Enemy Bullet left Side: " << enemyBullets[i]->x - enemyBullets[i]->width/2 << " vs Player Right side x" << player.x-player.width/2  << std::endl;
-        
-        //std::cout << "Enemy Bullet top Side: " << enemyBullets[i]->y + enemyBullets[i]->height/2  << " vs Player bottom side x" << player.y-player.height/2  << std::endl;
+
         
         
-        //std::cout << "Enemy Bullet bottom Side: " << enemyBullets[i]->y - enemyBullets[i]->height/2  << " vs Player top side x" << player.y + player.height/2  << std::endl;
-        
-        if (enemyBullets[i]->x + enemyBullets[i]->width/2 < player.x-player.width/2 || enemyBullets[i]->x - enemyBullets[i]->width/2 > player.x-player.width/2 || enemyBullets[i]->y + enemyBullets[i]->height/2 < player.y-player.height/2 || enemyBullets[i]->y - enemyBullets[i]->height/2 > player.y + player.height/2)
+        if (player.collidesWithBullet(enemyBullets[i]))
         {
-            //no collision
-        }
-        else
-        {
-            std::cout << "YOU GOT SHOT by bullet " << i << std::endl;
-            std::cout << "Player (xmax, xmin, ymax, ymin): (" << player.x+player.width/2 << ", " << player.x-player.width/2 << ", " << player.y + player.height/2 << ", " << player.y - player.height/2 << ")" << std::endl;
-            std::cout << "Bullet (xmax, xmin, ymax, ymin): (" << enemyBullets[i]->x+enemyBullets[i]->width/2 << ", " << enemyBullets[i]->x-enemyBullets[i]->width/2 << ", " << enemyBullets[i]->y + enemyBullets[i]->height/2 << ", " << enemyBullets[i]->y - enemyBullets[i]->height/2 << ")" << std::endl;
+            //std::cout << "Collided with Bullet: " << i << std::endl;
+            
             delete enemyBullets[i];
             enemyBullets.erase(enemyBullets.begin()+i);
-
+            
+            std::cout << "YOU HAVE LOST" << std::endl;
+            
+            done = true;
+            
         }
+        
     }
     
     
@@ -741,7 +721,7 @@ void renderGame(ShaderProgram* program)
     for (int i = 0; i < invaders.size(); i++)
     {
         //std::cout << "Invader " << i << " x = " << invaders[i]->x << " y = " << invaders[i]->y << std::endl;
-        glBindTexture(GL_TEXTURE_2D, invaders[i]->textureID);
+        //glBindTexture(GL_TEXTURE_2D, invaders[i]->textureID);
         DrawSpriteUnorderedSheetSprite(program, invaders[i]);
 
     }
@@ -776,7 +756,6 @@ int main(int argc, char *argv[])
     
     ShaderProgram* program = setup();
     
-    bool done = false;
     while (!done) {
         
         float ticks = (float)SDL_GetTicks()/1000.0f;
