@@ -83,9 +83,16 @@ public:
     Matrix modelMatrix;
     
     Bullet* fire(); // will fire a bullet -> this is only useful
+    
+    bool collidesWithLeftSide();
+    bool collidesWithRightSide();
+
     bool collidesWithEntity(Entity* theEntity); // check collisions with other entities
     bool collidesWithBullet(Bullet* theBullet); // check collisions with bullets
 
+    
+    //scoring
+    int points;
     
     //load texture function
     GLuint LoadTexture(const char *image_path);

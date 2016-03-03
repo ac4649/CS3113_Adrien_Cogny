@@ -30,6 +30,9 @@ bool done = false;
 bool inMenu = true;
 bool inGame = false;
 
+bool won = false;
+bool lost = false;
+
 float windowSizeHeight = 360;
 float windowSizeWidth = 640;
 
@@ -40,7 +43,7 @@ float lastFrameTicks = 0.0f;
 
 int numberEnemiesPerLine;
 
-int score;
+int score; 
 
 Matrix projectionMatrix;
 Matrix viewMatrix;
@@ -63,12 +66,19 @@ GLuint LoadTexture(const char *image_path)
 }
 
 // game entities
-Entity player;
+Entity* player;
 std::vector<Entity*> invaders;
 std::vector<Bullet*> playerBullets; //keeps the bullets fired by the player
 std::vector<Bullet*> enemyBullets; //keeps the enemy's bullets
 std::vector<GLuint> invaderSprites;
 
+/*
+// the bar entities are going to be used for collision detection between the enemies and the size, they will not be displayed as they are simply the limits of the playing field.
+Entity* topBar;
+Entity* bottomBar;
+Entity* leftBar;
+Entity* rightBar;
+*/
 
 // menu entity
 Matrix menuModelMatrix;
@@ -291,29 +301,29 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     int theMainTextureID = LoadTexture("sheet.png");
     
-    
+    player = new Entity();
     //create the player
-    player.x = 0;
-    player.y = -totalUnitsHeight/2 + totalUnitsHeight/25;
-    player.height = SPRITESIDEPERCENT/100*totalUnitsHeight;
-    player.width = SPRITESIDEPERCENT/100*totalUnitsHeight;
+    player->x = 0;
+    player->y = -totalUnitsHeight/2 + totalUnitsHeight*1/100;
+    player->height = SPRITESIDEPERCENT/100*totalUnitsHeight;
+    player->width = SPRITESIDEPERCENT/100*totalUnitsHeight;
     
-    player.textureID = theMainTextureID;
-    player.textureLocationX = 0;
-    player.textureLocationY = 941;
-    player.textureHeight = 75;
-    player.textureWidth = 112;
-    player.textureSheetHeight = 1024;
-    player.textureSheetWidth = 1024;
+    player->textureID = theMainTextureID;
+    player->textureLocationX = 0;
+    player->textureLocationY = 941;
+    player->textureHeight = 75;
+    player->textureWidth = 112;
+    player->textureSheetHeight = 1024;
+    player->textureSheetWidth = 1024;
     
     
-    player.speed = 5;
-    player.direction_x = 1;
-    player.direction_y = 0;
-    player.fireSpeed = 1; // fires 1 bullet every second.
-    player.fireDirection_Y = 1.0;
-    player.fireDirection_X = 0.0;
-    player.bulletTexture = theMainTextureID;
+    player->speed = 5;
+    player->direction_x = 1;
+    player->direction_y = 0;
+    player->fireSpeed = 1; // fires 1 bullet every second.
+    player->fireDirection_Y = 1.0;
+    player->fireDirection_X = 0.0;
+    player->bulletTexture = theMainTextureID;
     
     
     //Add the ennemies to the ennemies vector
@@ -371,11 +381,13 @@ ShaderProgram *setup() // will return the shaderProgram pointer
              */
             
             enemy->direction_y = 0;
-            enemy->fireSpeed = rand()%2; // fires random timeing.
+            enemy->fireSpeed = rand()%2 + 0.001; // fires random timeing but still fires at a min rate of 0.001
             enemy->fireDirection_Y = -1.0;
             enemy->fireDirection_X = 0.0;
             
             enemy->bulletTexture = theMainTextureID;
+            
+            enemy->points = 10;
 
             
             invaders.push_back(enemy);
@@ -383,6 +395,62 @@ ShaderProgram *setup() // will return the shaderProgram pointer
         }
     //}
     
+    
+    /*
+    //setup the bars
+    
+    topBar = new Entity();
+    topBar->x = 0.0;
+    topBar->y = totalUnitsHeight/2;
+    topBar->width = totalUnitsWidth/2;
+    topBar->height = totalUnitsHeight/2*1/100;
+    topBar->textureID = theMainTextureID;
+    topBar->textureLocationX = 856;
+    topBar->textureLocationY = 421;
+    topBar->textureHeight = 54;
+    topBar->textureWidth = 9;
+    topBar->textureSheetHeight = 1024;
+    
+    
+    bottomBar = new Entity();
+    bottomBar->x = 0.0;
+    bottomBar->y = -totalUnitsHeight/2;
+    bottomBar->width = totalUnitsWidth/2;
+    bottomBar->height = totalUnitsHeight/2*1/100;
+    bottomBar->textureID = theMainTextureID;
+    bottomBar->textureLocationX = 856;
+    bottomBar->textureLocationY = 421;
+    bottomBar->textureHeight = 54;
+    bottomBar->textureWidth = 9;
+    bottomBar->textureSheetHeight = 1024;
+
+    
+    leftBar = new Entity;
+    leftBar->width = totalUnitsWidth/2*1/100;
+    leftBar->height = totalUnitsHeight;
+    leftBar->x = -totalUnitsWidth/2+leftBar->width;
+    leftBar->y = 0.0;
+    leftBar->textureID = theMainTextureID;
+    leftBar->textureLocationX = 856;
+    leftBar->textureLocationY = 421;
+    leftBar->textureHeight = 54;
+    leftBar->textureWidth = 9;
+    leftBar->textureSheetHeight = 1024;
+    leftBar->textureSheetWidth = 1024;
+
+    rightBar = new Entity;
+    rightBar->width = totalUnitsWidth/2*1/100;
+    rightBar->height = totalUnitsHeight;
+    rightBar->x = totalUnitsWidth/2-rightBar->width;
+    rightBar->y = 0.0;
+    rightBar->textureID = theMainTextureID;
+    rightBar->textureLocationX = 856;
+    rightBar->textureLocationY = 421;
+    rightBar->textureHeight = 54;
+    rightBar->textureWidth = 9;
+    rightBar->textureSheetHeight = 1024;
+    rightBar->textureSheetWidth = 1024;
+     */
     std::cout << "Done Setup" << std::endl;
     
     return program;
@@ -504,7 +572,7 @@ bool ProcessGameEvents(float elapsed)
             {
                 // player fire bullet in the positive x direction
                 
-                Bullet* theFiredBullet = player.fire();
+                Bullet* theFiredBullet = player->fire();
                 
                 //std::cout << "Player: " << theFiredBullet << std::endl;
                 
@@ -513,6 +581,10 @@ bool ProcessGameEvents(float elapsed)
                     //if a bullet was fired;
                     playerBullets.push_back(theFiredBullet);
 
+                }
+                if (won == true)
+                {
+                    // the user wants to play again
                 }
             }
         }
@@ -530,13 +602,13 @@ void updateGame(ShaderProgram* program, float elapsed)
     if(keys[SDL_SCANCODE_LEFT])
     {
         //make player go left
-        player.x = player.x - player.speed*player.direction_x*elapsed;
+        player->x = player->x - player->speed*player->direction_x*elapsed;
         
     }
     else if(keys[SDL_SCANCODE_RIGHT])
     {
         //make player go right
-        player.x = player.x + player.speed*player.direction_x*elapsed;
+        player->x = player->x + player->speed*player->direction_x*elapsed;
         
     }
     
@@ -556,7 +628,7 @@ void updateGame(ShaderProgram* program, float elapsed)
             float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
             //std::cout << "Penetration = " << penetration << std::endl;
             
-            invaders[i]->x = invaders[i]->x - penetration; // remove the collision from the wall
+            invaders[i]->x = invaders[i]->x - penetration - 0.01/100*totalUnitsHeight/2; // remove the collision from the wall
             
 
             
@@ -572,9 +644,20 @@ void updateGame(ShaderProgram* program, float elapsed)
             invaders[i]->y = invaders[i]->y - invaders[i]->height;
             invaders[i]->direction_x = -invaders[i]->direction_x;
             
-            invaders[i]->x = invaders[i]->x + penetration; // remove the collision from the wall
+            invaders[i]->x = invaders[i]->x + penetration+0.01/100*totalUnitsHeight/2; // remove the collision from the wall
             
         }
+        
+        
+        
+        //if the invaders fall down the screen, replace them at the top;
+        if (invaders[i]->y < -totalUnitsHeight/2)
+        {
+            // below the screen -> reset the enemy at the top center of the screen
+            invaders[i]->y = totalUnitsHeight/2+(SPRITESIDEPERCENT/100*totalUnitsHeight);
+            invaders[i]->x = 0.0;
+        }
+        
     }
     
     //update bullets
@@ -643,12 +726,17 @@ void updateGame(ShaderProgram* program, float elapsed)
                 std::cout << "Bullet number = " << j << std::endl;
                 //std::cout << "invaderRadius = " << invaderRadius << "\n distance between center and top of bullet = " << distanceBetweenInvaderCenterAndBulletTop << std::endl;
                 
+                score += invaders[i]->points;
+                
                 delete invaders[i];
                 delete playerBullets[j];
                 invaders.erase(invaders.begin()+i);
                 playerBullets.erase(playerBullets.begin()+j);
                 
-                //std::cout << "Number of Invaders left = " << invaders.size() << std::endl;
+                
+                std::cout << "SCORE = " << score << std::endl;
+                
+                std::cout << "Number of Invaders left = " << invaders.size() << std::endl;
                 
                 
                 
@@ -668,9 +756,6 @@ void updateGame(ShaderProgram* program, float elapsed)
         
         if (theFiredBullet != nullptr)
         {
-            //std::cout << "New Enemy Bullet" << std::endl;
-            //if a bullet was fired;
-            //std::cout << "Enemy: " << theFiredBullet << std::endl;
             
             enemyBullets.push_back(theFiredBullet);
             
@@ -679,26 +764,56 @@ void updateGame(ShaderProgram* program, float elapsed)
     }
     
     
+    if (invaders.size() == 0) {
+        std::cout << "YOU HAVE WON" << std::endl;
+        DrawText(program, menuText.textureID, "YOU HAVE WON Press Space to Restart", 0.3f, 0.00000000001f,-2.5,0);
+        
+        won = true;
+        
+    }
+    else
+    {
+        
+        //show the score
+        
+        
+        std::string theScoreString = "SCORE: " + std::to_string(score);
+        DrawText(program, menuText.textureID, theScoreString , 0.3f, 0.00000000001f,-2.5,0);
+        
+    }
+    
     //check collision detection between player and enemy bullets
     for (int i = 0; i < enemyBullets.size(); i++)
     {
-
         
-        
-        if (player.collidesWithBullet(enemyBullets[i]))
+        if (player->collidesWithBullet(enemyBullets[i]))
         {
-            //std::cout << "Collided with Bullet: " << i << std::endl;
             
             delete enemyBullets[i];
             enemyBullets.erase(enemyBullets.begin()+i);
             
+            
+            
             std::cout << "YOU HAVE LOST" << std::endl;
             
-            done = true;
+            lost = true;
+            //done = true;
             
         }
         
     }
+    
+    if (lost == true)
+    {
+
+        //clear the screen
+        DrawText(program, menuText.textureID, "YOU HAVE LOST", 0.3f, 0.00000000001f,-4,0);
+        //done = true;
+
+    }
+    
+    
+    
     
     
 }
@@ -714,28 +829,33 @@ void renderGame(ShaderProgram* program)
     menuModelMatrix.identity(); //resets to initial position
     
     
-    glBindTexture(GL_TEXTURE_2D, player.textureID);
-    DrawSpriteUnorderedSheetSprite(program, &player);
+    glBindTexture(GL_TEXTURE_2D, player->textureID);
+    DrawSpriteUnorderedSheetSprite(program, player);
     
+    /*
+    DrawSpriteUnorderedSheetSprite(program, topBar);
+    DrawSpriteUnorderedSheetSprite(program, bottomBar);
+    DrawSpriteUnorderedSheetSprite(program, leftBar);
+    DrawSpriteUnorderedSheetSprite(program, rightBar);
+     */
     
     for (int i = 0; i < invaders.size(); i++)
     {
-        //std::cout << "Invader " << i << " x = " << invaders[i]->x << " y = " << invaders[i]->y << std::endl;
-        //glBindTexture(GL_TEXTURE_2D, invaders[i]->textureID);
+
         DrawSpriteUnorderedSheetSprite(program, invaders[i]);
 
     }
     
     for (int i = 0; i < playerBullets.size(); i++)
     {
-        //std::cout << "Bullet " << i << " x = " << bullets[i]->x << " y = " << bullets[i]->y << std::endl;
+
         DrawBullet(program, playerBullets[i]);
         
     }
     
     for (int i = 0; i < enemyBullets.size(); i++)
     {
-        //std::cout << "Bullet " << i << " x = " << bullets[i]->x << " y = " << bullets[i]->y << std::endl;
+
         DrawBullet(program, enemyBullets[i]);
         
     }
@@ -801,11 +921,7 @@ int main(int argc, char *argv[])
             updateGame(program, fixedElapsed);
             
             renderGame(program);
-            
-            //std::cout << "Number of Player Bullets = " << bullets.size() << std::endl;
-            //std::cout << "Number of Enemy Bullets = " << enemyBullets.size() << std::endl;
-            
-            //std::cout << "PAUSE" << std::endl;
+
             
         }
         else

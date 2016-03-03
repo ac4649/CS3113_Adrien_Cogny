@@ -51,6 +51,7 @@ Bullet* Entity::fire()
     return newBullet;
 }
 
+
 bool Entity::collidesWithEntity(Entity* theEntity)
 {
  
@@ -60,7 +61,7 @@ bool Entity::collidesWithEntity(Entity* theEntity)
     }
     else
     {
-        std::cout << "Collision" << std::endl;
+        std::cout << "Collision with entity" << std::endl;
         return true;
     }
     
