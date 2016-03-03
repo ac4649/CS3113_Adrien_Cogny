@@ -42,6 +42,8 @@ float totalUnitsWidth = 8.88f;
 float lastFrameTicks = 0.0f;
 
 int numberEnemiesPerLine;
+int curLeftColumn;
+int curRightColumn;
 
 int score; 
 
@@ -93,16 +95,37 @@ void cleanUp()
     //remove any ennemies and bullets
     
     for (int i = 0 ; i < invaders.size(); i++) {
-        delete invaders[i];
+        if (invaders[i] != nullptr)
+        {
+            delete invaders[i];
+        }
+        invaders[i] = nullptr;
+
     }
+    invaders.clear();
     for (int i = 0; i < enemyBullets.size(); i++) {
-        delete enemyBullets[i];
+        if (enemyBullets[i] != nullptr)
+        {
+            delete enemyBullets[i];
+        }
+        enemyBullets[i] = nullptr;
+
     }
+    enemyBullets.clear();
     for (int i = 0; i < playerBullets.size(); i++) {
-        delete playerBullets[i];
+        if (playerBullets[i] != nullptr)
+        {
+            delete playerBullets[i];
+        }
+        playerBullets[i] = nullptr;
     }
+    playerBullets.clear();
     
-    delete player;
+    if (player != nullptr)
+    {
+        delete player;
+        player = nullptr;
+    }
     
     
 }
@@ -120,12 +143,12 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
         
         vertexData.insert(vertexData.end(),
         {
-            (startX+(size+spacing) * i) + (-0.5f * size), 0.5f * size,
-            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size,
-            (startX+(size+spacing) * i) + (0.5f * size), 0.5f * size,
-            (startX+(size+spacing) * i) + (0.5f * size),  -0.5f * size,
-            (startX+(size+spacing) * i) + (0.5f * size),  0.5f * size,
-            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size,
+            (startX+(size+spacing) * i) + (-0.5f * size), 0.5f * size + startY,
+            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size + startY,
+            (startX+(size+spacing) * i) + (0.5f * size), 0.5f * size + startY,
+            (startX+(size+spacing) * i) + (0.5f * size),  -0.5f * size + startY,
+            (startX+(size+spacing) * i) + (0.5f * size),  0.5f * size + startY,
+            (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size + startY,
         });
         
         texCoordData.insert(texCoordData.end(),
@@ -249,48 +272,6 @@ void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEnt
     
 }
 
-/*
-//if location, height and width on the sprite sheet need to be specified.
-void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity* displayedEntity, int spriteX, int spriteY, int spriteHeight, int spriteWidth)
-{
-    
-    float u = 1.0/(float)spriteX;
-    float v = 1.0/(float)spriteY;
-    float spriteNormalizedWidth = 1.0/(float)spriteWidth;
-    float spriteNormalizedHeight = 1.0/(float)spriteHeight;
-    
-    GLfloat texCoords[] = {
-        u, v+spriteNormalizedHeight,
-        u+spriteNormalizedWidth, v,
-        u, v,
-        u+spriteNormalizedWidth, v,
-        u, v+spriteNormalizedHeight,
-        u+spriteNormalizedWidth, v+spriteNormalizedHeight
-    };
-    
-    float vertices[] =
-    {
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
-        
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2
-    };
-    
-    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
-    glEnableVertexAttribArray(program->positionAttribute);
-    
-    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
-    glEnableVertexAttribArray(program->texCoordAttribute);
-    
-    glDrawArrays(GL_TRIANGLES, 0, 6);
-    //std::cout << "Drawing from unordered sprite sheet" << std::endl;
-    
-}
-
-*/
 //setup function
 ShaderProgram *setup() // will return the shaderProgram pointer
 {
@@ -372,9 +353,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             Entity* enemy = new Entity;
             
             //create the enemy
-            //enemy->x = i*(SPRITESIDEPERCENT/100*totalUnitsWidth)+offset-totalUnitsWidth/2;
             enemy->x = i*SPRITESIDEPERCENT/100*totalUnitsWidth;
-            enemy->y = totalUnitsHeight/2-(SPRITESIDEPERCENT/100*totalUnitsHeight)+j*SPRITESIDEPERCENT/100*totalUnitsHeight;//-j*SPRITESIDEPERCENT/100*totalUnitsHeight;
+            enemy->y = totalUnitsHeight/2-(SPRITESIDEPERCENT/100*totalUnitsHeight)+j*SPRITESIDEPERCENT/100*totalUnitsHeight;
             
             //std::cout << "New Enemy (" << i << "," << j << ") x = " << enemy->x << " y = " << enemy->y << std::endl;
             
@@ -391,25 +371,17 @@ ShaderProgram *setup() // will return the shaderProgram pointer
             
             enemy->speed = 1;
             enemy->direction_x = 1;
-            /*
-            if (j%2 == 0)
-            {
-                enemy->direction_x = 1;
-            }
-            else
-            {
-                enemy->direction_x = -1;
-            }
-             */
             
             enemy->direction_y = 0;
-            enemy->fireSpeed = rand()%10 + 1; // fires random timeing but still fires at a min rate of 0.001
+            enemy->fireSpeed = rand()%10 + 1; // fires random timeing but still fires at a min rate of 1
             enemy->fireDirection_Y = -1.0;
             enemy->fireDirection_X = 0.0;
             
             enemy->bulletTexture = theMainTextureID;
             
             enemy->points = 10;
+            
+            enemy->columnNumber = i;
 
             
             invaders.push_back(enemy);
@@ -417,62 +389,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
         }
     }
     
-    
-    /*
-    //setup the bars
-    
-    topBar = new Entity();
-    topBar->x = 0.0;
-    topBar->y = totalUnitsHeight/2;
-    topBar->width = totalUnitsWidth/2;
-    topBar->height = totalUnitsHeight/2*1/100;
-    topBar->textureID = theMainTextureID;
-    topBar->textureLocationX = 856;
-    topBar->textureLocationY = 421;
-    topBar->textureHeight = 54;
-    topBar->textureWidth = 9;
-    topBar->textureSheetHeight = 1024;
-    
-    
-    bottomBar = new Entity();
-    bottomBar->x = 0.0;
-    bottomBar->y = -totalUnitsHeight/2;
-    bottomBar->width = totalUnitsWidth/2;
-    bottomBar->height = totalUnitsHeight/2*1/100;
-    bottomBar->textureID = theMainTextureID;
-    bottomBar->textureLocationX = 856;
-    bottomBar->textureLocationY = 421;
-    bottomBar->textureHeight = 54;
-    bottomBar->textureWidth = 9;
-    bottomBar->textureSheetHeight = 1024;
-
-    
-    leftBar = new Entity;
-    leftBar->width = totalUnitsWidth/2*1/100;
-    leftBar->height = totalUnitsHeight;
-    leftBar->x = -totalUnitsWidth/2+leftBar->width;
-    leftBar->y = 0.0;
-    leftBar->textureID = theMainTextureID;
-    leftBar->textureLocationX = 856;
-    leftBar->textureLocationY = 421;
-    leftBar->textureHeight = 54;
-    leftBar->textureWidth = 9;
-    leftBar->textureSheetHeight = 1024;
-    leftBar->textureSheetWidth = 1024;
-
-    rightBar = new Entity;
-    rightBar->width = totalUnitsWidth/2*1/100;
-    rightBar->height = totalUnitsHeight;
-    rightBar->x = totalUnitsWidth/2-rightBar->width;
-    rightBar->y = 0.0;
-    rightBar->textureID = theMainTextureID;
-    rightBar->textureLocationX = 856;
-    rightBar->textureLocationY = 421;
-    rightBar->textureHeight = 54;
-    rightBar->textureWidth = 9;
-    rightBar->textureSheetHeight = 1024;
-    rightBar->textureSheetWidth = 1024;
-     */
+    curRightColumn = numberEnemiesPerLine-1;
+    curLeftColumn = 0;
     std::cout << "Done Setup" << std::endl;
     
     return program;
@@ -593,7 +511,7 @@ bool ProcessGameEvents(float elapsed)
             if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
             {
 
-                if (won == true)
+                if (won == true || lost == true)
                 {
                     // the user wants to play again
                     won = false;
@@ -614,6 +532,20 @@ bool ProcessGameEvents(float elapsed)
                         playerBullets.push_back(theFiredBullet);
                         
                     }
+                }
+            }
+            else if (event.key.keysym.scancode == SDL_SCANCODE_E)
+            {
+                std::cout << "E is pressed" << std::endl;
+                std::cout << won << std::endl;
+                std::cout << lost << std::endl;
+
+                if (won == true || lost == true)
+                {
+                    std::cout << "Terminating Game" << std::endl;
+                    done = true;
+                    inGame = false;
+                    
                 }
             }
         }
@@ -641,6 +573,17 @@ void updateGame(ShaderProgram* program, float elapsed)
         
     }
     
+    //player side collisions
+    if (player->x < -totalUnitsWidth/2) {
+        float penetration = fabs(player->x+totalUnitsWidth/2);
+        player->x = player->x + penetration + 0.05/100*totalUnitsWidth/2;
+    }
+    
+    if (player->x > totalUnitsWidth/2) {
+        float penetration = fabs(player->x-totalUnitsWidth/2);
+        player->x = player->x - penetration - 0.05/100*totalUnitsWidth/2;
+    }
+    
     for (int i = 0; i < invaders.size(); i++)
     {
         //move the invaders and do the detection of the invaders with the walls
@@ -648,46 +591,53 @@ void updateGame(ShaderProgram* program, float elapsed)
         invaders[i]->x = invaders[i]->x + invaders[i]->speed*elapsed*invaders[i]->direction_x;
         
         //do side collisions
-        if (invaders[invaders.size()-1]->x + invaders[invaders.size()-1]->width/2 > totalUnitsWidth/2)
+        if (invaders[i]->columnNumber == curRightColumn)
         {
-            //colides with right side
-            //
-            //make all of the invaders go down one
-            for (int j = 0; j < invaders.size(); j++)
+            //std::cout << invaders[i]->columnNumber << std::endl;
+            //possible collision with the right side;
+            if (invaders[i]->x + invaders[i]->width/2 > totalUnitsWidth/2)
             {
-                invaders[j]->y = invaders[j]->y - invaders[j]->height;
-                invaders[j]->direction_x = -invaders[j]->direction_x;
+                //colides with right side
+                //
+                //make all of the invaders go down one
+                for (int j = 0; j < invaders.size(); j++)
+                {
+                    invaders[j]->y = invaders[j]->y - invaders[j]->height;
+                    invaders[j]->direction_x = -invaders[j]->direction_x;
+                    
+                    float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
+                    std::cout << "left side = " << penetration << std::endl;
+                    
+                    invaders[j]->x = invaders[j]->x - penetration - 0.05/100*totalUnitsHeight/2;
+                    
+                }
                 
-                float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
-                std::cout << "left side = " << penetration << std::endl;
                 
-                invaders[j]->x = invaders[j]->x - penetration - 0.05/100*totalUnitsHeight/2;
-
             }
-
             
         }
-        if (invaders[0]->x - invaders[0]->width/2 < (-totalUnitsWidth/2))
+        else if (invaders[i]->columnNumber == curLeftColumn)
         {
-            
-            
-            //std::cout << "Penetration = " << penetration << std::endl;
-            
-            //colides with left side
-            for (int j = 0; j < invaders.size(); j++)
+            if (invaders[i]->x - invaders[i]->width/2 < (-totalUnitsWidth/2))
             {
-                invaders[j]->y = invaders[j]->y - invaders[j]->height;
-                invaders[j]->direction_x = -invaders[j]->direction_x;
-            
-                float penetration = fabs(invaders[i]->x+totalUnitsWidth/2);
-                std::cout << "right side = " << penetration << std::endl;
-
-                invaders[j]->x = invaders[j]->x + penetration + 0.05/100*totalUnitsHeight/2;
+                
+                
+                //std::cout << "Penetration = " << penetration << std::endl;
+                
+                //colides with left side
+                for (int j = 0; j < invaders.size(); j++)
+                {
+                    invaders[j]->y = invaders[j]->y - invaders[j]->height;
+                    invaders[j]->direction_x = -invaders[j]->direction_x;
+                    
+                    float penetration = fabs(invaders[i]->x+totalUnitsWidth/2);
+                    std::cout << "right side = " << penetration << std::endl;
+                    
+                    invaders[j]->x = invaders[j]->x + penetration + 0.05/100*totalUnitsHeight/2;
+                }
+                
             }
-
         }
-    
-        
         
         //if the invaders fall down the screen, replace them at the top;
         if (invaders[i]->y < -totalUnitsHeight/2)
@@ -805,7 +755,9 @@ void updateGame(ShaderProgram* program, float elapsed)
     
     if (invaders.size() == 0) {
         std::cout << "YOU HAVE WON" << std::endl;
-        DrawText(program, menuText.textureID, "YOU HAVE WON Press Space to Restart", 0.3f, 0.00000000001f,-2.5,0);
+        DrawText(program, menuText.textureID, "YOU HAVE WON", 0.3f, 0.0000000000000001f,-2.5,0);
+        DrawText(program, menuText.textureID, "Press space to play again,", 0.3f, 0.0000000000000001f, -4.0, -0.5);
+        DrawText(program, menuText.textureID, "or (e)xit", 0.3f, 0.0000000000000001f, -4.0, -1);
         
         won = true;
         
@@ -817,7 +769,7 @@ void updateGame(ShaderProgram* program, float elapsed)
         
         
         std::string theScoreString = "SCORE: " + std::to_string(score);
-        DrawText(program, menuText.textureID, theScoreString , 0.3f, 0.00000000001f,-2.5,0);
+        DrawText(program, menuText.textureID, theScoreString , 0.3f, 0.00000000001f,-3.0,1.5);
         
     }
     
@@ -846,16 +798,41 @@ void updateGame(ShaderProgram* program, float elapsed)
     {
 
         //clear the screen
-        DrawText(program, menuText.textureID, "YOU HAVE LOST", 0.3f, 0.00000000001f,-4,0);
-        done = true;
         
+        
+        
+        DrawText(program, menuText.textureID, "YOU HAVE LOST ", 0.3f, 0.0000000000000001f,-4,0);
+        DrawText(program, menuText.textureID, "Press space to play again,", 0.3f, 0.0000000000000001f, -4.0, -0.5);
+        DrawText(program, menuText.textureID, "or (e)xit", 0.3f, 0.0000000000000001f, -4.0, -1);
+
+        lost = true;
+        score = 0;
 
     }
     
     
+    //update the first and last columns
+    bool curLeftColumnStillPresent = false;
+    bool curRightColumnStillPresent = false;
     
+    for (size_t i = 0; i < invaders.size(); i++)
+    {
+        if (invaders[i]->columnNumber == curLeftColumn) {
+            curLeftColumnStillPresent = true;
+        }
+        else if (invaders[i]->columnNumber == curRightColumn)
+        {
+            curRightColumnStillPresent = true;
+        }
+    }
     
-    
+    if (curLeftColumnStillPresent == false) {
+        curLeftColumn++;
+    }
+    if (curRightColumnStillPresent == false) {
+        curRightColumn-- ;
+    }
+  
 }
 
 void renderGame(ShaderProgram* program)
@@ -872,12 +849,6 @@ void renderGame(ShaderProgram* program)
     glBindTexture(GL_TEXTURE_2D, player->textureID);
     DrawSpriteUnorderedSheetSprite(program, player);
     
-    /*
-    DrawSpriteUnorderedSheetSprite(program, topBar);
-    DrawSpriteUnorderedSheetSprite(program, bottomBar);
-    DrawSpriteUnorderedSheetSprite(program, leftBar);
-    DrawSpriteUnorderedSheetSprite(program, rightBar);
-     */
     
     for (int i = 0; i < invaders.size(); i++)
     {
@@ -918,7 +889,8 @@ int main(int argc, char *argv[])
     
     ShaderProgram* program = setup();
     
-    while (!done) {
+    while (!done)
+    {
         
         float ticks = (float)SDL_GetTicks()/1000.0f;
         float elapsed = ticks - lastFrameTicks;

@@ -77,6 +77,7 @@ public:
     float fireDirection_Y;
     float fireDirection_X;
     
+    int columnNumber;
     
     int bulletTexture;
     
