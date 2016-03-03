@@ -328,30 +328,32 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     //Add the ennemies to the ennemies vector
     
-    float offset = SPRITESIDEPERCENT/100*totalUnitsWidth*10/100;
+    //float offset = SPRITESIDEPERCENT/100*totalUnitsWidth*50/100;
     
-    std::cout << (SPRITESIDEPERCENT/100*totalUnitsWidth) << std::endl;
-    std::cout << totalUnitsWidth << std::endl;
-    std::cout << totalUnitsWidth/(SPRITESIDEPERCENT/100*totalUnitsWidth + offset) << std::endl;
-    std::cout << (SPRITESIDEPERCENT/100*totalUnitsWidth + offset)-totalUnitsWidth/2 << std::endl;
+    //std::cout << (SPRITESIDEPERCENT/100*totalUnitsWidth) << std::endl;
+    //std::cout << totalUnitsWidth << std::endl;
+    //std::cout << totalUnitsWidth/(SPRITESIDEPERCENT/100*totalUnitsWidth) + offset << std::endl;
+    //std::cout << (SPRITESIDEPERCENT/100*totalUnitsWidth) + offset -totalUnitsWidth/2 << std::endl;
     
     
-    numberEnemiesPerLine = totalUnitsWidth/(SPRITESIDEPERCENT/100*totalUnitsWidth + offset);
-    int numberLines = (totalUnitsHeight/4)/(SPRITESIDEPERCENT/100*totalUnitsHeight + offset);
+    numberEnemiesPerLine = totalUnitsWidth/(2*(SPRITESIDEPERCENT/100*totalUnitsWidth));
+    int numberLines = 4;
     
     std::cout << numberEnemiesPerLine << std::endl;
+    //std::cout << offset << std::endl;
     std::cout << numberLines << std::endl;
     
     //for (int j = 0; j < (totalUnitsHeight/4)/(SPRITESIDEPERCENT/100*totalUnitsHeight); j++)
     //{
 
-        for (int i = 0; i < totalUnitsWidth/(SPRITESIDEPERCENT/100*totalUnitsWidth + offset); i++)
+        for (int i = 0; i < numberEnemiesPerLine; i++)
         {
             
             Entity* enemy = new Entity;
             
             //create the enemy
-            enemy->x = i*(SPRITESIDEPERCENT/100*totalUnitsWidth + offset)-totalUnitsWidth/2;
+            //enemy->x = i*(SPRITESIDEPERCENT/100*totalUnitsWidth)+offset-totalUnitsWidth/2;
+            enemy->x = i*SPRITESIDEPERCENT/100*totalUnitsWidth;
             enemy->y = totalUnitsHeight/2-(SPRITESIDEPERCENT/100*totalUnitsHeight);//-j*SPRITESIDEPERCENT/100*totalUnitsHeight;
             
             //std::cout << "New Enemy (" << i << "," << j << ") x = " << enemy->x << " y = " << enemy->y << std::endl;
@@ -619,35 +621,45 @@ void updateGame(ShaderProgram* program, float elapsed)
         invaders[i]->x = invaders[i]->x + invaders[i]->speed*elapsed*invaders[i]->direction_x;
         
         //do side collisions
-        if (invaders[i]->x + invaders[i]->width/2 > totalUnitsWidth/2)
+        if (invaders[invaders.size()-1]->x + invaders[invaders.size()-1]->width/2 > totalUnitsWidth/2)
         {
             //colides with right side
-            invaders[i]->y = invaders[i]->y - invaders[i]->height;
-            invaders[i]->direction_x = -invaders[i]->direction_x;
-            
-            float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
-            //std::cout << "Penetration = " << penetration << std::endl;
-            
-            invaders[i]->x = invaders[i]->x - penetration - 0.01/100*totalUnitsHeight/2; // remove the collision from the wall
-            
+            //
+            //make all of the invaders go down one
+            for (int j = 0; j < invaders.size(); j++)
+            {
+                invaders[j]->y = invaders[j]->y - invaders[j]->height;
+                invaders[j]->direction_x = -invaders[j]->direction_x;
+                
+                float penetration = fabs(totalUnitsWidth/2 - invaders[i]->x);
+                std::cout << "left side = " << penetration << std::endl;
+                
+                invaders[j]->x = invaders[j]->x - penetration - 0.05/100*totalUnitsHeight/2;
+
+            }
 
             
         }
-        if (invaders[i]->x - invaders[i]->width/2 < (-totalUnitsWidth/2))
+        if (invaders[0]->x - invaders[0]->width/2 < (-totalUnitsWidth/2))
         {
             
-            float penetration = fabs(invaders[i]->x+totalUnitsWidth/2);
+            
             //std::cout << "Penetration = " << penetration << std::endl;
             
             //colides with left side
+            for (int j = 0; j < invaders.size(); j++)
+            {
+                invaders[j]->y = invaders[j]->y - invaders[j]->height;
+                invaders[j]->direction_x = -invaders[j]->direction_x;
             
-            invaders[i]->y = invaders[i]->y - invaders[i]->height;
-            invaders[i]->direction_x = -invaders[i]->direction_x;
-            
-            invaders[i]->x = invaders[i]->x + penetration+0.01/100*totalUnitsHeight/2; // remove the collision from the wall
-            
+                float penetration = fabs(invaders[i]->x+totalUnitsWidth/2);
+                std::cout << "right side = " << penetration << std::endl;
+
+                invaders[j]->x = invaders[j]->x + penetration + 0.05/100*totalUnitsHeight/2;
+            }
+
         }
-        
+    
         
         
         //if the invaders fall down the screen, replace them at the top;
@@ -932,6 +944,8 @@ int main(int argc, char *argv[])
         }
         
     }
+    
+    
     
     SDL_Quit();
     return 0;
