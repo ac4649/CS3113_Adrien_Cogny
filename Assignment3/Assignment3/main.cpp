@@ -18,6 +18,15 @@
 #include "Entity.h"
 #include "Bullet.h"
 
+
+//SOUND
+
+#include <SDL_mixer.h>
+
+Mix_Chunk *playerFireSound;
+
+//
+
 #define SPRITESIDEPERCENT 10.0f
 
 #define FIXED_TIMESTEP 0.0166666666f //60 FPS
@@ -275,6 +284,12 @@ void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEnt
 //setup function
 ShaderProgram *setup() // will return the shaderProgram pointer
 {
+    //Initialize sound
+    
+    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 4096 );
+    
+    playerFireSound = Mix_LoadWAV("Player_Fire.wav");
+                            
     
     SDL_Init(SDL_INIT_VIDEO);
     displayWindow = SDL_CreateWindow("Space Invaders - Adrien Cogny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_OPENGL);
@@ -515,6 +530,7 @@ bool ProcessGameEvents(float elapsed)
                 {
                     // the user wants to play again
                     won = false;
+                    lost = false;
                     cleanUp();
                     setup();
                 }
@@ -530,6 +546,7 @@ bool ProcessGameEvents(float elapsed)
                     {
                         //if a bullet was fired;
                         playerBullets.push_back(theFiredBullet);
+                        Mix_PlayChannel( -1, playerFireSound, 1);
                         
                     }
                 }
