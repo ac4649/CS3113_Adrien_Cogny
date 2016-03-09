@@ -541,12 +541,13 @@ bool ProcessGameEvents(float elapsed)
                     Bullet* theFiredBullet = player->fire();
                     
                     //std::cout << "Player: " << theFiredBullet << std::endl;
-                    
+
                     if (theFiredBullet != nullptr)
                     {
+                        Mix_PlayChannel( -1, playerFireSound, 1);
+
                         //if a bullet was fired;
                         playerBullets.push_back(theFiredBullet);
-                        Mix_PlayChannel( -1, playerFireSound, 1);
                         
                     }
                 }
