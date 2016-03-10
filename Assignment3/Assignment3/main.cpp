@@ -24,6 +24,7 @@
 #include <SDL_mixer.h>
 
 Mix_Chunk *playerFireSound;
+Mix_Music *backgroundMusic;
 
 //
 
@@ -408,8 +409,10 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //Initialize sound
     Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 4096 );
     playerFireSound = Mix_LoadWAV("sfx.wav");
+    backgroundMusic = Mix_LoadMUS("FIGURATIVE_THEATRE_-_03_-_SATORI_vocal_mix.mp3");
     
     
+    Mix_PlayMusic(backgroundMusic, -1);
     
     return program;
 }
