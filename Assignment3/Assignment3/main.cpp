@@ -284,12 +284,6 @@ void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEnt
 //setup function
 ShaderProgram *setup() // will return the shaderProgram pointer
 {
-    //Initialize sound
-    
-    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 4096 );
-    
-    playerFireSound = Mix_LoadWAV("Player_Fire.wav");
-                            
     
     SDL_Init(SDL_INIT_VIDEO);
     displayWindow = SDL_CreateWindow("Space Invaders - Adrien Cogny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_OPENGL);
@@ -407,6 +401,15 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     curRightColumn = numberEnemiesPerLine-1;
     curLeftColumn = 0;
     std::cout << "Done Setup" << std::endl;
+    
+    
+    
+    
+    //Initialize sound
+    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 4096 );
+    playerFireSound = Mix_LoadWAV("sfx.wav");
+    
+    
     
     return program;
 }
@@ -544,11 +547,12 @@ bool ProcessGameEvents(float elapsed)
 
                     if (theFiredBullet != nullptr)
                     {
-                        Mix_PlayChannel( -1, playerFireSound, 1);
+                        
+                        Mix_PlayChannel(-1, playerFireSound, 0);
 
                         //if a bullet was fired;
                         playerBullets.push_back(theFiredBullet);
-                        
+
                     }
                 }
             }
@@ -576,6 +580,8 @@ bool ProcessGameEvents(float elapsed)
 
 void updateGame(ShaderProgram* program, float elapsed)
 {
+
+    
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     
     if(keys[SDL_SCANCODE_LEFT])

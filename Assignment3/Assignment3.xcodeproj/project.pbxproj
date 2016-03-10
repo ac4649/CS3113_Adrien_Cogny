@@ -7,10 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		4D05B8E71C8F7DD9007E06C8 /* Player_Fire.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4D05B8E61C8F7DD9007E06C8 /* Player_Fire.wav */; };
 		4D3B11001C869A88006B47E7 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B10FE1C869A88006B47E7 /* Entity.cpp */; };
 		4D3B11031C869B1E006B47E7 /* Bullet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D3B11011C869B1E006B47E7 /* Bullet.cpp */; };
 		4D6EB22C1C8FC8E800240053 /* SDL2_mixer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D6EB22B1C8FC8E800240053 /* SDL2_mixer.framework */; };
+		4D6F646F1C9109C700265987 /* sfx.wav in Resources */ = {isa = PBXBuildFile; fileRef = 4D6F646E1C9109C700265987 /* sfx.wav */; };
 		4D7AABF01C7B5C2A0028A8CD /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE11C7B5C2A0028A8CD /* Credits.rtf */; };
 		4D7AABF11C7B5C2A0028A8CD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE31C7B5C2A0028A8CD /* InfoPlist.strings */; };
 		4D7AABF21C7B5C2A0028A8CD /* fragment.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D7AABE51C7B5C2A0028A8CD /* fragment.glsl */; };
@@ -33,12 +33,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		4D05B8E61C8F7DD9007E06C8 /* Player_Fire.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = Player_Fire.wav; sourceTree = "<group>"; };
 		4D3B10FE1C869A88006B47E7 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
 		4D3B10FF1C869A88006B47E7 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
 		4D3B11011C869B1E006B47E7 /* Bullet.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Bullet.cpp; sourceTree = "<group>"; };
 		4D3B11021C869B1E006B47E7 /* Bullet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Bullet.h; sourceTree = "<group>"; };
 		4D6EB22B1C8FC8E800240053 /* SDL2_mixer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SDL2_mixer.framework; path = ../../../../../../Library/Frameworks/SDL2_mixer.framework; sourceTree = "<group>"; };
+		4D6F646E1C9109C700265987 /* sfx.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = sfx.wav; sourceTree = "<group>"; };
 		4D7AABE21C7B5C2A0028A8CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4D7AABE41C7B5C2A0028A8CD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D7AABE51C7B5C2A0028A8CD /* fragment.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = fragment.glsl; sourceTree = "<group>"; };
@@ -87,7 +87,7 @@
 		4D7AABE01C7B5C2A0028A8CD /* Assignment3 */ = {
 			isa = PBXGroup;
 			children = (
-				4D05B8E61C8F7DD9007E06C8 /* Player_Fire.wav */,
+				4D6F646E1C9109C700265987 /* sfx.wav */,
 				4D9B40D11C7D54E400D439DE /* purpleBackground.png */,
 				4D9B40CD1C7D0EF000D439DE /* sheet.png */,
 				4D9B40CE1C7D0EF000D439DE /* sheet.xml */,
@@ -228,7 +228,7 @@
 				4D9B40D21C7D54E400D439DE /* purpleBackground.png in Resources */,
 				4D7AABF21C7B5C2A0028A8CD /* fragment.glsl in Resources */,
 				4D7AABF41C7B5C2A0028A8CD /* Images.xcassets in Resources */,
-				4D05B8E71C8F7DD9007E06C8 /* Player_Fire.wav in Resources */,
+				4D6F646F1C9109C700265987 /* sfx.wav in Resources */,
 				4D7AABF01C7B5C2A0028A8CD /* Credits.rtf in Resources */,
 				4D7AABF31C7B5C2A0028A8CD /* fragment_textured.glsl in Resources */,
 				4D7AABF91C7B5C2A0028A8CD /* vertex.glsl in Resources */,
