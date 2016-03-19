@@ -64,7 +64,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glUseProgram(program->programID);
 
     
-    theLevelLoader = new LevelLoader("level1.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level1.txt");
+    
+    theLevelLoader->loadLevelData();
 
     return program;
 }

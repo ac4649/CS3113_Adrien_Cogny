@@ -32,7 +32,7 @@ private:
     int mapHeight;
     int mapWidth;
     
-    vector<vector<int>*> levelMatrix;
+    vector<vector<int>> levelMatrix; //this is the tilemap
     
     
     bool readHeader(ifstream& fileStream);
@@ -44,6 +44,8 @@ public:
     LevelLoader(std::string theLevelFileName):filename(theLevelFileName){};
     
     void loadLevelData();
+    
+    void debugLevel(); //this simply 
     
     
     

@@ -14,6 +14,7 @@ void LevelLoader::loadLevelData()
     
     
     ifstream fileStream(filename);
+    std::cout << filename << std::endl;
     
     string line;
     while (getline(fileStream, line))
@@ -78,13 +79,10 @@ bool LevelLoader::readHeader(ifstream& fileStream)
         return false;
     }
     else
-    { // allocate our map data
-        //levelMatrix = new vector<vector<int>*>;
+    {
         
-        for(int i = 0; i < mapHeight; ++i)
-        {
-            levelMatrix[i] = new vector<int>[mapWidth];
-        }
+        //because I am using vectors as the levelMatrix, no need to allocate size
+        
         return true;
     }
     
@@ -92,16 +90,94 @@ bool LevelLoader::readHeader(ifstream& fileStream)
 }
 
 
-bool readLayerData(ifstream& fileStream)
+bool LevelLoader::readLayerData(ifstream& fileStream)
 {
+    
+    string line;
+    
+    while(getline(fileStream, line))
+    {
+        if(line == "")
+        {
+            break;
+        }
+        
+        istringstream sStream(line);
+        
+        string key,value;
+        
+        getline(sStream, key, '=');
+        getline(sStream, value);
+        
+        if(key == "data")
+        {
+            for(int y=0; y < mapHeight; y++)
+            {
+                getline(fileStream, line);
+                istringstream lineStream(line);
+                string tile;
+                vector<int> curLine;
+                for(int x=0; x < mapWidth; x++)
+                {
+                    
+                    //create the vector for the line
+                    
+                    getline(lineStream, tile, ',');
+                    unsigned char val =  (unsigned char)atoi(tile.c_str());
+                    if(val > 0)
+                    {
+                        // be careful, the tiles in this format are indexed from 1 not 0
+                        curLine.push_back(val-1);
+                    }
+                    else
+                    {
+                        curLine.push_back(0);
+                    }
+                }
+                levelMatrix.push_back(curLine);
+            }
+        }
+    }
     
     return true;
     
 }
 
 
-bool readEntityData(ifstream& fileStream)
+bool LevelLoader::readEntityData(ifstream& fileStream)
 {
+    
+    string line;
+    string type;
+    while(getline(fileStream, line))
+    {
+        if(line == "")
+        {
+            break;
+        }
+        
+        istringstream sStream(line);
+        string key,value;
+        
+        getline(sStream, key, '=');
+        getline(sStream, value);
+        
+        if(key == "type")
+        {
+            type = value;
+        }
+        else if(key == "location")
+        {
+            istringstream lineStream(value);
+            string xPosition, yPosition;
+            
+            getline(lineStream, xPosition, ',');
+            getline(lineStream, yPosition, ',');
+            //float placeX = atoi(xPosition.c_str())/16*TILE_SIZE;
+            //float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
+            //placeEntity(type, placeX, placeY);
+        }
+    }
     
     return true;
     
