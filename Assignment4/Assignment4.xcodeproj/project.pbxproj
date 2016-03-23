@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D5EAB251CA2E1310067EBA8 /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D5EAB231CA2E1310067EBA8 /* Entity.cpp */; };
+		4D5EAB281CA2F70F0067EBA8 /* Level0.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 4D5EAB261CA2F70F0067EBA8 /* Level0.tmx */; };
+		4D5EAB291CA2F70F0067EBA8 /* Level0.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D5EAB271CA2F70F0067EBA8 /* Level0.txt */; };
 		4D949AD91C9C59210074C999 /* Assignment4-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4D949ACA1C9C59210074C999 /* Assignment4-Info.plist */; };
 		4D949ADA1C9C59210074C999 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D949ACB1C9C59210074C999 /* Credits.rtf */; };
 		4D949ADB1C9C59210074C999 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D949ACD1C9C59210074C999 /* InfoPlist.strings */; };
@@ -30,6 +33,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D5EAB231CA2E1310067EBA8 /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
+		4D5EAB241CA2E1310067EBA8 /* Entity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Entity.h; sourceTree = "<group>"; };
+		4D5EAB261CA2F70F0067EBA8 /* Level0.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Level0.tmx; sourceTree = "<group>"; };
+		4D5EAB271CA2F70F0067EBA8 /* Level0.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level0.txt; sourceTree = "<group>"; };
 		4D949ACA1C9C59210074C999 /* Assignment4-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "Assignment4-Info.plist"; sourceTree = "<group>"; };
 		4D949ACC1C9C59210074C999 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4D949ACE1C9C59210074C999 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -89,10 +96,12 @@
 				4D949AD01C9C59210074C999 /* fragment_textured.glsl */,
 				4D949AD11C9C59210074C999 /* Images.xcassets */,
 				4D949AD21C9C59210074C999 /* main.cpp */,
+				4D5EAB241CA2E1310067EBA8 /* Entity.h */,
+				4D5EAB231CA2E1310067EBA8 /* Entity.cpp */,
 				4D949AE71C9C5C100074C999 /* LevelLoader.h */,
 				4D949AE61C9C5C100074C999 /* LevelLoader.cpp */,
-				4D949AD31C9C59210074C999 /* Matrix.cpp */,
 				4D949AD41C9C59210074C999 /* Matrix.h */,
+				4D949AD31C9C59210074C999 /* Matrix.cpp */,
 				4D949AD51C9C59210074C999 /* ShaderProgram.cpp */,
 				4D949AD61C9C59210074C999 /* ShaderProgram.h */,
 				4D949AD71C9C59210074C999 /* vertex.glsl */,
@@ -105,6 +114,8 @@
 			isa = PBXGroup;
 			children = (
 				4D949AEB1C9C62970074C999 /* Level1.tmx */,
+				4D5EAB261CA2F70F0067EBA8 /* Level0.tmx */,
+				4D5EAB271CA2F70F0067EBA8 /* Level0.txt */,
 				4D949AEC1C9C62970074C999 /* Level1.txt */,
 			);
 			name = Levels;
@@ -220,6 +231,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D5EAB291CA2F70F0067EBA8 /* Level0.txt in Resources */,
+				4D5EAB281CA2F70F0067EBA8 /* Level0.tmx in Resources */,
 				4D949AD91C9C59210074C999 /* Assignment4-Info.plist in Resources */,
 				4D949AEE1C9C62970074C999 /* Level1.txt in Resources */,
 				4D949AED1C9C62970074C999 /* Level1.tmx in Resources */,
@@ -245,6 +258,7 @@
 				4D949AE11C9C59210074C999 /* ShaderProgram.cpp in Sources */,
 				4D949AE01C9C59210074C999 /* Matrix.cpp in Sources */,
 				4D949ADF1C9C59210074C999 /* main.cpp in Sources */,
+				4D5EAB251CA2E1310067EBA8 /* Entity.cpp in Sources */,
 				4D949AE81C9C5C100074C999 /* LevelLoader.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

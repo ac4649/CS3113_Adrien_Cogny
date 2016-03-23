@@ -19,6 +19,8 @@
 
 #include <vector>
 
+#include "Entity.h"
+
 
 using namespace std;
 
@@ -32,12 +34,18 @@ private:
     int mapHeight;
     int mapWidth;
     
-    vector<vector<int>> levelMatrix; //this is the tilemap
+    int spriteCountX;
+    int spriteCountY;
     
+    vector<vector<int>*>* levelMatrix; //this is the tilemap
+    
+    vector<Entity*> levelEntities; //this is the entities
     
     bool readHeader(ifstream& fileStream);
     bool readLayerData(ifstream& fileStream);
     bool readEntityData(ifstream& fileStream);
+    
+    int mapSize;
     
 public:
     
@@ -45,9 +53,22 @@ public:
     
     void loadLevelData();
     
-    void debugLevel(); //this simply 
+    
+    const vector<vector<int>*>* getLevelMatrix();
+    
+    int getLevelDataAtIndex(int row, int col);
     
     
+    void debugLevel(); //this simply printint out the level to consol for testing purposes
+    
+    
+    
+    int getLevelHeight();
+    int getLevelWidth();
+    int getSpriteCountX();
+    int getSpriteCountY();
+        
+    int getMapSize();
     
 };
 
