@@ -33,7 +33,7 @@ void LevelLoader::loadLevelData()
         {
             readLayerData(fileStream);
         }
-        else if(line == "[ObjectsLayer]")
+        else if(line == "[ObjectLayer]")
         {
             readEntityData(fileStream);
         }
@@ -153,11 +153,10 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
     
     string line;
     string type;
+    Entity* curEntityRead = new Entity;
+    
     while(getline(fileStream, line))
     {
-        Entity* curEntityRead = new Entity;
-        
-        
         if(line == "")
         {
             break;
@@ -173,6 +172,14 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
         {
             type = value;
             curEntityRead->EntityType = type;
+            if (type == "Player")
+            {
+                //set the spritesheet to use and the coordinates
+                curEntityRead->setTexture("playersprite.png", 0, 0, 66, 92, 66, 92);
+                curEntityRead->width = TILE_SIZE;
+                curEntityRead->height = TILE_SIZE;
+                
+            }
         }
         else if(key == "location")
         {
@@ -182,18 +189,22 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
-            curEntityRead->x = atoi(xPosition.c_str());
-            curEntityRead->y = atoi(yPosition.c_str());
+            curEntityRead->x = atof(xPosition.c_str())/mapWidth; // 0 to 1 for x and y of the level, for posiitioning, need to multiply by the screen size and tile size
+            
+            curEntityRead->y = atof(yPosition.c_str())/mapHeight;
+            
+            
             
             //float placeX = atoi(xPosition.c_str())/16*TILE_SIZE;
             //float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
-            //placeEntity(type, placeX, placeY);
+
         }
         
         
-        levelEntities.push_back(curEntityRead);
     }
     
+    levelEntities.push_back(curEntityRead);
+
     return true;
     
 }
@@ -229,4 +240,16 @@ int LevelLoader::getLevelWidth()
 int LevelLoader::getMapSize()
 {
     return mapSize;
+}
+
+int LevelLoader::getNumEntities()
+{
+    return levelEntities.size();
+}
+
+Entity* LevelLoader::getEntityForIndex(int index)
+{
+    
+    return levelEntities[index];
+    
 }

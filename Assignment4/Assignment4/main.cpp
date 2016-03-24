@@ -57,7 +57,7 @@ GLuint LoadTexture(const char *image_path)
     GLuint textureID;
     glGenTextures(1, &textureID);
     glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_RGBA,
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, surface->w, surface->h, 0, GL_BGRA,
                  GL_UNSIGNED_BYTE, surface->pixels);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -65,8 +65,64 @@ GLuint LoadTexture(const char *image_path)
     return textureID;
 }
 
+
 //level texture
 GLuint tileMapTexture;
+
+
+void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
+{
+    
+    //bind the texture
+    glBindTexture(GL_TEXTURE_2D, displayedEntity->textureID);
+    
+    
+    theProgram->setModelMatrix(displayedEntity->modelMatrix);
+    
+    theProgram->setProjectionMatrix(projectionMatrix);
+    theProgram->setViewMatrix(viewMatrix);
+    
+    float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
+    float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
+    float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
+    float spriteNormalizedHeight = displayedEntity->textureHeight/displayedEntity->textureSheetHeight;
+    
+    GLfloat texCoords[] = {
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v,
+        u, v,
+        u+spriteNormalizedWidth, v,
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v+spriteNormalizedHeight
+    };
+    
+    float vertices[] =
+    {
+        
+        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
+        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
+        displayedEntity->x-displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
+        
+        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
+        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
+        displayedEntity->x+displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2
+        
+    };
+    
+    glVertexAttribPointer(theProgram->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(theProgram->positionAttribute);
+    
+    glVertexAttribPointer(theProgram->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    glDisableVertexAttribArray(theProgram->positionAttribute);
+    glDisableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    
+}
+
 
 
 ShaderProgram *setup() // will return the shaderProgram pointer
@@ -98,9 +154,10 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     int levelHeight = theLevelLoader->getLevelHeight();
     int levelWidth = theLevelLoader->getLevelWidth();
     
-    program->setModelMatrix(tileMapModelMatrix);
-    tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);//translates the tile map so its 0,0 coincides with the top right corner of the screen
     
+    //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
+    program->setModelMatrix(tileMapModelMatrix);
+    tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
     
 
     return program;
@@ -187,6 +244,26 @@ void DrawLevel()
     
 }
 
+void DrawEntities()
+{
+    
+    
+    for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
+    {
+        Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
+        
+        
+        
+        //display the entity
+        DrawSpriteUnorderedSheetSprite(theCurEntity);
+
+    }
+    
+    
+    
+    
+}
+
 
 
 
@@ -213,9 +290,12 @@ int main(int argc, char *argv[])
     
     SDL_Event event;
     bool done = false;
-    while (!done) {
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE) {
+    while (!done)
+    {
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE)
+            {
                 done = true;
             }
         }
@@ -223,6 +303,7 @@ int main(int argc, char *argv[])
 
         
         DrawLevel();
+        DrawEntities();
         
         SDL_GL_SwapWindow(displayWindow);
 
