@@ -22,7 +22,7 @@ SDL_Window* displayWindow;
 
 #include "LevelLoader.h"
 
-#define TILE_SIZE 25.0f
+#define TILE_SIZE 30.0f
 #define SPRITE_COUNT_X 14
 #define SPRITE_COUNT_Y 7
 
@@ -79,11 +79,16 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
     
     theProgram->setModelMatrix(displayedEntity->modelMatrix);
     
+    
+    //displayedEntity->modelMatrix.identity();
+    //displayedEntity->modelMatrix.Translate(-totalUnitsWidth/2, -totalUnitsHeight, 0);
+    
     theProgram->setProjectionMatrix(projectionMatrix);
     theProgram->setViewMatrix(viewMatrix);
     
     float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
     float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
+    
     float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
     float spriteNormalizedHeight = displayedEntity->textureHeight/displayedEntity->textureSheetHeight;
     
@@ -252,7 +257,8 @@ void DrawEntities()
     {
         Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
         
-        
+        std::cout << theCurEntity->x << std::endl;
+        std::cout << theCurEntity->y << std::endl;
         
         //display the entity
         DrawSpriteUnorderedSheetSprite(theCurEntity);
@@ -300,10 +306,15 @@ int main(int argc, char *argv[])
             }
         }
         glClear(GL_COLOR_BUFFER_BIT);
+        glClearColor(1.0, 1.0, 1.0, 1.0);
 
         
         DrawLevel();
         DrawEntities();
+        
+        //place the player in the middle of the screen
+        viewMatrix.identity();
+        viewMatrix.Translate((theLevelLoader->getEntityForIndex(0))->x, -(theLevelLoader->getEntityForIndex(0))->y, 0);
         
         SDL_GL_SwapWindow(displayWindow);
 

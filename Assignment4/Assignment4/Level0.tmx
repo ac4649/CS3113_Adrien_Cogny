@@ -13,6 +13,6 @@
   </data>
  </layer>
  <objectgroup name="ObjectLayer">
-  <object id="4" name="Player" type="Player" gid="99" x="70.4393" y="559.48" width="70" height="70"/>
+  <object id="4" name="Player" type="Player" gid="99" x="75.4393" y="559.48" width="70" height="70"/>
  </objectgroup>
 </map>

@@ -189,9 +189,8 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
-            curEntityRead->x = atof(xPosition.c_str())/mapWidth; // 0 to 1 for x and y of the level, for posiitioning, need to multiply by the screen size and tile size
-            
-            curEntityRead->y = atof(yPosition.c_str())/mapHeight;
+            curEntityRead->x = atof(xPosition.c_str())/mapWidth*TILE_SIZE;
+            curEntityRead->y = atof(yPosition.c_str())/mapHeight*-TILE_SIZE;
             
             
             

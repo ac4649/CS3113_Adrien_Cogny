@@ -26,5 +26,5 @@ data=
 [ObjectLayer]
 # Player
 type=Player
-location=0,7,1,1
+location=1,7,1,1
 

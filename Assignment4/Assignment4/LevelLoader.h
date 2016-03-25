@@ -9,7 +9,7 @@
 #ifndef LevelLoader_h
 #define LevelLoader_h
 
-#define TILE_SIZE 25.0f
+#define TILE_SIZE 30.0f
 
 
 #include <stdio.h>
