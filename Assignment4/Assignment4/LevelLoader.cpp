@@ -165,7 +165,7 @@ bool LevelLoader::readLayerData(ifstream& fileStream)
                     
                     bool solidValue = false;
                     
-                    if (theValue == 1)
+                    if (theValue == 1 || theValue  == 16)
                     {
                         solidValue = true;
                     }
@@ -229,20 +229,17 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
-            curEntityRead->x = atof(xPosition.c_str())*TILE_SIZE+curEntityRead->width/2;
-            curEntityRead->y = -atof(yPosition.c_str())*TILE_SIZE-curEntityRead->height/2;
+            curEntityRead->tileMapX = atof(xPosition.c_str());
+            curEntityRead->tileMapY = atof(yPosition.c_str());
             
-            
-            
-            //float placeX = atoi(xPosition.c_str())/16*TILE_SIZE;
-            //float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
+            curEntityRead->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
 
         }
         
         //set the gravity for the current entity
         
-        curEntityRead->gravity_x = levelGravityX;
-        curEntityRead->gravity_y = levelGravityY;
+        curEntityRead->gravity_x = 0*levelGravityX;
+        curEntityRead->gravity_y = 0*levelGravityY;
         
         
     }
@@ -259,12 +256,13 @@ const vector<vector<Tile*>*>* LevelLoader::getLevelMatrix()
 }
 Tile* LevelLoader::getLevelDataAtIndex(int height, int width)
 {
-    if (height > mapHeight)
+    
+    if (height >= mapHeight)
     {
         std::cout << "Beyond level height" << std::endl;
         return nullptr;
     }
-    if (width > mapWidth)
+    if (width >= mapWidth)
     {
         std::cout << "Beyond level width" << std::endl;
         return nullptr;
@@ -296,4 +294,12 @@ Entity* LevelLoader::getEntityForIndex(int index)
     
     return levelEntities[index];
     
+}
+
+void LevelLoader::updateAllEntityTileMapCoordinates()
+{
+    for (int i = 0; i < levelEntities.size(); i++)
+    {
+        levelEntities[i]->updateTileMapCoordinatesFromWorldCoords(TILE_SIZE);
+    }
 }

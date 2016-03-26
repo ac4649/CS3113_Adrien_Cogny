@@ -27,6 +27,7 @@
 		4D949AED1C9C62970074C999 /* Level1.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 4D949AEB1C9C62970074C999 /* Level1.tmx */; };
 		4D949AEE1C9C62970074C999 /* Level1.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D949AEC1C9C62970074C999 /* Level1.txt */; };
 		4DCDE1581CA6C7CC0087B037 /* Tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDE1561CA6C7CC0087B037 /* Tile.cpp */; };
+		4DCDE15B1CA6D8B50087B037 /* TileMapCollisionChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDE1591CA6D8B50087B037 /* TileMapCollisionChecker.cpp */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
 		6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */; };
@@ -59,6 +60,8 @@
 		4D949AEC1C9C62970074C999 /* Level1.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level1.txt; sourceTree = "<group>"; };
 		4DCDE1561CA6C7CC0087B037 /* Tile.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Tile.cpp; sourceTree = "<group>"; };
 		4DCDE1571CA6C7CC0087B037 /* Tile.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tile.h; sourceTree = "<group>"; };
+		4DCDE1591CA6D8B50087B037 /* TileMapCollisionChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = TileMapCollisionChecker.cpp; sourceTree = "<group>"; };
+		4DCDE15A1CA6D8B50087B037 /* TileMapCollisionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TileMapCollisionChecker.h; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* Assignment4.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Assignment4.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -99,6 +102,8 @@
 				4D949AD01C9C59210074C999 /* fragment_textured.glsl */,
 				4D949AD11C9C59210074C999 /* Images.xcassets */,
 				4D949AD21C9C59210074C999 /* main.cpp */,
+				4DCDE15A1CA6D8B50087B037 /* TileMapCollisionChecker.h */,
+				4DCDE1591CA6D8B50087B037 /* TileMapCollisionChecker.cpp */,
 				4D5EAB241CA2E1310067EBA8 /* Entity.h */,
 				4D5EAB231CA2E1310067EBA8 /* Entity.cpp */,
 				4DCDE1571CA6C7CC0087B037 /* Tile.h */,
@@ -264,6 +269,7 @@
 				4D949AE01C9C59210074C999 /* Matrix.cpp in Sources */,
 				4D949ADF1C9C59210074C999 /* main.cpp in Sources */,
 				4DCDE1581CA6C7CC0087B037 /* Tile.cpp in Sources */,
+				4DCDE15B1CA6D8B50087B037 /* TileMapCollisionChecker.cpp in Sources */,
 				4D5EAB251CA2E1310067EBA8 /* Entity.cpp in Sources */,
 				4D949AE81C9C5C100074C999 /* LevelLoader.cpp in Sources */,
 			);

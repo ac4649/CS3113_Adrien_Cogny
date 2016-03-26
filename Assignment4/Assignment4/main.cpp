@@ -21,6 +21,7 @@ SDL_Window* displayWindow;
 #include <Vector>
 
 #include "LevelLoader.h"
+#include "TileMapCollisionChecker.h"
 
 #define TILE_SIZE 30.0f
 #define SPRITE_COUNT_X 14
@@ -36,7 +37,7 @@ SDL_Window* displayWindow;
 //helper objects
 LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
-
+TileMapCollisionChecker* theCollisionChecker;
 
 
 
@@ -172,6 +173,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     theLevelLoader->loadLevelData();
     tileMapTexture = LoadTexture("tiles.png");
+    
+    
+    theCollisionChecker = new TileMapCollisionChecker();
     
     
     //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
@@ -310,8 +314,7 @@ void DrawEntities(float elapsed)
         
     }
     
-    
-    
+    //move the entities
     
     //change the velocity with respect to friction
     player->velocity_x = lerp(player->velocity_x, 0.0f, FIXED_TIMESTEP * player->friction_x);
@@ -328,6 +331,29 @@ void DrawEntities(float elapsed)
     //change the player position with respect to velocity
     player->x += player->velocity_x * FIXED_TIMESTEP;
     player->y += player->velocity_y * FIXED_TIMESTEP;
+    
+    
+    //update the entities tileMap coordinates to do the collision checks
+    theLevelLoader->updateAllEntityTileMapCoordinates();
+    
+    
+    //do collision checking
+    for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
+    {
+        Entity* curEntity = theLevelLoader->getEntityForIndex(i);
+        theCollisionChecker->checkAndResolveCollisionWithEntity(curEntity, theLevelLoader);
+        
+        
+        
+        int errorCodeReceived = theCollisionChecker->getErrorCode();
+        
+        if (errorCodeReceived != 0)
+        {
+            std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
+        }
+
+
+    }
     
     
     

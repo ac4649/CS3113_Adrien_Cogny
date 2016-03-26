@@ -53,6 +53,10 @@ public:
     
     float x;
     float y;
+    
+    float tileMapX;
+    float tileMapY;
+    
     float width;
     float height;
     
@@ -92,7 +96,10 @@ public:
     
     void setTexture(const char *image_path, float locationX, float locationY, float width, float height,float textureSheedWidth, float textureSheetHeight);
     
-    std::string EntityType; // entity 0 = player, entity 1 = ennemy
+    std::string EntityType; // Player, Enemy etc...
+    
+    void updateTileMapCoordinatesFromWorldCoords(float tileSize);
+    void updateWorldCoordinatesFromTileMapCoords(float tileSize);
     
 };
 

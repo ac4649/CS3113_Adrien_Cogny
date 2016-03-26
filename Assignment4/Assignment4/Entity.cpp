@@ -58,6 +58,21 @@ void Entity::setTexture(const char *image_path, float locationX, float locationY
     textureHeight = heightInput;
     textureSheetHeight = textureSheetHeightInput;
     textureSheetWidth = textureSheetWidthInput;
+    
+}
 
+void Entity::updateTileMapCoordinatesFromWorldCoords(float tileSize)
+{
+    
+    tileMapX = x/tileSize;
+    tileMapY = -y/tileSize;
+    
+}
+
+void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
+{
+    
+    x = tileMapX*tileSize+width/2;
+    y = -tileMapY*tileSize-height/2;
     
 }

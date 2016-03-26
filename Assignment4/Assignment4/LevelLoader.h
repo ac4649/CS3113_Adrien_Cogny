@@ -81,7 +81,7 @@ public:
     int getNumEntities();
     Entity* getEntityForIndex(int index);
     
-    
+    void updateAllEntityTileMapCoordinates();
     
     
     
