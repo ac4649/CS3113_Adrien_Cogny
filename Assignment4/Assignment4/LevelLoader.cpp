@@ -50,6 +50,9 @@ bool LevelLoader::readHeader(ifstream& fileStream)
     mapWidth = -1;
     mapHeight = -1;
     
+    bool foundGravityX = false;
+    bool foundGravityY = false;
+
     while(getline(fileStream, line))
     {
         if(line == "")
@@ -74,8 +77,30 @@ bool LevelLoader::readHeader(ifstream& fileStream)
         {
             mapHeight = atoi(value.c_str());
         }
+        
+        if (key == "GravityX")
+        {
+            levelGravityX = atof(value.c_str()); //this keeps the gravity for the level if there is one in the level definition
+            
+            foundGravityX = true;
+        }
+        if (key == "GravityY") {
+            levelGravityX = atof(value.c_str()); //this keeps the gravity for the level if there is one in the level definition
+            foundGravityY = true;
+
+        }
     }
     
+    
+    if (!foundGravityX)
+    {
+        //no gravity defined in level, go to default
+        levelGravityX = 0.0;
+    }
+    if (!foundGravityY)
+    {
+        levelGravityY = 9.8;
+    }
     
     if(mapWidth == -1 || mapHeight == -1)
     {
@@ -193,6 +218,7 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
                 
+                
             }
         }
         else if(key == "location")
@@ -212,6 +238,11 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             //float placeY = atoi(yPosition.c_str())/16*-TILE_SIZE;
 
         }
+        
+        //set the gravity for the current entity
+        
+        curEntityRead->gravity_x = levelGravityX;
+        curEntityRead->gravity_y = levelGravityY;
         
         
     }

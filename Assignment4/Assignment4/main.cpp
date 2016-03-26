@@ -26,6 +26,13 @@ SDL_Window* displayWindow;
 #define SPRITE_COUNT_X 14
 #define SPRITE_COUNT_Y 7
 
+
+
+
+
+#define FIXED_TIMESTEP 0.0142f //60 FPS
+#define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
+
 //helper objects
 LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
@@ -43,11 +50,22 @@ float totalUnitsWidth = 500.0f;
 
 
 
+float lastFrameTicks = 0.0f;
+
+
+bool done = false;
+
 
 //Global Matrices
 Matrix projectionMatrix;
 Matrix viewMatrix;
 Matrix tileMapModelMatrix;
+
+
+//lerp function
+float lerp(float v0, float v1, float t) {
+    return (1.0-t)*v0 + t*v1;
+}
 
 
 //load texture function
@@ -156,10 +174,6 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     tileMapTexture = LoadTexture("tiles.png");
     
     
-    int levelHeight = theLevelLoader->getLevelHeight();
-    int levelWidth = theLevelLoader->getLevelWidth();
-    
-    
     //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
     program->setModelMatrix(tileMapModelMatrix);
     tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
@@ -167,13 +181,38 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     return program;
 }
 
-void processEvents()
+void processEvents(SDL_Event event)
 {
+    
+    while (SDL_PollEvent(&event))
+    {
+        if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE)
+        {
+            
+            done = true;
+            
+        }
+        else if (event.type == SDL_KEYDOWN)
+        {
+            if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
+            {
+                
+                //space set the velocity of the player in y to something other than 0
+                Entity* player = theLevelLoader->getEntityForIndex(0);
+                player->velocity_y = 5.0;
+                
+            }
+        }
+        
+        
+        
+    }
+    
     
     
 }
 
-void DrawLevel()
+void DrawLevel(float elapsed)
 {
     
 
@@ -251,8 +290,47 @@ void DrawLevel()
     
 }
 
-void DrawEntities()
+void DrawEntities(float elapsed)
 {
+    
+    const Uint8 *keys = SDL_GetKeyboardState(NULL);
+    
+    Entity* player = theLevelLoader->getEntityForIndex(0);
+    
+    if(keys[SDL_SCANCODE_LEFT])
+    {
+        //make player go left
+        player->acceleration_x = -10;
+        
+    }
+    else if(keys[SDL_SCANCODE_RIGHT])
+    {
+        //make player go right
+        player->acceleration_x = 10;
+        
+    }
+    
+    
+    
+    
+    //change the velocity with respect to friction
+    player->velocity_x = lerp(player->velocity_x, 0.0f, FIXED_TIMESTEP * player->friction_x);
+    player->velocity_y = lerp(player->velocity_y, 0.0f, FIXED_TIMESTEP * player->friction_y);
+    
+    //change the velocity with respect to acceleration
+    player->velocity_x += player->acceleration_x * FIXED_TIMESTEP;
+    player->velocity_y += player->acceleration_y * FIXED_TIMESTEP;
+    
+    //change the velocity with respect to the gravity
+    player->velocity_y += player->gravity_x*FIXED_TIMESTEP;
+    player->velocity_x += player->gravity_y*FIXED_TIMESTEP;
+    
+    //change the player position with respect to velocity
+    player->x += player->velocity_x * FIXED_TIMESTEP;
+    player->y += player->velocity_y * FIXED_TIMESTEP;
+    
+    
+    
     
     
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
@@ -300,26 +378,45 @@ int main(int argc, char *argv[])
     
     
     SDL_Event event;
-    bool done = false;
+
     while (!done)
     {
-        while (SDL_PollEvent(&event))
-        {
-            if (event.type == SDL_QUIT || event.type == SDL_WINDOWEVENT_CLOSE)
-            {
-                done = true;
-            }
-        }
-        glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
 
+        float ticks = (float)SDL_GetTicks()/1000.0f;
+        float elapsed = ticks - lastFrameTicks;
+        lastFrameTicks = ticks;
         
-        DrawLevel();
-        DrawEntities();
+        
+        processEvents(event);
+        
+        
+        glClear(GL_COLOR_BUFFER_BIT);
+        //glClearColor(1.0, 1.0, 1.0, 1.0);
+        
+        
+        float fixedElapsed = elapsed;
+        
+        if (fixedElapsed > FIXED_TIMESTEP * MAX_TIMESTEPS)
+        {
+            fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEPS;
+        }
+        
+        
+        
+        
+        while  (fixedElapsed >= FIXED_TIMESTEP)
+        {
+            fixedElapsed -= FIXED_TIMESTEP;
+            
+            DrawLevel(fixedElapsed);
+            DrawEntities(fixedElapsed);
+            
+        }
+
         
         //place the player in the middle of the screen
         viewMatrix.identity();
-        viewMatrix.Translate((theLevelLoader->getEntityForIndex(0))->x, -(theLevelLoader->getEntityForIndex(0))->y, 0);
+        viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->x, -(theLevelLoader->getEntityForIndex(0))->y, 0);
         
         SDL_GL_SwapWindow(displayWindow);
 

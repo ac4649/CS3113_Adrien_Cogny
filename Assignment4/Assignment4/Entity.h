@@ -39,9 +39,14 @@ public:
     textureHeight(0.0),
     textureSheetHeight(0.0),
     textureSheetWidth(0.0),
-    speed(0.0),
-    direction_x(0.0),
-    direction_y(0.0)
+    velocity_x(0.0),
+    velocity_y(0.0),
+    acceleration_x(0.0),
+    acceleration_y(0.0),
+    friction_x(0.0),
+    friction_y(0.0),
+    gravity_x(0.0),
+    gravity_y(0.0)
     {};
     
     void Draw();
@@ -63,9 +68,15 @@ public:
     float textureSheetWidth;
     
     
-    float speed;
-    float direction_x;
-    float direction_y;
+    float velocity_x;
+    float velocity_y;
+    float acceleration_x;
+    float acceleration_y;
+    
+    float friction_x;
+    float friction_y;
+    float gravity_x;
+    float gravity_y;
     
     int columnNumber;
     

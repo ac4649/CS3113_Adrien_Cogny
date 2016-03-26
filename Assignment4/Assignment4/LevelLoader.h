@@ -51,6 +51,10 @@ private:
     
     int mapSize;
     
+    float levelGravityX;
+    float levelGravityY;
+
+    
 public:
     
     LevelLoader(std::string theLevelFileName):filename(theLevelFileName){};
@@ -76,6 +80,10 @@ public:
     
     int getNumEntities();
     Entity* getEntityForIndex(int index);
+    
+    
+    
+    
     
 };
 

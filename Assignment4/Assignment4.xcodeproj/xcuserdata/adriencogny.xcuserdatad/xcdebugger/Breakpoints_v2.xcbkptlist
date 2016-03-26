@@ -24,11 +24,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/LevelLoader.cpp"
-            timestampString = "480442885.425112"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "87"
-            endingLineNumber = "87"
+            startingLineNumber = "112"
+            endingLineNumber = "112"
             landmarkName = "LevelLoader::readHeader(ifstream&amp; fileStream)"
             landmarkType = "5">
          </BreakpointContent>
@@ -88,11 +88,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "293"
-            endingLineNumber = "293"
+            startingLineNumber = "370"
+            endingLineNumber = "370"
             landmarkName = "main(int argc, char *argv[])"
             landmarkType = "7">
          </BreakpointContent>
@@ -104,12 +104,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480691940.859695"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "200"
-            endingLineNumber = "200"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -120,12 +120,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "237"
-            endingLineNumber = "237"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -136,12 +136,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "245"
-            endingLineNumber = "245"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "285"
+            endingLineNumber = "285"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -152,12 +152,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480691940.859695"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "187"
-            endingLineNumber = "187"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -168,12 +168,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480691940.859695"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "186"
-            endingLineNumber = "186"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "226"
+            endingLineNumber = "226"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -184,12 +184,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "250"
-            endingLineNumber = "250"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "290"
+            endingLineNumber = "290"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -200,12 +200,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "217"
-            endingLineNumber = "217"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "257"
+            endingLineNumber = "257"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -216,12 +216,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "208"
-            endingLineNumber = "208"
-            landmarkName = "DrawLevel()"
+            startingLineNumber = "248"
+            endingLineNumber = "248"
+            landmarkName = "DrawLevel(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -232,11 +232,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "323"
-            endingLineNumber = "323"
+            startingLineNumber = "419"
+            endingLineNumber = "419"
             landmarkName = "main(int argc, char *argv[])"
             landmarkType = "7">
          </BreakpointContent>
@@ -248,27 +248,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "main(int argc, char *argv[])"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "296"
-            endingLineNumber = "296"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
             landmarkName = "main(int argc, char *argv[])"
             landmarkType = "7">
          </BreakpointContent>
@@ -280,11 +264,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/LevelLoader.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "LevelLoader::readEntityData(ifstream&amp; fileStream)"
             landmarkType = "5">
          </BreakpointContent>
@@ -296,11 +280,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/LevelLoader.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "218"
-            endingLineNumber = "218"
+            startingLineNumber = "249"
+            endingLineNumber = "249"
             landmarkName = "LevelLoader::readEntityData(ifstream&amp; fileStream)"
             landmarkType = "5">
          </BreakpointContent>
@@ -312,12 +296,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480693020.066307"
+            timestampString = "480695526.385086"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "265"
-            endingLineNumber = "265"
-            landmarkName = "DrawEntities()"
+            startingLineNumber = "342"
+            endingLineNumber = "342"
+            landmarkName = "DrawEntities(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -328,11 +312,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480544995.989929"
+            timestampString = "480694058.862361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "82"
-            endingLineNumber = "82"
+            startingLineNumber = "101"
+            endingLineNumber = "101"
             landmarkName = "DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)"
             landmarkType = "7">
          </BreakpointContent>
@@ -344,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Assignment4/main.cpp"
-            timestampString = "480545007.238145"
+            timestampString = "480694058.862361"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "102"
+            endingLineNumber = "102"
             landmarkName = "DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)"
             landmarkType = "7">
          </BreakpointContent>
