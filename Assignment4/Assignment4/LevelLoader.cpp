@@ -13,7 +13,7 @@ void LevelLoader::loadLevelData()
 {
     
     
-    levelMatrix = new vector<vector<int>*>; //initialize the levelMatrix
+    levelMatrix = new vector<vector<Tile*>*>; //initialize the levelMatrix
     
     ifstream fileStream(filename);
     std::cout << filename << std::endl;
@@ -119,23 +119,37 @@ bool LevelLoader::readLayerData(ifstream& fileStream)
                 getline(fileStream, line);
                 istringstream lineStream(line);
                 string tile;
-                vector<int>* curLine = new vector<int>;
+                vector<Tile*>* curLine = new vector<Tile*>;
                 for(int x=0; x < mapWidth; x++)
                 {
                     
                     //create the vector for the line
+                    int theValue;
                     
                     getline(lineStream, tile, ',');
                     unsigned char val =  (unsigned char)atoi(tile.c_str());
                     if(val > 0)
                     {
                         // be careful, the tiles in this format are indexed from 1 not 0
-                        curLine->push_back(val-1);
+                        theValue = val-1;
                     }
                     else
                     {
-                        curLine->push_back(0);
+                        theValue = 0;
                     }
+                    
+                    bool solidValue = false;
+                    
+                    if (theValue == 1)
+                    {
+                        solidValue = true;
+                    }
+                    
+                    Tile* theCurTile = new Tile(theValue,x,y,solidValue);
+                    
+                    curLine->push_back(theCurTile);
+                    
+                    
                 }
 
                 levelMatrix->push_back(curLine);
@@ -189,8 +203,8 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
-            curEntityRead->x = atof(xPosition.c_str())/mapWidth*TILE_SIZE;
-            curEntityRead->y = atof(yPosition.c_str())/mapHeight*-TILE_SIZE;
+            curEntityRead->x = atof(xPosition.c_str())*TILE_SIZE+curEntityRead->width/2;
+            curEntityRead->y = -atof(yPosition.c_str())*TILE_SIZE-curEntityRead->height/2;
             
             
             
@@ -208,23 +222,23 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
     
 }
 
-const vector<vector<int>*>* LevelLoader::getLevelMatrix()
+const vector<vector<Tile*>*>* LevelLoader::getLevelMatrix()
 {
     return levelMatrix;
 }
-int LevelLoader::getLevelDataAtIndex(int height, int width)
+Tile* LevelLoader::getLevelDataAtIndex(int height, int width)
 {
     if (height > mapHeight)
     {
         std::cout << "Beyond level height" << std::endl;
-        return -1;
+        return nullptr;
     }
     if (width > mapWidth)
     {
         std::cout << "Beyond level width" << std::endl;
-        return -1;
+        return nullptr;
     }
-    int returnValue = (*(*levelMatrix)[height])[width];
+    Tile* returnValue = (*(*levelMatrix)[height])[width];
     
     return returnValue;
 }

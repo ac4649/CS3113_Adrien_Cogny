@@ -164,7 +164,6 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     program->setModelMatrix(tileMapModelMatrix);
     tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
     
-
     return program;
 }
 
@@ -183,8 +182,8 @@ void DrawLevel()
     theProgram->setViewMatrix(viewMatrix);
     glBindTexture(GL_TEXTURE_2D, tileMapTexture);
     
-    //tileMapModelMatrix.identity(); //resets to initial position
-    //tileMapModelMatrix.Translate(0, -0.005, 0);
+    tileMapModelMatrix.identity(); //resets to initial position
+    tileMapModelMatrix.Translate(0, -0.005, 0);
     
     std::vector<float> vertexData;
     std::vector<float> texCoordData;
@@ -199,7 +198,10 @@ void DrawLevel()
     {
         for(int x=0; x < width; x++)
         {
-            int levelDataXY = theLevelLoader->getLevelDataAtIndex(y,x);
+            
+            Tile* theCurTile = theLevelLoader->getLevelDataAtIndex(y,x);
+            
+            int levelDataXY = theCurTile->getTileValue();
             
             
             float u = (float)(levelDataXY % SPRITE_COUNT_X) / (float) SPRITE_COUNT_X;
@@ -287,7 +289,10 @@ int main(int argc, char *argv[])
     {
         for (int j = 1; j < 10; j++)
         {
-            int curLevel = theLevelLoader->getLevelDataAtIndex(i, j);
+            Tile* curLevelTile = theLevelLoader->getLevelDataAtIndex(i, j);
+            
+            int curLevel = curLevelTile->getTileValue();
+            
             std::cout << curLevel;
         }
         std::cout << std::endl;

@@ -23,6 +23,7 @@
 #include <vector>
 
 #include "Entity.h"
+#include "Tile.h"
 
 
 using namespace std;
@@ -40,7 +41,7 @@ private:
     int spriteCountX;
     int spriteCountY;
     
-    vector<vector<int>*>* levelMatrix; //this is the tilemap
+    vector<vector<Tile*>*>* levelMatrix; //this is the tilemap
     
     vector<Entity*> levelEntities; //this is the entities
     
@@ -57,9 +58,9 @@ public:
     void loadLevelData();
     
     
-    const vector<vector<int>*>* getLevelMatrix();
+    const vector<vector<Tile*>*>* getLevelMatrix();
     
-    int getLevelDataAtIndex(int row, int col);
+    Tile* getLevelDataAtIndex(int row, int col);
     
     
     void debugLevel(); //this simply printint out the level to consol for testing purposes
