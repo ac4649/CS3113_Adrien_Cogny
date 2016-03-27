@@ -5,7 +5,7 @@ tilewidth=70
 tileheight=70
 orientation=orthogonal
 GravityX=0
-GravityY=1
+GravityY=-0.5
 
 [tilesets]
 tileset=tiles.png,70,70,0,0
@@ -28,5 +28,5 @@ data=
 [ObjectLayer]
 # Player
 type=Player
-location=2,5,1,1
+location=1,5,1,1
 

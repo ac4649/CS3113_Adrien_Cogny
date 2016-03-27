@@ -325,8 +325,8 @@ void DrawEntities(float elapsed)
     player->velocity_y += player->acceleration_y * FIXED_TIMESTEP;
     
     //change the velocity with respect to the gravity
-    player->velocity_y += player->gravity_x*FIXED_TIMESTEP;
-    player->velocity_x += player->gravity_y*FIXED_TIMESTEP;
+    player->velocity_x += player->gravity_x*FIXED_TIMESTEP;
+    player->velocity_y += player->gravity_y*FIXED_TIMESTEP;
     
     //change the player position with respect to velocity
     player->x += player->velocity_x * FIXED_TIMESTEP;

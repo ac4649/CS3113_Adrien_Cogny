@@ -85,7 +85,7 @@ bool LevelLoader::readHeader(ifstream& fileStream)
             foundGravityX = true;
         }
         if (key == "GravityY") {
-            levelGravityX = atof(value.c_str()); //this keeps the gravity for the level if there is one in the level definition
+            levelGravityY = atof(value.c_str()); //this keeps the gravity for the level if there is one in the level definition
             foundGravityY = true;
 
         }
@@ -95,11 +95,11 @@ bool LevelLoader::readHeader(ifstream& fileStream)
     if (!foundGravityX)
     {
         //no gravity defined in level, go to default
-        levelGravityX = 0.0;
+        levelGravityX = 0.0f;
     }
     if (!foundGravityY)
     {
-        levelGravityY = 9.8;
+        levelGravityY = 9.8f;
     }
     
     if(mapWidth == -1 || mapHeight == -1)
@@ -238,8 +238,8 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
         
         //set the gravity for the current entity
         
-        curEntityRead->gravity_x = 0*levelGravityX;
-        curEntityRead->gravity_y = 0*levelGravityY;
+        curEntityRead->gravity_x = levelGravityX;
+        curEntityRead->gravity_y = levelGravityY;
         
         
     }
