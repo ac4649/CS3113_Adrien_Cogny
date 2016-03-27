@@ -5,7 +5,7 @@ tilewidth=70
 tileheight=70
 orientation=orthogonal
 GravityX=0
-GravityY=-0.5
+GravityY=-2
 
 [tilesets]
 tileset=tiles.png,70,70,0,0

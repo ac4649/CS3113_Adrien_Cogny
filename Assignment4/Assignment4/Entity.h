@@ -99,7 +99,11 @@ public:
     std::string EntityType; // Player, Enemy etc...
     
     void updateTileMapCoordinatesFromWorldCoords(float tileSize);
+    
     void updateWorldCoordinatesFromTileMapCoords(float tileSize);
+    void updateXWorldCoordinatesFromTileMapCoords(float tileSize);
+    void updateYWorldCoordinatesFromTileMapCoords(float tileSize);
+
     
 };
 
