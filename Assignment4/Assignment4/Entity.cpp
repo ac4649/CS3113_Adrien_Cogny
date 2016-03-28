@@ -79,11 +79,12 @@ void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
 
 void Entity::updateXWorldCoordinatesFromTileMapCoords(float tileSize)
 {
-    x = tileMapX*tileSize+width/2;
-    
+    //x = tileMapX*tileSize+width/2;
+    x = tileMapX*tileSize;
 }
 void Entity::updateYWorldCoordinatesFromTileMapCoords(float tileSize)
 {
-    y = -tileMapY*tileSize+height/2;
+    //y = -tileMapY*tileSize+height/2;
+    y = -tileMapY*tileSize;
 
 }

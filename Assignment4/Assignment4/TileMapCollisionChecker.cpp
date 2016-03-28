@@ -8,7 +8,7 @@
 
 #include "TileMapCollisionChecker.h"
 
-#define COLLISION_OFFSET_PUSHBACK 0.00000000001f
+#define COLLISION_OFFSET_PUSHBACK 0.00000001f
 
 
 void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader)
