@@ -53,6 +53,9 @@ private:
     
     float levelGravityX;
     float levelGravityY;
+    
+    float defaultPlayerX;
+    float defaultPlayerY;
 
     
 public:
@@ -83,6 +86,8 @@ public:
     
     void updateAllEntityTileMapCoordinates();
     
+    float getDefaultPlayerX();
+    float getDefaultPlayerY();
     
     
 };

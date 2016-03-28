@@ -98,7 +98,6 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
     
     theProgram->setModelMatrix(displayedEntity->modelMatrix);
     
-    
     //displayedEntity->modelMatrix.identity();
     //displayedEntity->modelMatrix.Translate(-totalUnitsWidth/2, -totalUnitsHeight, 0);
     
@@ -179,8 +178,15 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     
     //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
-    program->setModelMatrix(tileMapModelMatrix);
-    tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
+    //program->setModelMatrix(tileMapModelMatrix);
+    
+    
+    //tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
+    
+    
+    //remove alpha
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     return program;
 }
@@ -225,8 +231,8 @@ void DrawLevel(float elapsed)
     theProgram->setViewMatrix(viewMatrix);
     glBindTexture(GL_TEXTURE_2D, tileMapTexture);
     
-    tileMapModelMatrix.identity(); //resets to initial position
-    tileMapModelMatrix.Translate(0, -0.005, 0);
+    //tileMapModelMatrix.identity(); //resets to initial position
+    //tileMapModelMatrix.Translate(0, -0.005, 0);
     
     std::vector<float> vertexData;
     std::vector<float> texCoordData;
@@ -350,6 +356,29 @@ void DrawEntities(float elapsed)
         if (errorCodeReceived != 0)
         {
             std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
+            
+            if (errorCodeReceived == 1)
+            {
+                std::cout << "Out of bounds on x, resetting player location" << std::endl;
+                
+                player->tileMapX = theLevelLoader->getDefaultPlayerX();
+                player->tileMapY = theLevelLoader->getDefaultPlayerY();
+                
+                player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+                
+                
+            }
+            else if (errorCodeReceived == 2)
+            {
+                std::cout << "Out of bounds on y, resetting player location" << std::endl;
+                
+                player->tileMapX = theLevelLoader->getDefaultPlayerX();
+                player->tileMapY = theLevelLoader->getDefaultPlayerY();
+                
+                player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+                
+            }
+            
         }
 
 

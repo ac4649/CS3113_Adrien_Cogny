@@ -84,6 +84,6 @@ void Entity::updateXWorldCoordinatesFromTileMapCoords(float tileSize)
 }
 void Entity::updateYWorldCoordinatesFromTileMapCoords(float tileSize)
 {
-    y = -tileMapY*tileSize-height/2;
+    y = -tileMapY*tileSize+height/2;
 
 }

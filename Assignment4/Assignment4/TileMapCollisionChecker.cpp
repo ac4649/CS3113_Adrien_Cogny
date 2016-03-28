@@ -8,7 +8,7 @@
 
 #include "TileMapCollisionChecker.h"
 
-#define COLLISION_OFFSET_PUSHBACK 0.0001f
+#define COLLISION_OFFSET_PUSHBACK 0.00000000001f
 
 
 void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader)
@@ -73,7 +73,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             std::cout << "TOP COLLISION" << std::endl;
             std::cout << "Collision with tile map (" << CenterXTopY->getTileLocationX() << "," << CenterXTopY->getTileLocationY() << ")" << std::endl;
             
-            mapCoordYCenter = mapCoordYCenter+fabs(CenterXTopY->getTileLocationY() - mapCoordYTop) + COLLISION_OFFSET_PUSHBACK;
+            mapCoordYCenter = mapCoordYCenter-fabs(CenterXTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
             
             
             curEntity->tileMapY = mapCoordYCenter;
@@ -97,7 +97,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
     {
         if (CenterXBottomY->getSolidValue() == true)
         {
-            
+         
             std::cout << "MapCoordX center: " << mapCoordXCenter << std::endl;
             std::cout << "MapCoordX right: " << mapCoordXRight << std::endl;
             std::cout << "MapCoordX left: " << mapCoordXLeft << std::endl;

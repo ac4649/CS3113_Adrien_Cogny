@@ -233,6 +233,11 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             curEntityRead->tileMapY = atof(yPosition.c_str());
             
             curEntityRead->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            if (type == "Player")
+            {
+                defaultPlayerX = curEntityRead->tileMapX;
+                defaultPlayerY = curEntityRead->tileMapY;
+            }
 
         }
         
@@ -302,4 +307,18 @@ void LevelLoader::updateAllEntityTileMapCoordinates()
     {
         levelEntities[i]->updateTileMapCoordinatesFromWorldCoords(TILE_SIZE);
     }
+}
+
+
+float LevelLoader::getDefaultPlayerX()
+{
+    
+    return defaultPlayerX;
+    
+}
+float LevelLoader::getDefaultPlayerY()
+{
+    
+    return defaultPlayerY;
+    
 }
