@@ -363,8 +363,8 @@ void DrawEntities(float elapsed)
     {
         Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
         
-        std::cout << theCurEntity->x << std::endl;
-        std::cout << theCurEntity->y << std::endl;
+        //std::cout << theCurEntity->x << std::endl;
+        //std::cout << theCurEntity->y << std::endl;
         
         //display the entity
         DrawSpriteUnorderedSheetSprite(theCurEntity);
