@@ -29,9 +29,7 @@ SDL_Window* displayWindow;
 
 
 
-
-
-#define FIXED_TIMESTEP 0.0142f //60 FPS
+#define FIXED_TIMESTEP 0.008333333333 //120 FPS
 #define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
 
 //helper objects
@@ -212,7 +210,7 @@ void processEvents(SDL_Event event)
                 
                 if (player->collidedBottom == true)
                 {
-                    player->velocity_y = 5.0;
+                    player->velocity_y = 6.0;
                     player->collidedBottom = false;
 
                 }
@@ -452,7 +450,7 @@ int main(int argc, char *argv[])
         
         
         glClear(GL_COLOR_BUFFER_BIT);
-        //glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(1.0, 1.0, 1.0, 1.0);
         
         
         float fixedElapsed = elapsed;
