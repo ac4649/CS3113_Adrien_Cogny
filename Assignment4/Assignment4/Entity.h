@@ -82,6 +82,9 @@ public:
     float gravity_x;
     float gravity_y;
     
+    
+    bool collidedBottom;
+    
     int columnNumber;
     
     Matrix modelMatrix;

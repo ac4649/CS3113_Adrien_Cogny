@@ -209,8 +209,14 @@ void processEvents(SDL_Event event)
                 
                 //space set the velocity of the player in y to something other than 0
                 Entity* player = theLevelLoader->getEntityForIndex(0);
-                player->velocity_y = 5.0;
                 
+                if (player->collidedBottom == true)
+                {
+                    player->velocity_y = 5.0;
+                    player->collidedBottom = false;
+
+                }
+
             }
         }
         

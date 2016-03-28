@@ -139,6 +139,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             //curEntity->acceleration_x = 0;
             curEntity->acceleration_y = 0;
             
+            if (curEntity->EntityType == "Player")
+            {
+                curEntity->collidedBottom = true;
+            }
+            
         }
     }
     
