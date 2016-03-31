@@ -467,10 +467,13 @@ int main(int argc, char *argv[])
         {
             fixedElapsed -= FIXED_TIMESTEP;
             
-            DrawLevel(fixedElapsed);
-            DrawEntities(fixedElapsed);
+            DrawLevel(FIXED_TIMESTEP);
+            DrawEntities(FIXED_TIMESTEP);
             
         }
+        
+        DrawLevel(fixedElapsed);
+        DrawEntities(fixedElapsed);
 
         
         //place the player in the middle of the screen
