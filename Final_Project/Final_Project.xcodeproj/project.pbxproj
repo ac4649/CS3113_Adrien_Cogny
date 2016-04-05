@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4D0494911CB4632A00F6DD44 /* GeometricVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */; };
 		4D5719CC1CB1A80D00E14AFF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719AF1CB1A80D00E14AFF /* Credits.rtf */; };
 		4D5719CD1CB1A80D00E14AFF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719B11CB1A80D00E14AFF /* InfoPlist.strings */; };
 		4D5719CE1CB1A80D00E14AFF /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D5719B31CB1A80D00E14AFF /* Entity.cpp */; };
@@ -35,6 +36,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometricVector.cpp; sourceTree = "<group>"; };
+		4D0494901CB4632A00F6DD44 /* GeometricVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometricVector.h; sourceTree = "<group>"; };
 		4D5719B01CB1A80D00E14AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4D5719B21CB1A80D00E14AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D5719B31CB1A80D00E14AFF /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
@@ -107,6 +110,8 @@
 				4D5719B31CB1A80D00E14AFF /* Entity.cpp */,
 				4D5719BE1CB1A80D00E14AFF /* LevelLoader.h */,
 				4D5719BD1CB1A80D00E14AFF /* LevelLoader.cpp */,
+				4D0494901CB4632A00F6DD44 /* GeometricVector.h */,
+				4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */,
 				4D5719C11CB1A80D00E14AFF /* Matrix.h */,
 				4D5719C01CB1A80D00E14AFF /* Matrix.cpp */,
 				4D5719C21CB1A80D00E14AFF /* playersprite.png */,
@@ -263,6 +268,7 @@
 				4D5719DC1CB1A80D00E14AFF /* Tile.cpp in Sources */,
 				4D5719DD1CB1A80D00E14AFF /* TileMapCollisionChecker.cpp in Sources */,
 				4D5719D71CB1A80D00E14AFF /* LevelLoader.cpp in Sources */,
+				4D0494911CB4632A00F6DD44 /* GeometricVector.cpp in Sources */,
 				4D5719D81CB1A80D00E14AFF /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

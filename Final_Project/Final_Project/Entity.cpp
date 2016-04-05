@@ -67,6 +67,11 @@ void Entity::updateTileMapCoordinatesFromWorldCoords(float tileSize)
     tileMapX = x/tileSize;
     tileMapY = -y/tileSize;
     
+    tileMapPosition.setx(x/tileSize);
+    tileMapPosition.sety(-y/tileSize);
+    
+    
+    
 }
 
 void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
@@ -75,16 +80,24 @@ void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
     x = tileMapX*tileSize+width/2;
     y = -tileMapY*tileSize-height/2;
     
+    position.setx(tileMapX*tileSize+width/2);
+    position.sety(-tileMapY*tileSize-height/2);
+    
+    
 }
 
 void Entity::updateXWorldCoordinatesFromTileMapCoords(float tileSize)
 {
     //x = tileMapX*tileSize+width/2;
     x = tileMapX*tileSize;
+    position.setx(tileMapX*tileSize);
+
 }
 void Entity::updateYWorldCoordinatesFromTileMapCoords(float tileSize)
 {
     //y = -tileMapY*tileSize+height/2;
     y = -tileMapY*tileSize;
+    position.sety(-tileMapY*tileSize);
+
 
 }

@@ -20,6 +20,7 @@
 #include <SDL_opengl.h>
 #include <SDL_image.h>
 #include "Matrix.h"
+#include "GeometricVector.h"
 
 
 
@@ -50,6 +51,21 @@ public:
     {};
     
     void Draw();
+    
+    //Adding Vectors
+    GeometricVector position;
+    GeometricVector tileMapPosition;
+    
+    GeometricVector velocity;
+    GeometricVector acceleration;
+    GeometricVector friction;
+    GeometricVector gravity;
+    
+    GeometricVector topEdge;
+    GeometricVector bottomEdge;
+    
+    
+    
     
     float x;
     float y;
