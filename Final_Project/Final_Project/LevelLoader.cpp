@@ -229,22 +229,22 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
-            curEntityRead->tileMapX = atof(xPosition.c_str());
-            curEntityRead->tileMapY = atof(yPosition.c_str());
+            curEntityRead->tileMapPosition.setx(atof(xPosition.c_str()));
+            curEntityRead->tileMapPosition.sety(atof(yPosition.c_str()));
             
             curEntityRead->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             if (type == "Player")
             {
-                defaultPlayerX = curEntityRead->tileMapX;
-                defaultPlayerY = curEntityRead->tileMapY;
+                defaultPlayerX = curEntityRead->tileMapPosition.getx();
+                defaultPlayerY = curEntityRead->tileMapPosition.gety();
             }
 
         }
         
         //set the gravity for the current entity
         
-        curEntityRead->gravity_x = levelGravityX;
-        curEntityRead->gravity_y = levelGravityY;
+        curEntityRead->gravity.setx(levelGravityX);
+        curEntityRead->gravity.sety(levelGravityY);
         
         
     }

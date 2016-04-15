@@ -120,13 +120,13 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
     float vertices[] =
     {
         
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2,
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
         
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y+displayedEntity->height/2,
-        displayedEntity->x-displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2,
-        displayedEntity->x+displayedEntity->width/2, displayedEntity->y-displayedEntity->height/2
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2,
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2
         
     };
     
@@ -210,7 +210,7 @@ void processEvents(SDL_Event event)
                 
                 if (player->collidedBottom == true)
                 {
-                    player->velocity_y = 6.0;
+                    player->velocity.sety(6.0);
                     player->collidedBottom = false;
 
                 }
@@ -314,33 +314,42 @@ void DrawEntities(float elapsed)
     if(keys[SDL_SCANCODE_LEFT])
     {
         //make player go left
-        player->acceleration_x = -10;
+        player->acceleration.setx(-10);
         
     }
     else if(keys[SDL_SCANCODE_RIGHT])
     {
         //make player go right
-        player->acceleration_x = 10;
+        player->acceleration.setx(10);
         
     }
     
     //move the entities
     
     //change the velocity with respect to friction
-    player->velocity_x = lerp(player->velocity_x, 0.0f, FIXED_TIMESTEP * player->friction_x);
-    player->velocity_y = lerp(player->velocity_y, 0.0f, FIXED_TIMESTEP * player->friction_y);
+    player->velocity.setx(lerp(player->velocity.getx(),0.0f, FIXED_TIMESTEP * player->friction.getx()));
+    player->velocity.sety(lerp(player->velocity.gety(), 0.0f, FIXED_TIMESTEP * player->friction.gety()));
     
     //change the velocity with respect to acceleration
+    /*
     player->velocity_x += player->acceleration_x * FIXED_TIMESTEP;
     player->velocity_y += player->acceleration_y * FIXED_TIMESTEP;
+    */
+    player->velocity.setx(player->velocity.getx() + player->acceleration.getx()*FIXED_TIMESTEP);
+    player->velocity.sety(player->velocity.gety() + player->acceleration.gety()*FIXED_TIMESTEP);
     
     //change the velocity with respect to the gravity
-    player->velocity_x += player->gravity_x*FIXED_TIMESTEP;
-    player->velocity_y += player->gravity_y*FIXED_TIMESTEP;
+    //player->velocity_x += player->gravity_x*FIXED_TIMESTEP;
+    //player->velocity_y += player->gravity_y*FIXED_TIMESTEP;
+    player->velocity.setx(player->velocity.getx() + player->gravity.getx()*FIXED_TIMESTEP);
+    player->velocity.sety(player->velocity.gety() + player->gravity.gety()*FIXED_TIMESTEP);
     
     //change the player position with respect to velocity
-    player->x += player->velocity_x * FIXED_TIMESTEP;
-    player->y += player->velocity_y * FIXED_TIMESTEP;
+    //player->x += player->velocity_x * FIXED_TIMESTEP;
+    //player->y += player->velocity_y * FIXED_TIMESTEP;
+    
+    player->position.setx(player->position.getx() + player->velocity.getx()*FIXED_TIMESTEP);
+    player->position.sety(player->position.gety() + player->velocity.gety()*FIXED_TIMESTEP);
     
     
     //update the entities tileMap coordinates to do the collision checks
@@ -365,8 +374,11 @@ void DrawEntities(float elapsed)
             {
                 std::cout << "Out of bounds on x, resetting player location" << std::endl;
                 
-                player->tileMapX = theLevelLoader->getDefaultPlayerX();
-                player->tileMapY = theLevelLoader->getDefaultPlayerY();
+                //player->tileMapX = theLevelLoader->getDefaultPlayerX();
+                //player->tileMapY = theLevelLoader->getDefaultPlayerY();
+                
+                player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
+                player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
                 
                 player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
                 
@@ -376,9 +388,11 @@ void DrawEntities(float elapsed)
             {
                 std::cout << "Out of bounds on y, resetting player location" << std::endl;
                 
-                player->tileMapX = theLevelLoader->getDefaultPlayerX();
-                player->tileMapY = theLevelLoader->getDefaultPlayerY();
+                //player->tileMapX = theLevelLoader->getDefaultPlayerX();
+                //player->tileMapY = theLevelLoader->getDefaultPlayerY();
                 
+                player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
+                player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
                 player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
                 
             }
@@ -478,7 +492,7 @@ int main(int argc, char *argv[])
         
         //place the player in the middle of the screen
         viewMatrix.identity();
-        viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->x, -(theLevelLoader->getEntityForIndex(0))->y, 0);
+        viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->position.getx(), -(theLevelLoader->getEntityForIndex(0))->position.gety(), 0);
         
         SDL_GL_SwapWindow(displayWindow);
 

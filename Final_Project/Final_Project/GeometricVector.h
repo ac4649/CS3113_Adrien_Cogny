@@ -18,7 +18,7 @@ class GeometricVector
 public:
     
     GeometricVector();
-    GeometricVector(float x, float y, float z);
+    GeometricVector(float initialx, float initialy, float initialz);
     
     float length();
     GeometricVector normalized();

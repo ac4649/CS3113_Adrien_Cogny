@@ -9,6 +9,22 @@
 #include "GeometricVector.h"
 
 
+//constructors
+GeometricVector::GeometricVector()
+{
+    GeometricVector(0.0,0.0,0.0); //default is 0,0,0
+    
+}
+
+GeometricVector::GeometricVector(float initialx, float initialy, float initialz)
+{
+    x = initialx;
+    y = initialy;
+    x = initialz;
+    
+}
+
+
 float GeometricVector::getx()
 {
     return x;

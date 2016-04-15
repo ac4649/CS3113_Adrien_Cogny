@@ -9,14 +9,30 @@
 #include "Entity.h"
 #include <iostream>
 
+/*
+Entity::Entity()
+{
 
-
-
+    //create all the objects
+    GeometricVector position = GeometricVector();
+    GeometricVector tileMapPosition = GeometricVector();
+    
+    GeometricVector velocity = GeometricVector();
+    GeometricVector acceleration = GeometricVector();
+    GeometricVector friction = GeometricVector();
+    GeometricVector gravity = GeometricVector();
+    
+    GeometricVector topEdge = GeometricVector();
+    GeometricVector bottomEdge = GeometricVector();
+    
+    
+}
+*/
 
 bool Entity::collidesWithEntity(Entity* theEntity)
 {
     
-    if (x + width/2 < theEntity->x - theEntity->width/2 || x -width/2 > theEntity->x - theEntity->width/2 || y + height/2 < theEntity->y - theEntity->height/2 || y-height/2 > theEntity->y - theEntity->height/2)
+    if (position.getx() + width/2 < theEntity->position.getx() - theEntity->width/2 || position.getx() -width/2 > theEntity->position.getx() - theEntity->width/2 || position.gety() + height/2 < theEntity->position.gety() - theEntity->height/2 || position.gety()-height/2 > theEntity->position.gety() - theEntity->height/2)
     {
         //No collision
     }
@@ -64,11 +80,13 @@ void Entity::setTexture(const char *image_path, float locationX, float locationY
 void Entity::updateTileMapCoordinatesFromWorldCoords(float tileSize)
 {
     
+    /*
     tileMapX = x/tileSize;
     tileMapY = -y/tileSize;
+    */
     
-    tileMapPosition.setx(x/tileSize);
-    tileMapPosition.sety(-y/tileSize);
+    tileMapPosition.setx(position.getx()/tileSize);
+    tileMapPosition.sety(-position.gety()/tileSize);
     
     
     
@@ -76,12 +94,12 @@ void Entity::updateTileMapCoordinatesFromWorldCoords(float tileSize)
 
 void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
 {
-    
+    /*
     x = tileMapX*tileSize+width/2;
     y = -tileMapY*tileSize-height/2;
-    
-    position.setx(tileMapX*tileSize+width/2);
-    position.sety(-tileMapY*tileSize-height/2);
+    */
+    position.setx(tileMapPosition.getx()*tileSize+width/2);
+    position.sety(-tileMapPosition.gety()*tileSize-height/2);
     
     
 }
@@ -89,15 +107,15 @@ void Entity::updateWorldCoordinatesFromTileMapCoords(float tileSize)
 void Entity::updateXWorldCoordinatesFromTileMapCoords(float tileSize)
 {
     //x = tileMapX*tileSize+width/2;
-    x = tileMapX*tileSize;
-    position.setx(tileMapX*tileSize);
+    //x = tileMapX*tileSize;
+    position.setx(tileMapPosition.getx()*tileSize);
 
 }
 void Entity::updateYWorldCoordinatesFromTileMapCoords(float tileSize)
 {
     //y = -tileMapY*tileSize+height/2;
-    y = -tileMapY*tileSize;
-    position.sety(-tileMapY*tileSize);
+    //y = -tileMapY*tileSize;
+    position.sety(-tileMapPosition.gety()*tileSize);
 
 
 }

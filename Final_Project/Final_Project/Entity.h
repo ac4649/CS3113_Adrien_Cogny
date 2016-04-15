@@ -28,8 +28,8 @@ class Entity{
 public:
     
     Entity():
-    x(0.0),
-    y(0.0),
+    //x(0.0),
+    //y(0.0),
     width(0.0),
     height(0.0),
     rotation(0.0),
@@ -40,14 +40,22 @@ public:
     textureHeight(0.0),
     textureSheetHeight(0.0),
     textureSheetWidth(0.0),
-    velocity_x(0.0),
-    velocity_y(0.0),
-    acceleration_x(0.0),
-    acceleration_y(0.0),
-    friction_x(0.0),
-    friction_y(0.0),
-    gravity_x(0.0),
-    gravity_y(0.0)
+    //velocity_x(0.0),
+    //velocity_y(0.0),
+    //acceleration_x(0.0),
+    //acceleration_y(0.0),
+    //friction_x(0.0),
+    //friction_y(0.0),
+    //gravity_x(0.0),
+    //gravity_y(0.0),
+    position(),
+    tileMapPosition(),
+    velocity(),
+    acceleration(),
+    friction(),
+    gravity(),
+    topEdge(),
+    bottomEdge()
     {};
     
     void Draw();
@@ -66,12 +74,13 @@ public:
     
     
     
-    
+    /*
     float x;
     float y;
     
     float tileMapX;
     float tileMapY;
+    */
     
     float width;
     float height;
@@ -88,6 +97,8 @@ public:
     float textureSheetWidth;
     
     
+    /*
+    
     float velocity_x;
     float velocity_y;
     float acceleration_x;
@@ -97,7 +108,7 @@ public:
     float friction_y;
     float gravity_x;
     float gravity_y;
-    
+    */
     
     bool collidedBottom;
     
