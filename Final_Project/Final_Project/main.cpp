@@ -161,7 +161,12 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     ShaderProgram* program = new ShaderProgram(RESOURCE_FOLDER"vertex_textured.glsl", RESOURCE_FOLDER"fragment_textured.glsl");
     
     //set the projection Matrix
+    
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
+    
+    //projectionMatrix.setPerspectiveProjection(<#float fov#>, <#float aspect#>, <#float zNear#>, <#float zFar#>);
+    
+    //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
     glUseProgram(program->programID);
 
@@ -185,6 +190,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //remove alpha
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     
     return program;
 }

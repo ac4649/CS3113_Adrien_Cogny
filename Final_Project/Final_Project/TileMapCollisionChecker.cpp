@@ -66,8 +66,8 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
-            std::cout << "CenterXTopY " <<std::endl;
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            //std::cout << "CenterXTopY " <<std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
             
             collidedY = true;
             //curEntity->velocity_x = 0;
@@ -90,9 +90,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
-            std::cout << "LeftTopy " <<std::endl;
+            //std::cout << "LeftTopy " <<std::endl;
 
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
             
             collidedY = true;
             //curEntity->velocity_x = 0;
@@ -114,9 +114,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
-            std::cout << "RightTopY " <<std::endl;
+            //std::cout << "RightTopY " <<std::endl;
 
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
             
             collidedY = true;
             //curEntity->velocity_x = 0;
@@ -138,9 +138,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
 
             mapCoordYCenter = mapCoordYCenter - fabs(CenterXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
             
-            std::cout << "CenterXBottomY " <<std::endl;
+            //std::cout << "CenterXBottomY " <<std::endl;
 
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
             
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             
@@ -170,9 +170,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             mapCoordYCenter = mapCoordYCenter - fabs(LeftXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
             
-            std::cout << "LeftXBottomY " <<std::endl;
+            //std::cout << "LeftXBottomY " <<std::endl;
 
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
             
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             
@@ -201,9 +201,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
         {
             
             mapCoordYCenter = mapCoordYCenter - fabs(RightXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
-            std::cout << "RightXBottomY " <<std::endl;
+            //std::cout << "RightXBottomY " <<std::endl;
 
-            std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
             
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             
@@ -286,9 +286,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
         if (LeftXBottomYcheckX->getSolidValue() == true)
         {
             
-            std::cout << "FABS Difference" << LeftXBottomYcheckX->getTileLocationX() - mapCoordXLeft << std::endl;
+            std::cout << "FABS Difference" << mapCoordXLeft - LeftXBottomYcheckX->getTileLocationX()  << std::endl;
             
-            mapCoordXCenter = mapCoordXCenter+fabs(LeftXBottomYcheckX->getTileLocationX() - mapCoordXLeft) + COLLISION_OFFSET_PUSHBACK;
+            mapCoordXCenter = mapCoordXCenter+fabs(mapCoordXLeft - LeftXBottomYcheckX->getTileLocationX()) + COLLISION_OFFSET_PUSHBACK;
             
             std::cout << "leftXBottomYCheckX " <<std::endl;
 
@@ -299,9 +299,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
             
         }
         
