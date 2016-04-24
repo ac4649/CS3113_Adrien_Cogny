@@ -21,6 +21,7 @@
 #include <SDL_image.h>
 #include "Matrix.h"
 #include "GeometricVector.h"
+#include "ShaderProgram.h"
 
 
 
@@ -137,9 +138,15 @@ public:
     
     void outputEntityTileMapPosition();
     void outputEntityWorldPosition();
+    
+    
+    
+    
+    void DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix);
 
     
 };
+
 
 
 

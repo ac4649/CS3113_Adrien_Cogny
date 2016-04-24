@@ -86,7 +86,7 @@ GLuint LoadTexture(const char *image_path)
 //level texture
 GLuint tileMapTexture;
 
-
+/*
 void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
 {
     
@@ -143,7 +143,7 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
     
     
 }
-
+*/
 
 
 ShaderProgram *setup() // will return the shaderProgram pointer
@@ -442,7 +442,7 @@ void DrawEntities(float elapsed)
         //std::cout << theCurEntity->y << std::endl;
         
         //display the entity
-        DrawSpriteUnorderedSheetSprite(theCurEntity);
+        theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix);
 
     }
     

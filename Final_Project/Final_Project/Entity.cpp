@@ -136,3 +136,58 @@ void Entity::outputEntityWorldPosition()
     std::cout << "y = " << position.gety() << std::endl;
     std::cout << "z = " << position.getz() << std::endl;
 }
+
+void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix)
+{
+    //bind the texture
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    
+    
+    theProgram->setModelMatrix(modelMatrix);
+    
+    //displayedEntity->modelMatrix.identity();
+    //displayedEntity->modelMatrix.Translate(-totalUnitsWidth/2, -totalUnitsHeight, 0);
+    
+    theProgram->setProjectionMatrix(projectionMatrix);
+    theProgram->setViewMatrix(viewMatrix);
+    
+    float u = textureLocationX / textureSheetWidth;
+    float v = textureLocationY /textureSheetHeight;
+    
+    float spriteNormalizedWidth = textureWidth/textureSheetWidth;
+    float spriteNormalizedHeight = textureHeight/textureSheetHeight;
+    
+    GLfloat texCoords[] = {
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v,
+        u, v,
+        u+spriteNormalizedWidth, v,
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v+spriteNormalizedHeight
+    };
+    
+    float vertices[] =
+    {
+        
+        position.getx()-width/2, position.gety()-height/2,
+        position.getx()+width/2, position.gety()+height/2,
+        position.getx()-width/2, position.gety()+height/2,
+        
+        position.getx()+width/2, position.gety()+height/2,
+        position.getx()-width/2, position.gety()-height/2,
+        position.getx()+width/2, position.gety()-height/2
+        
+    };
+    
+    glVertexAttribPointer(theProgram->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(theProgram->positionAttribute);
+    
+    glVertexAttribPointer(theProgram->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    glDisableVertexAttribArray(theProgram->positionAttribute);
+    glDisableVertexAttribArray(theProgram->texCoordAttribute);
+}
+
