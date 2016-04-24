@@ -174,6 +174,10 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level0.txt");
     
     theLevelLoader->loadLevelData();
+    
+    //display the solidity of the level:
+    theLevelLoader->outPutLevelSolid();
+    
     tileMapTexture = LoadTexture("tiles.png");
     
     
@@ -216,7 +220,7 @@ void processEvents(SDL_Event event)
                 
                 if (player->collidedBottom == true)
                 {
-                    player->velocity.sety(6.0);
+                    player->velocity.sety(10.0);
                     player->collidedBottom = false;
 
                 }
@@ -257,38 +261,41 @@ void DrawLevel(float elapsed)
     {
         for(int x=0; x < width; x++)
         {
-            
+
             Tile* theCurTile = theLevelLoader->getLevelDataAtIndex(y,x);
             
             int levelDataXY = theCurTile->getTileValue();
             
+            //if (levelDataXY != 0)
+            //{
+                float u = (float)(levelDataXY % SPRITE_COUNT_X) / (float) SPRITE_COUNT_X;
+                float v = (float)(levelDataXY / SPRITE_COUNT_X) / (float) SPRITE_COUNT_Y;
+                
+                float spriteWidth = 1.0f/(float)SPRITE_COUNT_X;
+                float spriteHeight = 1.0f/(float)SPRITE_COUNT_Y;
+                
+                
+                
+                vertexData.insert(vertexData.end(),
+                                  {
+                                      TILE_SIZE * x, -TILE_SIZE * y,
+                                      TILE_SIZE * x, (-TILE_SIZE * y)-TILE_SIZE,
+                                      (TILE_SIZE * x)+TILE_SIZE, (-TILE_SIZE * y)-TILE_SIZE,
+                                      TILE_SIZE * x, -TILE_SIZE * y,
+                                      (TILE_SIZE * x)+TILE_SIZE, (-TILE_SIZE * y)-TILE_SIZE,
+                                      (TILE_SIZE * x)+TILE_SIZE, -TILE_SIZE * y
+                                  });
+                
+                texCoordData.insert(texCoordData.end(),{
+                    u, v,
+                    u, v+(spriteHeight),
+                    u+spriteWidth, v+(spriteHeight),
+                    u, v,
+                    u+spriteWidth, v+(spriteHeight),
+                    u+spriteWidth, v
+                });
+            //}
             
-            float u = (float)(levelDataXY % SPRITE_COUNT_X) / (float) SPRITE_COUNT_X;
-            float v = (float)(levelDataXY / SPRITE_COUNT_X) / (float) SPRITE_COUNT_Y;
-            
-            float spriteWidth = 1.0f/(float)SPRITE_COUNT_X;
-            float spriteHeight = 1.0f/(float)SPRITE_COUNT_Y;
-            
-            
-            
-            vertexData.insert(vertexData.end(),
-            {
-                TILE_SIZE * x, -TILE_SIZE * y,
-                TILE_SIZE * x, (-TILE_SIZE * y)-TILE_SIZE,
-                (TILE_SIZE * x)+TILE_SIZE, (-TILE_SIZE * y)-TILE_SIZE,
-                TILE_SIZE * x, -TILE_SIZE * y,
-                (TILE_SIZE * x)+TILE_SIZE, (-TILE_SIZE * y)-TILE_SIZE,
-                (TILE_SIZE * x)+TILE_SIZE, -TILE_SIZE * y
-            });
-            
-            texCoordData.insert(texCoordData.end(),{
-                u, v,
-                u, v+(spriteHeight),
-                u+spriteWidth, v+(spriteHeight),
-                u, v,
-                u+spriteWidth, v+(spriteHeight),
-                u+spriteWidth, v
-            });
             
         }
         //std::cout << endl;
@@ -321,12 +328,15 @@ void DrawEntities(float elapsed)
     {
         //make player go left
         player->acceleration.setx(-10);
+        std::cout << "GO LEFT" << std::endl;
         
     }
     else if(keys[SDL_SCANCODE_RIGHT])
     {
         //make player go right
         player->acceleration.setx(10);
+        std::cout << "GO RIGHT" << std::endl;
+
         
     }
     
@@ -355,8 +365,21 @@ void DrawEntities(float elapsed)
     //player->y += player->velocity_y * FIXED_TIMESTEP;
     
     player->position.setx(player->position.getx() + player->velocity.getx()*FIXED_TIMESTEP);
+    
+    
+    //do collision check x
+    
+    theCollisionChecker->checkAndResolveCollisionXWithEntity(player, theLevelLoader);
+
+    
+    
     player->position.sety(player->position.gety() + player->velocity.gety()*FIXED_TIMESTEP);
     
+    
+    //do collision check y
+    
+    theCollisionChecker->checkAndResolveCollisionYWithEntity(player, theLevelLoader);
+
     
     //update the entities tileMap coordinates to do the collision checks
     theLevelLoader->updateAllEntityTileMapCoordinates();
@@ -366,7 +389,6 @@ void DrawEntities(float elapsed)
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {
         Entity* curEntity = theLevelLoader->getEntityForIndex(i);
-        theCollisionChecker->checkAndResolveCollisionWithEntity(curEntity, theLevelLoader);
         
         
         

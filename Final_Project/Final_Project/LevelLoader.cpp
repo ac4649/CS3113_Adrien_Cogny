@@ -165,7 +165,7 @@ bool LevelLoader::readLayerData(ifstream& fileStream)
                     
                     bool solidValue = false;
                     
-                    if (theValue == 1 || theValue  == 16)
+                    if (theValue == 1 || theValue  == 16 || theValue == 2 || theValue == 3)
                     {
                         solidValue = true;
                     }
@@ -320,5 +320,21 @@ float LevelLoader::getDefaultPlayerY()
 {
     
     return defaultPlayerY;
+    
+}
+
+void LevelLoader::outPutLevelSolid()
+{
+    
+    for (int i = 0; i < getLevelHeight(); i++) {
+        for (int j = 0; j < getLevelWidth(); j++) {
+            
+            Tile* curTile = (*(*levelMatrix)[i])[j];
+            
+            std::cout << curTile->getSolidValue();
+            
+        }
+        std::cout << std::endl;
+    }
     
 }

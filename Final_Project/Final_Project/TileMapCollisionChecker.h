@@ -48,7 +48,10 @@ public:
     
     void checkAndResolveCollisionWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader);
     
+    void checkAndResolveCollisionXWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader);
     
+    void checkAndResolveCollisionYWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader);
+
     int getErrorCode();
     
     

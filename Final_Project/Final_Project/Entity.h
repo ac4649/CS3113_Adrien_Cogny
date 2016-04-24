@@ -133,6 +133,10 @@ public:
     void updateWorldCoordinatesFromTileMapCoords(float tileSize);
     void updateXWorldCoordinatesFromTileMapCoords(float tileSize);
     void updateYWorldCoordinatesFromTileMapCoords(float tileSize);
+    
+    
+    void outputEntityTileMapPosition();
+    void outputEntityWorldPosition();
 
     
 };

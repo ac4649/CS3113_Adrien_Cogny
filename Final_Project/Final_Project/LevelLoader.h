@@ -89,6 +89,8 @@ public:
     float getDefaultPlayerX();
     float getDefaultPlayerY();
     
+    void outPutLevelSolid();
+    
     
 };
 

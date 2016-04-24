@@ -8,13 +8,44 @@
 
 #include "TileMapCollisionChecker.h"
 
-#define COLLISION_OFFSET_PUSHBACK 0.00000000001f
+#define COLLISION_OFFSET_PUSHBACK 0.01f
 
 
 void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader)
 {
     
    
+    checkAndResolveCollisionXWithEntity(theEntityChecked, theLevelLoader);
+    
+    checkAndResolveCollisionYWithEntity(theEntityChecked,theLevelLoader);
+    
+    
+    //make the entity stay within the map zone on the x dirrection
+    /*
+    if (mapCoordXRight >= curLevelLoader->getLevelWidth())
+    {
+        mapCoordXRight = mapCoordXRight-fabs(curLevelLoader->getLevelWidth() - mapCoordXRight) - 0.1f;
+        mapCoordXCenter = mapCoordXCenter-fabs(curLevelLoader->getLevelWidth() - mapCoordXRight) - 0.1f;
+        //std::cout << "New XRight = " << mapCoordXRight << std::endl;
+        
+        curEntity->tileMapPosition.setx(mapCoordXCenter);
+        
+        curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+    }
+    else if (mapCoordXLeft < 0)
+    {
+        
+        mapCoordXCenter = mapCoordXCenter+fabs(0 - mapCoordXRight) + 0.1f;
+    }
+    */
+    return;
+
+}
+
+void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader)
+{
+    
+    
     errorCode = 0; //reset the error code at each collision detection
     
     curEntity = theEntityChecked;
@@ -41,192 +72,16 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
     float mapCoordXCenter = curEntityMapTileCoordX;
     float mapCoordXRight = curEntityMapTileCoordX + (theEntityChecked->width/TILE_SIZE)/2;
     float mapCoordXLeft = curEntityMapTileCoordX - (theEntityChecked->width/TILE_SIZE)/2;
-
+    
     float mapCoordYCenter = curEntityMapTileCoordY;
     float mapCoordYBottom = curEntityMapTileCoordY + (theEntityChecked->height/TILE_SIZE)/2;
     float mapCoordYTop = curEntityMapTileCoordY - (theEntityChecked->height/TILE_SIZE)/2;
     
     
-    //4 point collision system first
-    
     collidedX = false;
-    collidedY = false;
-    
-    //y axis (6 points) (center top and center bottom)
-    
-    
-    Tile* CenterXTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXCenter);
-    
-    if (CenterXTopY != nullptr && collidedY != true)
-    {
-        if (CenterXTopY->getSolidValue() == true)
-        {
-            mapCoordYCenter = mapCoordYCenter-fabs(CenterXTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            //std::cout << "CenterXTopY " <<std::endl;
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-        }
-        
-    }
-    
-    
-    Tile* LeftTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXLeft);
-    
-    if (LeftTopY != nullptr && collidedY != true)
-    {
-        if (LeftTopY->getSolidValue() == true)
-        {
-            mapCoordYCenter = mapCoordYCenter-fabs(LeftTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            //std::cout << "LeftTopy " <<std::endl;
-
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-        }
-        
-    }
-    
-    Tile* RightTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXRight);
-    
-    if (RightTopY != nullptr && collidedY != true)
-    {
-        if (RightTopY->getSolidValue() == true)
-        {
-            mapCoordYCenter = mapCoordYCenter-fabs(RightTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            //std::cout << "RightTopY " <<std::endl;
-
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-        }
-        
-    }
-    
-    
-    
-    Tile* CenterXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXCenter);
-    
-    if (CenterXBottomY != nullptr && collidedY != true)
-    {
-        if (CenterXBottomY->getSolidValue() == true)
-        {
-
-            mapCoordYCenter = mapCoordYCenter - fabs(CenterXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
-            
-            //std::cout << "CenterXBottomY " <<std::endl;
-
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            
-            
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-            
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
-            
-        }
-    }
-    
-    Tile* LeftXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXLeft);
-    
-    if (LeftXBottomY != nullptr && collidedY != true)
-    {
-        if (LeftXBottomY->getSolidValue() == true)
-        {
-            
-            mapCoordYCenter = mapCoordYCenter - fabs(LeftXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
-            
-            //std::cout << "LeftXBottomY " <<std::endl;
-
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            
-            
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-            
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
-            
-        }
-    }
-    
-    Tile* RightXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXRight);
-    
-    if (RightXBottomY != nullptr && collidedY != true)
-    {
-        if (RightXBottomY->getSolidValue() == true)
-        {
-            
-            mapCoordYCenter = mapCoordYCenter - fabs(RightXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
-            //std::cout << "RightXBottomY " <<std::endl;
-
-            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
-            
-            curEntity->tileMapPosition.sety(mapCoordYCenter);
-            
-            
-            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            collidedY = true;
-            //curEntity->velocity_x = 0;
-            curEntity->velocity.sety(0);
-            //curEntity->acceleration_x = 0;
-            curEntity->acceleration.sety(0);
-            
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
-            
-        }
-    }
-    
     
     // x axis (6 points) (center left and center right)
-
+    
     Tile* LeftXCenterY = curLevelLoader->getLevelDataAtIndex(mapCoordYCenter, mapCoordXLeft);
     
     if (LeftXCenterY != nullptr && collidedX != true)
@@ -237,7 +92,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             mapCoordXCenter = mapCoordXCenter+fabs(LeftXCenterY->getTileLocationX() - mapCoordXLeft) + COLLISION_OFFSET_PUSHBACK;
             
             std::cout << "LeftXCenterY " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
             curEntity->tileMapPosition.setx(mapCoordXCenter);
             
@@ -245,9 +100,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            //curEntity->velocity_y = 0;
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            //curEntity->acceleration_y = 0;
+            //curEntity->acceleration.sety(0);
             
         }
         
@@ -264,7 +119,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             mapCoordXCenter = mapCoordXCenter+fabs(LeftXTopY->getTileLocationX() - mapCoordXLeft) + COLLISION_OFFSET_PUSHBACK;
             
             std::cout << "leftXTopY " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
             curEntity->tileMapPosition.setx(mapCoordXCenter);
             
@@ -272,13 +127,13 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            //curEntity->velocity_y = 0;
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            //curEntity->acceleration_y = 0;
+            //curEntity->acceleration.sety(0);
             
         }
     }
-     
+    
     Tile* LeftXBottomYcheckX = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXLeft);
     
     if (LeftXBottomYcheckX != nullptr  && collidedX != true)
@@ -286,14 +141,19 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
         if (LeftXBottomYcheckX->getSolidValue() == true)
         {
             
-            std::cout << "FABS Difference" << mapCoordXLeft - LeftXBottomYcheckX->getTileLocationX()  << std::endl;
+            std::cout << "leftXBottomYCheckX " <<std::endl;
+            
+            std::cout << "OLD center: " << curEntity->tileMapPosition.getx() << std::endl;
+            
+            //std::cout << "FABS Difference" << mapCoordXLeft - LeftXBottomYcheckX->getTileLocationX()  << std::endl;
             
             mapCoordXCenter = mapCoordXCenter+fabs(mapCoordXLeft - LeftXBottomYcheckX->getTileLocationX()) + COLLISION_OFFSET_PUSHBACK;
             
-            std::cout << "leftXBottomYCheckX " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
             curEntity->tileMapPosition.setx(mapCoordXCenter);
+            
+            std::cout << "New center: " << curEntity->tileMapPosition.getx() << std::endl;
             
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
@@ -316,18 +176,18 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             mapCoordXCenter = mapCoordXCenter-fabs(RightXCenterY->getTileLocationX() - mapCoordXRight) - COLLISION_OFFSET_PUSHBACK;
             std::cout << "RightXCenterY " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
-
+            
             
             curEntity->tileMapPosition.setx(mapCoordXCenter);
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            //curEntity->velocity_y = 0;
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            //curEntity->acceleration_y = 0;
+            //curEntity->acceleration.sety(0);
             
         }
         
@@ -344,18 +204,18 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             mapCoordXCenter = mapCoordXCenter-fabs(RightXTopY->getTileLocationX() - mapCoordXRight) - COLLISION_OFFSET_PUSHBACK;
             std::cout << "RightXTopY " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
-
+            
             
             curEntity->tileMapPosition.setx(mapCoordXCenter);
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            //curEntity->velocity_y = 0;
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            //curEntity->acceleration_y = 0;
+            //curEntity->acceleration.sety(0);
             
         }
         
@@ -370,46 +230,241 @@ void TileMapCollisionChecker::checkAndResolveCollisionWithEntity(Entity* theEnti
             
             mapCoordXCenter = mapCoordXCenter-fabs(RightXBottomYcheckX->getTileLocationX() - mapCoordXRight) - COLLISION_OFFSET_PUSHBACK;
             std::cout << "RightXBottomCheckX " <<std::endl;
-
+            
             std::cout << "NEW  MapCoordXCenter: " << mapCoordXCenter << std::endl;
-
+            
             
             curEntity->tileMapPosition.setx(mapCoordXCenter);
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
             curEntity->velocity.setx(0);
-            //curEntity->velocity_y = 0;
+            //curEntity->velocity.sety(0);
             curEntity->acceleration.setx(0);
-            //curEntity->acceleration_y = 0;
+            //curEntity->acceleration.sety(0);
             
         }
         
     }
     
     
-    
-    //make the entity stay within the map zone on the x dirrection
-    
-    if (mapCoordXRight >= curLevelLoader->getLevelWidth())
-    {
-        mapCoordXRight = mapCoordXRight-fabs(curLevelLoader->getLevelWidth() - mapCoordXRight) - 0.1f;
-        mapCoordXCenter = mapCoordXCenter-fabs(curLevelLoader->getLevelWidth() - mapCoordXRight) - 0.1f;
-        //std::cout << "New XRight = " << mapCoordXRight << std::endl;
-        
-        curEntity->tileMapPosition.setx(mapCoordXCenter);
-        
-        curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-    }
-    else if (mapCoordXLeft < 0)
-    {
-        
-        mapCoordXCenter = mapCoordXCenter+fabs(0 - mapCoordXRight) + 0.1f;
-    }
-    
-    return;
-
 }
+
+void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader)
+{
+    errorCode = 0; //reset the error code at each collision detection
+    
+    curEntity = theEntityChecked;
+    
+    curLevelLoader = theLevelLoader;
+    
+    getCurEntityMapTileCoords();
+    
+    
+    
+    if (curEntityMapTileCoordX > theLevelLoader->getLevelWidth() || curEntityMapTileCoordX < 0)
+    {
+        errorCode = 1;
+        return;
+    }
+    
+    if (curEntityMapTileCoordY > theLevelLoader->getLevelHeight() || curEntityMapTileCoordY < 0)
+    {
+        errorCode = 2;
+        return;
+    }
+    
+    
+    float mapCoordXCenter = curEntityMapTileCoordX;
+    float mapCoordXRight = curEntityMapTileCoordX + (theEntityChecked->width/TILE_SIZE)/2;
+    float mapCoordXLeft = curEntityMapTileCoordX - (theEntityChecked->width/TILE_SIZE)/2;
+    
+    float mapCoordYCenter = curEntityMapTileCoordY;
+    float mapCoordYBottom = curEntityMapTileCoordY + (theEntityChecked->height/TILE_SIZE)/2;
+    float mapCoordYTop = curEntityMapTileCoordY - (theEntityChecked->height/TILE_SIZE)/2;
+    
+    
+    collidedX = false;
+    collidedY = false;
+    
+    //y axis (6 points) (center top and center bottom)
+    
+    
+    Tile* CenterXTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXCenter);
+    
+    if (CenterXTopY != nullptr && collidedY != true)
+    {
+        if (CenterXTopY->getSolidValue() == true)
+        {
+            mapCoordYCenter = mapCoordYCenter-fabs(CenterXTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            std::cout << "CenterXTopY " <<std::endl;
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+        }
+        
+    }
+    
+    
+    Tile* LeftTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXLeft);
+    
+    if (LeftTopY != nullptr && collidedY != true)
+    {
+        if (LeftTopY->getSolidValue() == true)
+        {
+            mapCoordYCenter = mapCoordYCenter-fabs(LeftTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            std::cout << "LeftTopy " <<std::endl;
+            
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+        }
+        
+    }
+    
+    Tile* RightTopY = curLevelLoader->getLevelDataAtIndex(mapCoordYTop, mapCoordXRight);
+    
+    if (RightTopY != nullptr && collidedY != true)
+    {
+        if (RightTopY->getSolidValue() == true)
+        {
+            mapCoordYCenter = mapCoordYCenter-fabs(RightTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            std::cout << "RightTopY " <<std::endl;
+            
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter <<std::endl;
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+        }
+        
+    }
+    
+    
+    
+    Tile* CenterXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXCenter);
+    
+    if (CenterXBottomY != nullptr && collidedY != true)
+    {
+        if (CenterXBottomY->getSolidValue() == true)
+        {
+            
+            mapCoordYCenter = mapCoordYCenter - fabs(CenterXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
+            
+            std::cout << "CenterXBottomY " <<std::endl;
+            
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            
+            curEntity->outputEntityTileMapPosition();
+            curEntity->outputEntityWorldPosition();
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            curEntity->outputEntityTileMapPosition();
+            curEntity->outputEntityWorldPosition();
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+            
+            if (curEntity->EntityType == "Player")
+            {
+                curEntity->collidedBottom = true;
+            }
+            
+        }
+    }
+    
+    Tile* LeftXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXLeft);
+    
+    if (LeftXBottomY != nullptr && collidedY != true)
+    {
+        if (LeftXBottomY->getSolidValue() == true)
+        {
+            
+            mapCoordYCenter = mapCoordYCenter - fabs(LeftXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
+            
+            std::cout << "LeftXBottomY " <<std::endl;
+            
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            
+            
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+            
+            if (curEntity->EntityType == "Player")
+            {
+                curEntity->collidedBottom = true;
+            }
+            
+        }
+    }
+    
+    Tile* RightXBottomY = curLevelLoader->getLevelDataAtIndex(mapCoordYBottom, mapCoordXRight);
+    
+    if (RightXBottomY != nullptr && collidedY != true)
+    {
+        if (RightXBottomY->getSolidValue() == true)
+        {
+            
+            mapCoordYCenter = mapCoordYCenter - fabs(RightXBottomY->getTileLocationY() - mapCoordYBottom) - COLLISION_OFFSET_PUSHBACK;
+            std::cout << "RightXBottomY " <<std::endl;
+            
+            //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
+            
+            curEntity->tileMapPosition.sety(mapCoordYCenter);
+            
+            
+            curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            collidedY = true;
+            //curEntity->velocity.setx(0);
+            curEntity->velocity.sety(0);
+            //curEntity->acceleration.setx(0);
+            curEntity->acceleration.sety(0);
+            
+            if (curEntity->EntityType == "Player")
+            {
+                curEntity->collidedBottom = true;
+            }
+            
+        }
+    }
+    
+}
+
 
 
 int TileMapCollisionChecker::getErrorCode()

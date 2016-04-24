@@ -119,3 +119,20 @@ void Entity::updateYWorldCoordinatesFromTileMapCoords(float tileSize)
 
 
 }
+
+void Entity::outputEntityTileMapPosition()
+{
+ 
+    std::cout << "ENTITY TILE MAP POSITION: " << std::endl;
+    std::cout << "x = " << tileMapPosition.getx() << std::endl;
+    std::cout << "y = " << tileMapPosition.gety() << std::endl;
+    std::cout << "z = " << tileMapPosition.getz() << std::endl;
+    
+}
+void Entity::outputEntityWorldPosition()
+{
+    std::cout << "ENTITY WORLD POSITION: " << std::endl;
+    std::cout << "x = " << position.getx() << std::endl;
+    std::cout << "y = " << position.gety() << std::endl;
+    std::cout << "z = " << position.getz() << std::endl;
+}
