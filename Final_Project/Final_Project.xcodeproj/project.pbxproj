@@ -10,6 +10,7 @@
 		4D0494911CB4632A00F6DD44 /* GeometricVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */; };
 		4D2CC6961CCD5C9000348730 /* enemy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6951CCD5C8F00348730 /* enemy1.png */; };
 		4D2CC6981CCD5DDC00348730 /* Level2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6971CCD5DDC00348730 /* Level2.tmx */; };
+		4D2CC69A1CCD5E7400348730 /* Level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6991CCD5E7400348730 /* Level2.txt */; };
 		4D5719CC1CB1A80D00E14AFF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719AF1CB1A80D00E14AFF /* Credits.rtf */; };
 		4D5719CD1CB1A80D00E14AFF /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719B11CB1A80D00E14AFF /* InfoPlist.strings */; };
 		4D5719CE1CB1A80D00E14AFF /* Entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D5719B31CB1A80D00E14AFF /* Entity.cpp */; };
@@ -42,6 +43,7 @@
 		4D0494901CB4632A00F6DD44 /* GeometricVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometricVector.h; sourceTree = "<group>"; };
 		4D2CC6951CCD5C8F00348730 /* enemy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy1.png; sourceTree = "<group>"; };
 		4D2CC6971CCD5DDC00348730 /* Level2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Level2.tmx; sourceTree = "<group>"; };
+		4D2CC6991CCD5E7400348730 /* Level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level2.txt; sourceTree = "<group>"; };
 		4D5719B01CB1A80D00E14AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
 		4D5719B21CB1A80D00E14AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4D5719B31CB1A80D00E14AFF /* Entity.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Entity.cpp; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				4D5719BB1CB1A80D00E14AFF /* Level1.tmx */,
 				4D5719BC1CB1A80D00E14AFF /* Level1.txt */,
 				4D2CC6971CCD5DDC00348730 /* Level2.tmx */,
+				4D2CC6991CCD5E7400348730 /* Level2.txt */,
 				4D5719BF1CB1A80D00E14AFF /* main.cpp */,
 				4D5719B41CB1A80D00E14AFF /* Entity.h */,
 				4D5719B31CB1A80D00E14AFF /* Entity.cpp */,
@@ -250,6 +253,7 @@
 				4D5719DA1CB1A80D00E14AFF /* playersprite.png in Resources */,
 				4D5719D31CB1A80D00E14AFF /* Level0.tmx in Resources */,
 				4D5719D11CB1A80D00E14AFF /* fragment_textured.glsl in Resources */,
+				4D2CC69A1CCD5E7400348730 /* Level2.txt in Resources */,
 				4D5719E01CB1A80D00E14AFF /* vertex_textured.glsl in Resources */,
 				4D5719DE1CB1A80D00E14AFF /* tiles.png in Resources */,
 				4D5719D01CB1A80D00E14AFF /* fragment.glsl in Resources */,

@@ -164,14 +164,12 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
     
-    //projectionMatrix.setPerspectiveProjection(<#float fov#>, <#float aspect#>, <#float zNear#>, <#float zFar#>);
-    
     //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
     glUseProgram(program->programID);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level0.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level1.txt");
     
     theLevelLoader->loadLevelData();
     
