@@ -21,11 +21,12 @@ private:
     int tileLocationY;
     
     bool isSolid;
+    bool isDeathTile; //this is a tile that if collided with leads to the death of the player.
     
     
 public:
     
-    Tile(int tileValueInput, int tileLocationXInput, int tileLocationYInput, bool isSolidInput):tileValue(tileValueInput),tileLocationX(tileLocationXInput),tileLocationY(tileLocationYInput),isSolid(isSolidInput){};
+    Tile(int tileValueInput, int tileLocationXInput, int tileLocationYInput, bool isSolidInput, bool isDeathInput):tileValue(tileValueInput),tileLocationX(tileLocationXInput),tileLocationY(tileLocationYInput),isSolid(isSolidInput),isDeathTile(isDeathInput){};
     
     
     int getTileValue();
@@ -33,6 +34,7 @@ public:
     int getTileLocationY();
     
     bool getSolidValue();
+    bool getDeathValue();
     
     
 };

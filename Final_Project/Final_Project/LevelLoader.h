@@ -24,6 +24,7 @@
 
 #include "Entity.h"
 #include "Tile.h"
+#include "BaseEnemy.h"
 
 
 using namespace std;
@@ -56,6 +57,10 @@ private:
     
     float defaultPlayerX;
     float defaultPlayerY;
+    
+    
+    
+    int numberOfDeaths;
 
     
 public:
@@ -90,6 +95,10 @@ public:
     float getDefaultPlayerY();
     
     void outPutLevelSolid();
+    
+    void addDeath();
+    
+    void resetPlayerPosition(Entity* player);
     
     
 };

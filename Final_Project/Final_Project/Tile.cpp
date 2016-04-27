@@ -27,3 +27,8 @@ bool Tile::getSolidValue()
 {
     return isSolid;
 }
+
+bool Tile::getDeathValue()
+{
+    return isDeathTile;
+}

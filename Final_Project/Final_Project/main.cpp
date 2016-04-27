@@ -14,6 +14,8 @@
 
 SDL_Window* displayWindow;
 
+#include "CoreFunctions.h"
+
 
 #include "Matrix.h"
 #include "Matrix.h"
@@ -36,8 +38,7 @@ SDL_Window* displayWindow;
 LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
 TileMapCollisionChecker* theCollisionChecker;
-
-
+CoreFunctions* coreFunctionObject;
 
 
 //window properties
@@ -59,13 +60,6 @@ bool done = false;
 Matrix projectionMatrix;
 Matrix viewMatrix;
 Matrix tileMapModelMatrix;
-
-
-//lerp function
-float lerp(float v0, float v1, float t) {
-    return (1.0-t)*v0 + t*v1;
-}
-
 
 //load texture function
 GLuint LoadTexture(const char *image_path)
@@ -149,6 +143,8 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
 ShaderProgram *setup() // will return the shaderProgram pointer
 {
    
+    coreFunctionObject = new CoreFunctions();
+    
     SDL_Init(SDL_INIT_VIDEO);
     displayWindow = SDL_CreateWindow("Platformer Demo - Adrien Cogny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
@@ -169,7 +165,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glUseProgram(program->programID);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level1.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
     
     theLevelLoader->loadLevelData();
     
@@ -326,111 +322,90 @@ void DrawEntities(float elapsed)
     {
         //make player go left
         player->acceleration.setx(-10);
-        std::cout << "GO LEFT" << std::endl;
+        //std::cout << "GO LEFT" << std::endl;
         
     }
     else if(keys[SDL_SCANCODE_RIGHT])
     {
         //make player go right
         player->acceleration.setx(10);
-        std::cout << "GO RIGHT" << std::endl;
+        //std::cout << "GO RIGHT" << std::endl;
 
         
     }
     
     //move the entities
     
-    //change the velocity with respect to friction
-    player->velocity.setx(lerp(player->velocity.getx(),0.0f, FIXED_TIMESTEP * player->friction.getx()));
-    player->velocity.sety(lerp(player->velocity.gety(), 0.0f, FIXED_TIMESTEP * player->friction.gety()));
-    
-    //change the velocity with respect to acceleration
-    /*
-    player->velocity_x += player->acceleration_x * FIXED_TIMESTEP;
-    player->velocity_y += player->acceleration_y * FIXED_TIMESTEP;
-    */
-    player->velocity.setx(player->velocity.getx() + player->acceleration.getx()*FIXED_TIMESTEP);
-    player->velocity.sety(player->velocity.gety() + player->acceleration.gety()*FIXED_TIMESTEP);
-    
-    //change the velocity with respect to the gravity
-    //player->velocity_x += player->gravity_x*FIXED_TIMESTEP;
-    //player->velocity_y += player->gravity_y*FIXED_TIMESTEP;
-    player->velocity.setx(player->velocity.getx() + player->gravity.getx()*FIXED_TIMESTEP);
-    player->velocity.sety(player->velocity.gety() + player->gravity.gety()*FIXED_TIMESTEP);
-    
-    //change the player position with respect to velocity
-    //player->x += player->velocity_x * FIXED_TIMESTEP;
-    //player->y += player->velocity_y * FIXED_TIMESTEP;
-    
-    player->position.setx(player->position.getx() + player->velocity.getx()*FIXED_TIMESTEP);
     
     
-    //do collision check x
     
+    
+    //move and do collision check x
+    player->moveX(elapsed);
     theCollisionChecker->checkAndResolveCollisionXWithEntity(player, theLevelLoader);
-
     
     
-    player->position.sety(player->position.gety() + player->velocity.gety()*FIXED_TIMESTEP);
-    
-    
-    //do collision check y
-    
+    //move and do collision check y
+    player->moveY(elapsed);
     theCollisionChecker->checkAndResolveCollisionYWithEntity(player, theLevelLoader);
-
+    
+    
+    //check if still in bounds
+    theCollisionChecker->checkAndResolveCollisionOnEdges(player, theLevelLoader);
     
     //update the entities tileMap coordinates to do the collision checks
     theLevelLoader->updateAllEntityTileMapCoordinates();
+    
+    
+    //check player out of bounds
+    
+    int errorCodeReceived = theCollisionChecker->getErrorCode();
+    
+    if (errorCodeReceived != 0)
+    {
+        std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
+        
+        if (errorCodeReceived == 1)
+        {
+            std::cout << "Out of bounds on x, resetting player location" << std::endl;
+            
+            //player->tileMapX = theLevelLoader->getDefaultPlayerX();
+            //player->tileMapY = theLevelLoader->getDefaultPlayerY();
+            
+            theLevelLoader->resetPlayerPosition(player);
+
+            
+            //theLevelLoader->addDeath();
+            
+            
+        }
+        else if (errorCodeReceived == 2)
+        {
+            std::cout << "Out of bounds on y, resetting player location" << std::endl;
+            
+            //player->tileMapX = theLevelLoader->getDefaultPlayerX();
+            //player->tileMapY = theLevelLoader->getDefaultPlayerY();
+            
+            player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
+            player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
+            
+            player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
+            //theLevelLoader->addDeath();
+            
+        }
+        
+    }
+    
+    
+    
     
     
     //do collision checking
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {
         Entity* curEntity = theLevelLoader->getEntityForIndex(i);
-        
-        
-        
-        int errorCodeReceived = theCollisionChecker->getErrorCode();
-        
-        if (errorCodeReceived != 0)
-        {
-            std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
-            
-            if (errorCodeReceived == 1)
-            {
-                std::cout << "Out of bounds on x, resetting player location" << std::endl;
-                
-                //player->tileMapX = theLevelLoader->getDefaultPlayerX();
-                //player->tileMapY = theLevelLoader->getDefaultPlayerY();
-                
-                player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
-                player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
-                
-                player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-                
-                
-            }
-            else if (errorCodeReceived == 2)
-            {
-                std::cout << "Out of bounds on y, resetting player location" << std::endl;
-                
-                //player->tileMapX = theLevelLoader->getDefaultPlayerX();
-                //player->tileMapY = theLevelLoader->getDefaultPlayerY();
-                
-                player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
-                player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
-                player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-                
-            }
-            
-        }
-
-
     }
-    
-    
-    
-    
     
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {

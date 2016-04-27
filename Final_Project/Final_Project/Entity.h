@@ -24,6 +24,8 @@
 #include "ShaderProgram.h"
 
 
+#include "CoreFunctions.h"
+
 
 class Entity{
 public:
@@ -56,10 +58,16 @@ public:
     friction(),
     gravity(),
     topEdge(),
-    bottomEdge()
+    bottomEdge(),
+    coreFunctionObject()
     {};
     
     void Draw();
+    
+    void moveX(float elapsed);
+
+    void moveY(float elapsed);
+
     
     //Adding Vectors
     GeometricVector position;
@@ -97,6 +105,7 @@ public:
     float textureSheetHeight;
     float textureSheetWidth;
     
+    CoreFunctions coreFunctionObject;
     
     /*
     
@@ -144,6 +153,7 @@ public:
     
     void DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix);
 
+    
     
 };
 

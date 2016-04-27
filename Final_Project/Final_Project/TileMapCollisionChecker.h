@@ -39,7 +39,6 @@ private:
      1 = Entity out of bounds X
      2 = Entity out of bounds Y
      
-     
      */
     
     
@@ -51,6 +50,8 @@ public:
     void checkAndResolveCollisionXWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader);
     
     void checkAndResolveCollisionYWithEntity(Entity* theEntityChecked,LevelLoader* theLevelLoader);
+    
+    void checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader);
 
     int getErrorCode();
     

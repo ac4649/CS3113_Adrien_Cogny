@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4D0494911CB4632A00F6DD44 /* GeometricVector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */; };
-		4D2CC6961CCD5C9000348730 /* enemy1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6951CCD5C8F00348730 /* enemy1.png */; };
+		4D2CC6961CCD5C9000348730 /* pinkslime.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6951CCD5C8F00348730 /* pinkslime.png */; };
 		4D2CC6981CCD5DDC00348730 /* Level2.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6971CCD5DDC00348730 /* Level2.tmx */; };
 		4D2CC69A1CCD5E7400348730 /* Level2.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4D2CC6991CCD5E7400348730 /* Level2.txt */; };
 		4D5719CC1CB1A80D00E14AFF /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719AF1CB1A80D00E14AFF /* Credits.rtf */; };
@@ -32,6 +32,9 @@
 		4D5719DE1CB1A80D00E14AFF /* tiles.png in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719C91CB1A80D00E14AFF /* tiles.png */; };
 		4D5719DF1CB1A80D00E14AFF /* vertex.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719CA1CB1A80D00E14AFF /* vertex.glsl */; };
 		4D5719E01CB1A80D00E14AFF /* vertex_textured.glsl in Resources */ = {isa = PBXBuildFile; fileRef = 4D5719CB1CB1A80D00E14AFF /* vertex_textured.glsl */; };
+		4D8CBC0A1CD00A5A00DA5778 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D8CBC081CD00A5A00DA5778 /* EnemyAI.cpp */; };
+		4D8CBC0D1CD00C6B00DA5778 /* BaseEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D8CBC0B1CD00C6B00DA5778 /* BaseEnemy.cpp */; };
+		4DCDDE7A1CD11ADC006676DC /* CoreFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
 		6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */; };
@@ -41,7 +44,7 @@
 /* Begin PBXFileReference section */
 		4D04948F1CB4632A00F6DD44 /* GeometricVector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = GeometricVector.cpp; sourceTree = "<group>"; };
 		4D0494901CB4632A00F6DD44 /* GeometricVector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GeometricVector.h; sourceTree = "<group>"; };
-		4D2CC6951CCD5C8F00348730 /* enemy1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = enemy1.png; sourceTree = "<group>"; };
+		4D2CC6951CCD5C8F00348730 /* pinkslime.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = pinkslime.png; sourceTree = "<group>"; };
 		4D2CC6971CCD5DDC00348730 /* Level2.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Level2.tmx; sourceTree = "<group>"; };
 		4D2CC6991CCD5E7400348730 /* Level2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level2.txt; sourceTree = "<group>"; };
 		4D5719B01CB1A80D00E14AFF /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
@@ -71,6 +74,12 @@
 		4D5719C91CB1A80D00E14AFF /* tiles.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tiles.png; sourceTree = "<group>"; };
 		4D5719CA1CB1A80D00E14AFF /* vertex.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex.glsl; sourceTree = "<group>"; };
 		4D5719CB1CB1A80D00E14AFF /* vertex_textured.glsl */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = vertex_textured.glsl; sourceTree = "<group>"; };
+		4D8CBC081CD00A5A00DA5778 /* EnemyAI.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EnemyAI.cpp; sourceTree = "<group>"; };
+		4D8CBC091CD00A5A00DA5778 /* EnemyAI.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EnemyAI.h; sourceTree = "<group>"; };
+		4D8CBC0B1CD00C6B00DA5778 /* BaseEnemy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BaseEnemy.cpp; sourceTree = "<group>"; };
+		4D8CBC0C1CD00C6B00DA5778 /* BaseEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEnemy.h; sourceTree = "<group>"; };
+		4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreFunctions.cpp; sourceTree = "<group>"; };
+		4DCDDE791CD11ADC006676DC /* CoreFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctions.h; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* Final_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Final_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -114,8 +123,14 @@
 				4D2CC6971CCD5DDC00348730 /* Level2.tmx */,
 				4D2CC6991CCD5E7400348730 /* Level2.txt */,
 				4D5719BF1CB1A80D00E14AFF /* main.cpp */,
+				4DCDDE791CD11ADC006676DC /* CoreFunctions.h */,
+				4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */,
 				4D5719B41CB1A80D00E14AFF /* Entity.h */,
 				4D5719B31CB1A80D00E14AFF /* Entity.cpp */,
+				4D8CBC0C1CD00C6B00DA5778 /* BaseEnemy.h */,
+				4D8CBC0B1CD00C6B00DA5778 /* BaseEnemy.cpp */,
+				4D8CBC091CD00A5A00DA5778 /* EnemyAI.h */,
+				4D8CBC081CD00A5A00DA5778 /* EnemyAI.cpp */,
 				4D5719BE1CB1A80D00E14AFF /* LevelLoader.h */,
 				4D5719BD1CB1A80D00E14AFF /* LevelLoader.cpp */,
 				4D0494901CB4632A00F6DD44 /* GeometricVector.h */,
@@ -123,7 +138,7 @@
 				4D5719C11CB1A80D00E14AFF /* Matrix.h */,
 				4D5719C01CB1A80D00E14AFF /* Matrix.cpp */,
 				4D5719C21CB1A80D00E14AFF /* playersprite.png */,
-				4D2CC6951CCD5C8F00348730 /* enemy1.png */,
+				4D2CC6951CCD5C8F00348730 /* pinkslime.png */,
 				4D5719C41CB1A80D00E14AFF /* ShaderProgram.h */,
 				4D5719C31CB1A80D00E14AFF /* ShaderProgram.cpp */,
 				4D5719C61CB1A80D00E14AFF /* Tile.h */,
@@ -257,7 +272,7 @@
 				4D5719E01CB1A80D00E14AFF /* vertex_textured.glsl in Resources */,
 				4D5719DE1CB1A80D00E14AFF /* tiles.png in Resources */,
 				4D5719D01CB1A80D00E14AFF /* fragment.glsl in Resources */,
-				4D2CC6961CCD5C9000348730 /* enemy1.png in Resources */,
+				4D2CC6961CCD5C9000348730 /* pinkslime.png in Resources */,
 				4D5719D21CB1A80D00E14AFF /* Images.xcassets in Resources */,
 				4D2CC6981CCD5DDC00348730 /* Level2.tmx in Resources */,
 				4D5719CD1CB1A80D00E14AFF /* InfoPlist.strings in Resources */,
@@ -278,8 +293,11 @@
 				4D5719DB1CB1A80D00E14AFF /* ShaderProgram.cpp in Sources */,
 				4D5719CE1CB1A80D00E14AFF /* Entity.cpp in Sources */,
 				4D5719DC1CB1A80D00E14AFF /* Tile.cpp in Sources */,
+				4D8CBC0A1CD00A5A00DA5778 /* EnemyAI.cpp in Sources */,
+				4DCDDE7A1CD11ADC006676DC /* CoreFunctions.cpp in Sources */,
 				4D5719DD1CB1A80D00E14AFF /* TileMapCollisionChecker.cpp in Sources */,
 				4D5719D71CB1A80D00E14AFF /* LevelLoader.cpp in Sources */,
+				4D8CBC0D1CD00C6B00DA5778 /* BaseEnemy.cpp in Sources */,
 				4D0494911CB4632A00F6DD44 /* GeometricVector.cpp in Sources */,
 				4D5719D81CB1A80D00E14AFF /* main.cpp in Sources */,
 			);

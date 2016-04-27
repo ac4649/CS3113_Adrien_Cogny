@@ -99,7 +99,7 @@ bool LevelLoader::readHeader(ifstream& fileStream)
     }
     if (!foundGravityY)
     {
-        levelGravityY = 9.8f;
+        levelGravityY = -9.8f;
     }
     
     if(mapWidth == -1 || mapHeight == -1)
@@ -170,7 +170,14 @@ bool LevelLoader::readLayerData(ifstream& fileStream)
                         solidValue = true;
                     }
                     
-                    Tile* theCurTile = new Tile(theValue,x,y,solidValue);
+                    bool deathValue = false;
+
+                    if (theValue == 36 || theValue  == 49 || theValue == 50)
+                    {
+                        deathValue = true;
+                    }
+                    
+                    Tile* theCurTile = new Tile(theValue,x,y,solidValue,deathValue);
                     
                     curLine->push_back(theCurTile);
                     
@@ -192,7 +199,9 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
     
     string line;
     string type;
-    Entity* curEntityRead = new Entity;
+    Entity* curEntityRead = nullptr;
+    
+    
     
     while(getline(fileStream, line))
     {
@@ -210,18 +219,31 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
         if(key == "type")
         {
             type = value;
-            curEntityRead->EntityType = type;
+
             if (type == "Player")
             {
+                curEntityRead = new Entity();
+                
                 //set the spritesheet to use and the coordinates
                 curEntityRead->setTexture("playersprite.png", 0, 0, 66, 92, 66, 92);
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
+                curEntityRead->EntityType = type;
                 
                 
             }
+            else if (type == "Slime")
+            {
+                curEntityRead = new BaseEnemy();
+                
+                //set the spritesheet to use and the coordinates
+                curEntityRead->setTexture("pinkslime.png", 0, 0, 66, 92, 66, 92);
+                curEntityRead->width = TILE_SIZE;
+                curEntityRead->height = TILE_SIZE;
+                curEntityRead->EntityType = type;
+            }
         }
-        else if(key == "location")
+        else if(key == "location" && curEntityRead != nullptr)
         {
             istringstream lineStream(value);
             string xPosition, yPosition;
@@ -243,8 +265,13 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
         
         //set the gravity for the current entity
         
-        curEntityRead->gravity.setx(levelGravityX);
-        curEntityRead->gravity.sety(levelGravityY);
+        if(curEntityRead != nullptr)
+        {
+            curEntityRead->gravity.setx(levelGravityX);
+            curEntityRead->gravity.sety(levelGravityY);
+
+        }
+
         
         
     }
@@ -336,5 +363,20 @@ void LevelLoader::outPutLevelSolid()
         }
         std::cout << std::endl;
     }
+    
+}
+
+void LevelLoader::addDeath()
+{
+    numberOfDeaths = numberOfDeaths + 1;
+}
+
+void LevelLoader::resetPlayerPosition(Entity* player)
+{
+    
+    player->tileMapPosition.setx(getDefaultPlayerX());
+    player->tileMapPosition.sety(getDefaultPlayerY());
+    
+    player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
     
 }
