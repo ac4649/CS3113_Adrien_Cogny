@@ -64,9 +64,9 @@ public:
     
     void Draw();
     
-    void moveX(float elapsed);
+    void virtual moveX(float elapsed);
 
-    void moveY(float elapsed);
+    void virtual moveY(float elapsed);
 
     
     //Adding Vectors

@@ -14,6 +14,8 @@
 #include "Entity.h"
 #include "Tile.h"
 
+#include <queue>
+
 class TileMapCollisionChecker
 {
     
@@ -31,7 +33,7 @@ private:
     bool collidedX;
     bool collidedY;
     
-    int errorCode;
+    std::queue<int> errorCode;
     
     /*
      ErrorCodes:
@@ -54,6 +56,8 @@ public:
     void checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader);
 
     int getErrorCode();
+    
+    bool isErrorCode();
     
     
 };

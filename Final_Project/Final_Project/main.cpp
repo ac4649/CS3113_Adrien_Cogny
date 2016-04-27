@@ -338,31 +338,25 @@ void DrawEntities(float elapsed)
     
     
     
-    
-    
-    //move and do collision check x
-    player->moveX(elapsed);
-    theCollisionChecker->checkAndResolveCollisionXWithEntity(player, theLevelLoader);
-    
-    
-    //move and do collision check y
-    player->moveY(elapsed);
-    theCollisionChecker->checkAndResolveCollisionYWithEntity(player, theLevelLoader);
-    
-    
-    //check if still in bounds
-    theCollisionChecker->checkAndResolveCollisionOnEdges(player, theLevelLoader);
-    
-    //update the entities tileMap coordinates to do the collision checks
-    theLevelLoader->updateAllEntityTileMapCoordinates();
-    
-    
+    for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
+    {
+        Entity* curEntity = theLevelLoader->getEntityForIndex(i);
+        curEntity->moveX(elapsed);
+        theCollisionChecker->checkAndResolveCollisionXWithEntity(curEntity, theLevelLoader);
+        
+        
+        curEntity->moveY(elapsed);
+        theCollisionChecker->checkAndResolveCollisionYWithEntity(curEntity, theLevelLoader);
+        
+    }
+
     //check player out of bounds
     
-    int errorCodeReceived = theCollisionChecker->getErrorCode();
-    
-    if (errorCodeReceived != 0)
+    while (theCollisionChecker->isErrorCode() == true)
     {
+        
+        int errorCodeReceived = theCollisionChecker->getErrorCode();
+        
         std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
         
         if (errorCodeReceived == 1)

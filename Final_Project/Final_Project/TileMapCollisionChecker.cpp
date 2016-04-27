@@ -34,7 +34,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     getCurEntityMapTileCoords();
     
-    if (errorCode != 0)
+    if (errorCode.size() != 0)
     {
         return;
     }
@@ -71,9 +71,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -98,9 +98,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -130,9 +130,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -156,9 +156,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -184,9 +184,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -210,9 +210,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             curEntity->updateXWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
             collidedX = true;
-            curEntity->velocity.setx(0);
+            //curEntity->velocity.setx(0);
             //curEntity->velocity.sety(0);
-            curEntity->acceleration.setx(0);
+            //curEntity->acceleration.setx(0);
             //curEntity->acceleration.sety(0);
             
         }
@@ -232,7 +232,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     getCurEntityMapTileCoords();
     
-    if (errorCode != 0)
+    if (errorCode.size() != 0)
     {
         return;
     }
@@ -269,9 +269,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
         }
         
     }
@@ -294,9 +294,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
         }
         
     }
@@ -318,9 +318,9 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
         }
         
     }
@@ -351,14 +351,12 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
             
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
+            curEntity->collidedBottom = true;
+
             
         }
     }
@@ -383,14 +381,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
             
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
+            curEntity->collidedBottom = true;
             
         }
     }
@@ -414,14 +409,12 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             collidedY = true;
             //curEntity->velocity.setx(0);
-            curEntity->velocity.sety(0);
+            //curEntity->velocity.sety(0);
             //curEntity->acceleration.setx(0);
-            curEntity->acceleration.sety(0);
+            //curEntity->acceleration.sety(0);
             
-            if (curEntity->EntityType == "Player")
-            {
-                curEntity->collidedBottom = true;
-            }
+            curEntity->collidedBottom = true;
+
             
         }
     }
@@ -435,13 +428,13 @@ void TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityC
         
     if (curEntityMapTileCoordX > theLevelLoader->getLevelWidth() || curEntityMapTileCoordX < 0)
     {
-        errorCode = 1;
+        errorCode.push(1);
         return;
     }
     
     if (curEntityMapTileCoordY > theLevelLoader->getLevelHeight() || curEntityMapTileCoordY < 0)
     {
-        errorCode = 2;
+        errorCode.push(2);
         return;
     }
     
@@ -452,7 +445,23 @@ void TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityC
 
 int TileMapCollisionChecker::getErrorCode()
 {
-    return errorCode;
+    //returns the first error code and then removes it (expects whatever method calls it to deal with that error code.
+
+    int returned = errorCode.front();
+    
+    errorCode.pop();
+    
+    return returned;
+    
+}
+
+bool TileMapCollisionChecker::isErrorCode()
+{
+    if (errorCode.size() != 0) {
+        return true;
+    }
+    
+    return false;
 }
 
 

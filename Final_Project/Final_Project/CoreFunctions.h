@@ -21,7 +21,12 @@ public:
         return (1.0-t)*v0 + t*v1;
     }
     
+    float getTileSize();
+    
 private:
+    
+    float tile_size = 30.0f;
+    
 };
 
 

@@ -15,8 +15,11 @@ class EnemyAI
 {
 public:
     
+    EnemyAI(){};
     
 private:
+    
+    
     
 };
 

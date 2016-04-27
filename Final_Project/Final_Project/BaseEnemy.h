@@ -21,12 +21,22 @@ class BaseEnemy: public Entity
 public:
     BaseEnemy():Entity(){};
     
+    void updateDetectorPoints(float tileSize);
     
-    EnemyAI* AIBehaviour;
+    void moveX(float elapsed);
+    void moveY(float elapsed);
     
     
+    //EnemyAI* AIBehaviour;
+
     
 private:
+    
+    //these "geometricvectors" are the points to be checked for different AI behaviours
+    GeometricVector detectorPointTopLeft;
+    GeometricVector detectorPointTopRight;
+    GeometricVector detectorPointBottomLeft;
+    GeometricVector detectorPointBottomRight;
     
     
     

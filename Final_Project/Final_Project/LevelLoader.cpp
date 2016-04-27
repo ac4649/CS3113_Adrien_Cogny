@@ -241,6 +241,9 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
                 curEntityRead->EntityType = type;
+                
+                curEntityRead->acceleration.setx(-1.0);
+                curEntityRead->velocity.setx(-1.0);
             }
         }
         else if(key == "location" && curEntityRead != nullptr)
@@ -291,12 +294,12 @@ Tile* LevelLoader::getLevelDataAtIndex(int height, int width)
     
     if (height >= mapHeight)
     {
-        std::cout << "Beyond level height" << std::endl;
+        //std::cout << "Beyond level height" << std::endl;
         return nullptr;
     }
     if (width >= mapWidth)
     {
-        std::cout << "Beyond level width" << std::endl;
+        //std::cout << "Beyond level width" << std::endl;
         return nullptr;
     }
     Tile* returnValue = (*(*levelMatrix)[height])[width];
