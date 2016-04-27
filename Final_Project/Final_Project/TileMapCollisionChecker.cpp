@@ -425,16 +425,22 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
 void TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader)
 {
     
-        
+    //std::cout << " check bounds " << std::endl;
+    
     if (curEntityMapTileCoordX > theLevelLoader->getLevelWidth() || curEntityMapTileCoordX < 0)
     {
         errorCode.push(1);
+        std::cout << "error x " << std::endl;
+
         return;
+        
     }
     
     if (curEntityMapTileCoordY > theLevelLoader->getLevelHeight() || curEntityMapTileCoordY < 0)
     {
         errorCode.push(2);
+        std::cout << "error y " << std::endl;
+
         return;
     }
     

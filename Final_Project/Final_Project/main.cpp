@@ -335,9 +335,7 @@ void DrawEntities(float elapsed)
     }
     
     //move the entities
-    
-    
-    
+
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {
         Entity* curEntity = theLevelLoader->getEntityForIndex(i);
@@ -348,58 +346,55 @@ void DrawEntities(float elapsed)
         curEntity->moveY(elapsed);
         theCollisionChecker->checkAndResolveCollisionYWithEntity(curEntity, theLevelLoader);
         
-    }
-
-    //check player out of bounds
-    
-    while (theCollisionChecker->isErrorCode() == true)
-    {
+        theCollisionChecker->checkAndResolveCollisionOnEdges(curEntity, theLevelLoader);
         
-        int errorCodeReceived = theCollisionChecker->getErrorCode();
+        //check collisionChecker
         
-        std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
-        
-        if (errorCodeReceived == 1)
+        while (theCollisionChecker->isErrorCode() == true)
         {
-            std::cout << "Out of bounds on x, resetting player location" << std::endl;
             
-            //player->tileMapX = theLevelLoader->getDefaultPlayerX();
-            //player->tileMapY = theLevelLoader->getDefaultPlayerY();
+            int errorCodeReceived = theCollisionChecker->getErrorCode();
             
-            theLevelLoader->resetPlayerPosition(player);
+            std::cout << errorCodeReceived << std::endl;
+            
+            std::cout << "COLLISION DETECTION FAILED WITH ERROR: " << errorCodeReceived << std::endl;
+            
+            if (errorCodeReceived == 1)
+            {
+                std::cout << "Out of bounds on x" << std::endl;
+                
+                if (curEntity->EntityType == "Player" || curEntity->EntityType == "player")
+                {
+                    theLevelLoader->resetPlayerPosition(curEntity);
+                    theLevelLoader->addDeath();
 
-            
-            //theLevelLoader->addDeath();
-            
+                }
+                
+                
+                //theLevelLoader->addDeath();
+                
+                
+            }
+            else if (errorCodeReceived == 2)
+            {
+                std::cout << "Out of bounds on y" << std::endl;
+                
+                if (curEntity->EntityType == "Player" || curEntity->EntityType == "player")
+                {
+                    theLevelLoader->resetPlayerPosition(curEntity);
+                    theLevelLoader->addDeath();
+                }
+                
+
+                
+            }
             
         }
-        else if (errorCodeReceived == 2)
-        {
-            std::cout << "Out of bounds on y, resetting player location" << std::endl;
-            
-            //player->tileMapX = theLevelLoader->getDefaultPlayerX();
-            //player->tileMapY = theLevelLoader->getDefaultPlayerY();
-            
-            player->tileMapPosition.setx(theLevelLoader->getDefaultPlayerX());
-            player->tileMapPosition.sety(theLevelLoader->getDefaultPlayerY());
-            
-            player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
-            
-            //theLevelLoader->addDeath();
-            
-        }
         
     }
+
+
     
-    
-    
-    
-    
-    //do collision checking
-    for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
-    {
-        Entity* curEntity = theLevelLoader->getEntityForIndex(i);
-    }
     
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {

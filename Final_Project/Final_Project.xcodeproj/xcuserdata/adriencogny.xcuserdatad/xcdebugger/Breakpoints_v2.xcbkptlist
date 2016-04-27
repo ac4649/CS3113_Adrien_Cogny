@@ -644,15 +644,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/TileMapCollisionChecker.cpp"
-            timestampString = "483482299.173264"
+            timestampString = "483484591.64825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "432"
-            endingLineNumber = "432"
+            startingLineNumber = "436"
+            endingLineNumber = "436"
             landmarkName = "TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader)"
             landmarkType = "5">
          </BreakpointContent>
@@ -660,17 +660,33 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/TileMapCollisionChecker.cpp"
-            timestampString = "483482300.418656"
+            timestampString = "483484591.64825"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "438"
-            endingLineNumber = "438"
+            startingLineNumber = "444"
+            endingLineNumber = "444"
             landmarkName = "TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader)"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/main.cpp"
+            timestampString = "483484681.922317"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "348"
+            endingLineNumber = "348"
+            landmarkName = "DrawEntities(float elapsed)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -8,6 +8,14 @@
 
 #include "BaseEnemy.h"
 
+BaseEnemy::BaseEnemy():Entity()
+{
+    if (EntityType == "slime") {
+        AIBehaviour = new EnemyAI();
+    }
+    
+}
+
 void BaseEnemy::updateDetectorPoints(float tileSize)
 {
     float x = position.getx();
@@ -34,6 +42,9 @@ void BaseEnemy::moveX(float elapsed)
     
     position.setx(position.getx() + velocity.getx()*elapsed);
     
+    //check detectorPoints
+
+    
     
 }
 
@@ -49,6 +60,8 @@ void BaseEnemy::moveY(float elapsed)
     //change the position Y
     position.sety(position.gety() + velocity.gety()*elapsed);
     
+    //check detectorPoints
+
     
 
 }

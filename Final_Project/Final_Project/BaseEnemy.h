@@ -19,15 +19,15 @@ class BaseEnemy: public Entity
 {
     
 public:
-    BaseEnemy():Entity(){};
-    
+    BaseEnemy();
+
     void updateDetectorPoints(float tileSize);
     
     void moveX(float elapsed);
     void moveY(float elapsed);
     
     
-    //EnemyAI* AIBehaviour;
+    EnemyAI* AIBehaviour;
 
     
 private:

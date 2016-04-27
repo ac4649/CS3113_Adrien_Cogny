@@ -245,6 +245,19 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead->acceleration.setx(-1.0);
                 curEntityRead->velocity.setx(-1.0);
             }
+            else if (type == "BlueSlime")
+            {
+                curEntityRead = new BaseEnemy();
+                
+                //set the spritesheet to use and the coordinates
+                curEntityRead->setTexture("bluelime.png", 0, 0, 66, 92, 66, 92);
+                curEntityRead->width = TILE_SIZE;
+                curEntityRead->height = TILE_SIZE;
+                curEntityRead->EntityType = type;
+                
+                curEntityRead->acceleration.setx(-1.0);
+                curEntityRead->velocity.setx(-1.0);
+            }
         }
         else if(key == "location" && curEntityRead != nullptr)
         {
@@ -381,5 +394,8 @@ void LevelLoader::resetPlayerPosition(Entity* player)
     player->tileMapPosition.sety(getDefaultPlayerY());
     
     player->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+    
+    
+    player->velocity.setxyz(0.0, 0.0, 0.0);
     
 }
