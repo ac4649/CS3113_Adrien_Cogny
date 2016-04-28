@@ -29,6 +29,7 @@
 
 using namespace std;
 
+class Entity;
 
 class LevelLoader
 {

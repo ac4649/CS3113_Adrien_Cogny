@@ -10,6 +10,9 @@
 #define CoreFunctions_h
 
 #include <stdio.h>
+//#include "LevelLoader.h"
+//#include "TileMapCollisionChecker.h"
+
 
 class CoreFunctions
 {
@@ -26,6 +29,8 @@ public:
 private:
     
     float tile_size = 30.0f;
+    
+    
     
 };
 

@@ -7,3 +7,8 @@
 //
 
 #include "CoreFunctions.h"
+
+float CoreFunctions::getTileSize()
+{
+    return tile_size;
+}

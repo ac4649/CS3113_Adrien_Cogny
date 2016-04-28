@@ -16,6 +16,9 @@
 
 #include <queue>
 
+class LevelLoader;
+class Entity;
+
 class TileMapCollisionChecker
 {
     

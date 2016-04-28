@@ -200,6 +200,9 @@ void Entity::moveX(float elapsed)
     velocity.setx(velocity.getx() + gravity.getx()*elapsed);
 
     position.setx(position.getx() + velocity.getx()*elapsed);
+    
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
 
     
 }
@@ -214,6 +217,9 @@ void Entity::moveY(float elapsed)
     
     //change the position Y
     position.sety(position.gety() + velocity.gety()*elapsed);
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
     
 }
 

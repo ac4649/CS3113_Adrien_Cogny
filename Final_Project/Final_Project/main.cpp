@@ -149,6 +149,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     displayWindow = SDL_CreateWindow("Platformer Demo - Adrien Cogny", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 640, 360, SDL_WINDOW_OPENGL);
     SDL_GLContext context = SDL_GL_CreateContext(displayWindow);
     SDL_GL_MakeCurrent(displayWindow, context);
+    
+    SDL_SetWindowFullscreen(displayWindow, 0);
+    
 #ifdef _WINDOWS
     glewInit();
 #endif
@@ -159,6 +162,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //set the projection Matrix
     
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
+    
+    SDL_ShowCursor(0);
     
     //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
@@ -370,10 +375,6 @@ void DrawEntities(float elapsed)
 
                 }
                 
-                
-                //theLevelLoader->addDeath();
-                
-                
             }
             else if (errorCodeReceived == 2)
             {
@@ -399,9 +400,6 @@ void DrawEntities(float elapsed)
     for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
     {
         Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
-        
-        //std::cout << theCurEntity->x << std::endl;
-        //std::cout << theCurEntity->y << std::endl;
         
         //display the entity
         theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix);
@@ -454,7 +452,7 @@ int main(int argc, char *argv[])
         
         
         glClear(GL_COLOR_BUFFER_BIT);
-        glClearColor(1.0, 1.0, 1.0, 1.0);
+        glClearColor(0.0, 0.0, 0.0, 1.0);
         
         
         float fixedElapsed = elapsed;

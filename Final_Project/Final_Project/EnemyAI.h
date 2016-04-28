@@ -10,6 +10,13 @@
 #define EnemyAI_h
 
 #include <stdio.h>
+#include "CoreFunctions.h"
+#include "GeometricVector.h"
+#include "LevelLoader.h"
+#include "TileMapCollisionChecker.h"
+
+class LevelLoader;
+class TileMapCollisionChecker;
 
 class EnemyAI
 {
@@ -17,9 +24,12 @@ public:
     
     EnemyAI(){};
     
-    void detection();
+    bool detectPointSolid(GeometricVector* thePointToCheck); //simple solid point detection
     
 private:
+    
+    
+    
     
     
     

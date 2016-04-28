@@ -7,3 +7,13 @@
 //
 
 #include "EnemyAI.h"
+
+
+bool EnemyAI::detectPointSolid(GeometricVector* thePointToCheck)
+{
+    
+    
+    
+    
+    return false;
+}

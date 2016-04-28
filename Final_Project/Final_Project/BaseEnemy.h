@@ -27,7 +27,9 @@ public:
     void moveY(float elapsed);
     
     
-    EnemyAI* AIBehaviour;
+    
+    
+    //EnemyAI AIBehaviour;
 
     
 private:
@@ -38,6 +40,11 @@ private:
     GeometricVector detectorPointBottomLeft;
     GeometricVector detectorPointBottomRight;
     
+    bool checkDetectorPointTopLeft();
+    bool checkDetectorPointTopRight();
+    bool checkDetectorPointBottomLeft();
+    bool checkDetectorPointBottomRight();
+
     
     
 };

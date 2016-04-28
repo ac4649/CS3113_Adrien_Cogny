@@ -7,14 +7,9 @@
 //
 
 #include "BaseEnemy.h"
+#include "Tile.h"
 
-BaseEnemy::BaseEnemy():Entity()
-{
-    if (EntityType == "slime") {
-        AIBehaviour = new EnemyAI();
-    }
-    
-}
+BaseEnemy::BaseEnemy():Entity(){}
 
 void BaseEnemy::updateDetectorPoints(float tileSize)
 {
@@ -40,7 +35,12 @@ void BaseEnemy::moveX(float elapsed)
     velocity.setx(velocity.getx() + acceleration.getx()*elapsed);
     velocity.setx(velocity.getx() + gravity.getx()*elapsed);
     
+    //change the position of X
     position.setx(position.getx() + velocity.getx()*elapsed);
+    
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
     
     //check detectorPoints
 
@@ -60,8 +60,58 @@ void BaseEnemy::moveY(float elapsed)
     //change the position Y
     position.sety(position.gety() + velocity.gety()*elapsed);
     
+    
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
+    
     //check detectorPoints
 
     
+    
+    
+    
+    
 
 }
+
+
+
+
+bool BaseEnemy::checkDetectorPointTopLeft()
+{
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+    
+    return false;
+
+    
+}
+
+bool BaseEnemy::checkDetectorPointTopRight()
+{
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
+    return false;
+}
+
+bool BaseEnemy::checkDetectorPointBottomLeft()
+{
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
+    return false;
+    
+}
+
+bool BaseEnemy::checkDetectorPointBottomRight()
+{
+    
+    updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
+
+    return false;
+    
+}
+
+
