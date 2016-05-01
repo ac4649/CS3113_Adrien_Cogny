@@ -14,22 +14,25 @@
 #include "GeometricVector.h"
 #include "LevelLoader.h"
 #include "TileMapCollisionChecker.h"
+#include "BaseEnemy.h"
+#include "Tile.h"
 
 class LevelLoader;
 class TileMapCollisionChecker;
+class BaseEnemy;
 
 class EnemyAI
 {
 public:
     
-    EnemyAI(){};
+    EnemyAI(TileMapCollisionChecker* passedCollisionChecker, LevelLoader* passedLevelLoader):theCollisionChecker(passedCollisionChecker), theLevelLoader(passedLevelLoader){};
     
-    bool detectPointSolid(GeometricVector* thePointToCheck); //simple solid point detection
+    TileMapCollisionChecker* theCollisionChecker;
+    LevelLoader* theLevelLoader;
+    
+    void simpleBackForth(BaseEnemy* theEnemy); //simple solid point detection that reverses the location of the enemys
     
 private:
-    
-    
-    
     
     
     

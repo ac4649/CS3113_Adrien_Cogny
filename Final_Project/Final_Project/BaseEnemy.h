@@ -12,6 +12,7 @@
 #include <stdio.h>
 #include "Entity.h"
 #include "EnemyAI.h"
+//#include "CoreFunctions.h"
 
 //this contains any basic things necessary for enemy function
 
@@ -26,10 +27,11 @@ public:
     void moveX(float elapsed);
     void moveY(float elapsed);
     
-    
-    
-    
-    //EnemyAI AIBehaviour;
+    GeometricVector  getDetectorPointTopLeft();
+    GeometricVector getDetectorPointTopRight();
+    GeometricVector getDetectorPointBottomLeft();
+    GeometricVector getDetectorPointBottomRight();
+
 
     
 private:

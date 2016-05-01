@@ -38,7 +38,6 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     {
         return;
     }
-
     
     
     float mapCoordXCenter = curEntityMapTileCoordX;

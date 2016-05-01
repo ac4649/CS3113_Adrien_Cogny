@@ -35,9 +35,13 @@ SDL_Window* displayWindow;
 #define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
 
 //helper objects
+
 LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
 TileMapCollisionChecker* theCollisionChecker;
+
+EnemyAI* theAI;
+ 
 CoreFunctions* coreFunctionObject;
 
 
@@ -181,6 +185,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     
     theCollisionChecker = new TileMapCollisionChecker();
+    theAI = new EnemyAI(theCollisionChecker,theLevelLoader);
     
     
     //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
@@ -319,6 +324,8 @@ void DrawLevel(float elapsed)
 void DrawEntities(float elapsed)
 {
     
+    
+    
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     
     Entity* player = theLevelLoader->getEntityForIndex(0);
@@ -353,8 +360,17 @@ void DrawEntities(float elapsed)
         
         theCollisionChecker->checkAndResolveCollisionOnEdges(curEntity, theLevelLoader);
         
-        //check collisionChecker
         
+        if (curEntity->EntityType != "player" || curEntity->EntityType != "Player")
+        {
+            theAI->simpleBackForth((BaseEnemy* )curEntity);
+
+        }
+        
+        
+        
+        
+        //check collisionChecker   
         while (theCollisionChecker->isErrorCode() == true)
         {
             
@@ -488,5 +504,6 @@ int main(int argc, char *argv[])
     }
     
     SDL_Quit();
+
     return 0;
 }

@@ -20,9 +20,18 @@ void BaseEnemy::updateDetectorPoints(float tileSize)
     
     
     detectorPointTopLeft.setx(x - tileSize/2 - 1/10*tileSize); //corner - 1/10* tilesize
-    //detectorPointTopLeft.sety(y - tileSize/2);
+    detectorPointTopLeft.sety(y - tileSize/2 - 1/10*tileSize);
     
     detectorPointTopRight.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
+    detectorPointTopRight.sety(y - tileSize/2 + 1/10*tileSize);
+
+    
+    detectorPointBottomLeft.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
+    detectorPointBottomLeft.sety(y - tileSize/2 - 1/10*tileSize);
+    
+    detectorPointBottomRight.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
+    detectorPointBottomRight.sety(y - tileSize/2 - 1/10*tileSize);
+    
 
 }
 
@@ -38,13 +47,7 @@ void BaseEnemy::moveX(float elapsed)
     //change the position of X
     position.setx(position.getx() + velocity.getx()*elapsed);
     
-    
     updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
-
-    
-    //check detectorPoints
-
-    
     
 }
 
@@ -60,17 +63,7 @@ void BaseEnemy::moveY(float elapsed)
     //change the position Y
     position.sety(position.gety() + velocity.gety()*elapsed);
     
-    
-    
     updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
-
-    
-    //check detectorPoints
-
-    
-    
-    
-    
     
 
 }
@@ -113,5 +106,24 @@ bool BaseEnemy::checkDetectorPointBottomRight()
     return false;
     
 }
+
+GeometricVector  BaseEnemy::getDetectorPointTopLeft()
+{
+    return detectorPointTopLeft;
+}
+
+GeometricVector BaseEnemy::getDetectorPointTopRight()
+{
+    return detectorPointTopRight;
+}
+GeometricVector BaseEnemy::getDetectorPointBottomLeft()
+{
+    return detectorPointBottomLeft;
+}
+GeometricVector BaseEnemy::getDetectorPointBottomRight()
+{
+    return detectorPointBottomRight;
+}
+
 
 
