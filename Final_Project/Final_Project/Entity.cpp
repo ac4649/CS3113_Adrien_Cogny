@@ -137,7 +137,7 @@ void Entity::outputEntityWorldPosition()
     std::cout << "z = " << position.getz() << std::endl;
 }
 
-void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix)
+void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix, ShaderProgram* theUntexturedProgra)
 {
     //bind the texture
     glBindTexture(GL_TEXTURE_2D, textureID);

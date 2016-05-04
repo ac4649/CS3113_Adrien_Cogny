@@ -40,6 +40,8 @@ LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
 TileMapCollisionChecker* theCollisionChecker;
 
+ShaderProgram* programUntextured;
+
 EnemyAI* theAI;
  
 CoreFunctions* coreFunctionObject;
@@ -163,6 +165,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glViewport(0, 0, 640, 360);
     ShaderProgram* program = new ShaderProgram(RESOURCE_FOLDER"vertex_textured.glsl", RESOURCE_FOLDER"fragment_textured.glsl");
     
+    programUntextured = new ShaderProgram(RESOURCE_FOLDER"vertex.glsl", RESOURCE_FOLDER"fragment.glsl");
+
+    
     //set the projection Matrix
     
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
@@ -172,6 +177,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
     glUseProgram(program->programID);
+    
+    glPointSize(10.0f);
 
     
     theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
@@ -247,6 +254,10 @@ void DrawLevel(float elapsed)
     theProgram->setModelMatrix(tileMapModelMatrix);
     theProgram->setProjectionMatrix(projectionMatrix);
     theProgram->setViewMatrix(viewMatrix);
+    
+    programUntextured->setProjectionMatrix(projectionMatrix);
+    programUntextured->setViewMatrix(viewMatrix);
+    
     glBindTexture(GL_TEXTURE_2D, tileMapTexture);
     
     //tileMapModelMatrix.identity(); //resets to initial position
@@ -418,7 +429,7 @@ void DrawEntities(float elapsed)
         Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
         
         //display the entity
-        theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix);
+        theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix, programUntextured);
 
     }
     

@@ -15,22 +15,31 @@ void BaseEnemy::updateDetectorPoints(float tileSize)
 {
     float x = position.getx();
     float y = position.gety();
-    float z = position.getz();
+    //float z = position.getz();
     
     
     
-    detectorPointTopLeft.setx(x - tileSize/2 - 1/10*tileSize); //corner - 1/10* tilesize
-    detectorPointTopLeft.sety(y - tileSize/2 - 1/10*tileSize);
+    detectorPointTopLeft.setx(x - tileSize/2 - tileSize/10); //corner - tilesize/10
+    detectorPointTopLeft.sety(y + tileSize/2 + tileSize/10);
     
-    detectorPointTopRight.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
-    detectorPointTopRight.sety(y - tileSize/2 + 1/10*tileSize);
+    detectorPointTopRight.setx(x + tileSize/2 + tileSize/10); //corner - 1/1* tilesize
+    detectorPointTopRight.sety(y + tileSize/2 + tileSize/10);
 
     
-    detectorPointBottomLeft.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
-    detectorPointBottomLeft.sety(y - tileSize/2 - 1/10*tileSize);
+    detectorPointBottomLeft.setx(x - tileSize/2 - tileSize/10); //corner - 1/1* tilesize
+    detectorPointBottomLeft.sety(y - tileSize/2 - tileSize/10);
     
-    detectorPointBottomRight.setx(x + tileSize/2 + 1/10*tileSize); //corner - 1/10* tilesize
-    detectorPointBottomRight.sety(y - tileSize/2 - 1/10*tileSize);
+    detectorPointBottomRight.setx(x + tileSize/2 + tileSize/10); //corner - 1/1* tilesize
+    detectorPointBottomRight.sety(y - tileSize/2 - tileSize/10);
+    
+    
+    tileMapDetectorPointTopLeft = updateTileMapVectorFromWorldVector(detectorPointTopLeft);
+    
+    tileMapDetectorPointTopRight = updateTileMapVectorFromWorldVector(detectorPointTopRight);
+    
+    tileMapDetectorPointBottomLeft = updateTileMapVectorFromWorldVector(detectorPointBottomLeft);
+    
+    tileMapDetectorPointBottomRight = updateTileMapVectorFromWorldVector(detectorPointBottomRight);
     
 
 }
@@ -49,6 +58,8 @@ void BaseEnemy::moveX(float elapsed)
     
     updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
     
+    updateDetectorPoints(coreFunctionObject.getTileSize());
+    
 }
 
 void BaseEnemy::moveY(float elapsed)
@@ -65,6 +76,8 @@ void BaseEnemy::moveY(float elapsed)
     
     updateTileMapCoordinatesFromWorldCoords(coreFunctionObject.getTileSize());
     
+    updateDetectorPoints(coreFunctionObject.getTileSize());
+
 
 }
 
@@ -125,5 +138,164 @@ GeometricVector BaseEnemy::getDetectorPointBottomRight()
     return detectorPointBottomRight;
 }
 
+
+void BaseEnemy::drawDetectorPoints(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix)
+{
+    
+    theProgram->setModelMatrix(detectorPointModelMatrix);
+    theProgram->setProjectionMatrix(projectionMatrix);
+    theProgram->setViewMatrix(viewMatrix);
+
+    float vertices[] =
+    {
+        
+        detectorPointBottomRight.getx(), detectorPointBottomRight.gety(),
+        detectorPointBottomLeft.getx(), detectorPointBottomLeft.gety(),
+        detectorPointTopRight.getx(), detectorPointTopRight.gety(),
+        detectorPointTopLeft.getx(), detectorPointTopLeft.gety()
+        
+    };
+    
+    glVertexAttribPointer(theProgram->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(theProgram->positionAttribute);
+
+    
+    glDrawArrays(GL_POINTS, 0, 4);
+    
+    glDisableVertexAttribArray(theProgram->positionAttribute);
+    glDisableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    
+    std::cout << "Detector Point Positions" << std::endl;
+    
+    
+    std::cout << "Top Left: " << detectorPointTopLeft.getx() << " , " << detectorPointTopLeft.gety()<< std::endl;
+    std::cout << "Top Right: " << detectorPointTopRight.getx() << " , " << detectorPointTopRight.gety() << std::endl;
+    std::cout << "Bottom Left: " << detectorPointBottomLeft.getx() << " , " << detectorPointBottomLeft.gety() << std::endl;
+    
+    std::cout << "Bottom Right: " << detectorPointBottomRight.getx() << " , " << detectorPointBottomRight.gety() << std::endl;
+     
+
+
+}
+
+void BaseEnemy::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix,ShaderProgram* theUntexturedProgram)
+{
+    
+   // std::cout << "DRAWING ENTITY WITH DETECTOR POINTS" << std::endl;
+
+    //bind the texture
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    
+    
+    theProgram->setModelMatrix(modelMatrix);
+    
+    //displayedEntity->modelMatrix.identity();
+    //displayedEntity->modelMatrix.Translate(-totalUnitsWidth/2, -totalUnitsHeight, 0);
+    
+    theProgram->setProjectionMatrix(projectionMatrix);
+    theProgram->setViewMatrix(viewMatrix);
+    
+    float u = textureLocationX / textureSheetWidth;
+    float v = textureLocationY /textureSheetHeight;
+    
+    float spriteNormalizedWidth = textureWidth/textureSheetWidth;
+    float spriteNormalizedHeight = textureHeight/textureSheetHeight;
+    
+    GLfloat texCoords[] = {
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v,
+        u, v,
+        u+spriteNormalizedWidth, v,
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v+spriteNormalizedHeight
+    };
+    
+    float vertices[] =
+    {
+        
+        position.getx()-width/2, position.gety()-height/2,
+        position.getx()+width/2, position.gety()+height/2,
+        position.getx()-width/2, position.gety()+height/2,
+        
+        position.getx()+width/2, position.gety()+height/2,
+        position.getx()-width/2, position.gety()-height/2,
+        position.getx()+width/2, position.gety()-height/2
+        
+    };
+    
+    glVertexAttribPointer(theProgram->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(theProgram->positionAttribute);
+    
+    glVertexAttribPointer(theProgram->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    
+    glDisableVertexAttribArray(theProgram->positionAttribute);
+    glDisableVertexAttribArray(theProgram->texCoordAttribute);
+    /*
+    std::cout << "Entity Corner Positions" << std::endl;
+    
+    
+    std::cout << "Top Left: " << position.getx()-width/2 << " , " << position.gety()+height/2<< std::endl;
+    std::cout << "Top Right: " << position.getx()+width/2 << " , " << position.gety()+height/2 << std::endl;
+    std::cout << "Bottom Left: " << position.getx()-width/2 << " , " << position.gety()-height/2 << std::endl;
+
+    std::cout << "Bottom Right: " << position.getx()+width/2 << " , " << position.gety()-height/2 << std::endl;
+
+    */
+    drawDetectorPoints(theUntexturedProgram, projectionMatrix, viewMatrix);
+    
+    //std::cout << "DONE DRAWING ENTITY WITH DETECTOR POINTS" << std::endl;
+
+
+}
+
+GeometricVector BaseEnemy::updateTileMapVectorFromWorldVector(GeometricVector worldVector)
+{
+ 
+    GeometricVector returnedVector;
+    
+    returnedVector.setx(worldVector.getx()/coreFunctionObject.getTileSize());
+    returnedVector.sety(-worldVector.gety()/coreFunctionObject.getTileSize());
+    returnedVector.setz(0);
+    
+    return returnedVector;
+    
+}
+
+
+GeometricVector BaseEnemy::updateWorldVectorFromTileMapVector(GeometricVector tileMapVector)
+{
+    
+    
+    GeometricVector returnedVector(tileMapVector.getx()*coreFunctionObject.getTileSize()+width/2, -tileMapVector.gety()*coreFunctionObject.getTileSize()-height/2, 0);
+    
+    
+    
+    return returnedVector;
+}
+
+
+
+GeometricVector  BaseEnemy::getTileMapDetectorPointTopLeft()
+{
+    return tileMapDetectorPointTopLeft;
+}
+
+GeometricVector BaseEnemy::getTileMapDetectorPointTopRight()
+{
+    return tileMapDetectorPointTopRight;
+}
+GeometricVector BaseEnemy::getTileMapDetectorPointBottomLeft()
+{
+    return tileMapDetectorPointBottomLeft;
+}
+GeometricVector BaseEnemy::getTileMapDetectorPointBottomRight()
+{
+    return tileMapDetectorPointBottomRight;
+}
 
 

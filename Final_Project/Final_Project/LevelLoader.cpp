@@ -267,10 +267,14 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
             getline(lineStream, xPosition, ',');
             getline(lineStream, yPosition, ',');
             
+            std::cout << xPosition.c_str() << std::endl;
+            std::cout << yPosition.c_str() << std::endl;
+
             curEntityRead->tileMapPosition.setx(atof(xPosition.c_str()));
             curEntityRead->tileMapPosition.sety(atof(yPosition.c_str()));
             
             curEntityRead->updateWorldCoordinatesFromTileMapCoords(TILE_SIZE);
+            
             if (type == "Player")
             {
                 defaultPlayerX = curEntityRead->tileMapPosition.getx();
@@ -305,12 +309,12 @@ const vector<vector<Tile*>*>* LevelLoader::getLevelMatrix()
 Tile* LevelLoader::getLevelDataAtIndex(int height, int width)
 {
     
-    if (height >= mapHeight)
+    if (height >= mapHeight || height < 0)
     {
         //std::cout << "Beyond level height" << std::endl;
         return nullptr;
     }
-    if (width >= mapWidth)
+    if (width >= mapWidth || width < 0)
     {
         //std::cout << "Beyond level width" << std::endl;
         return nullptr;
