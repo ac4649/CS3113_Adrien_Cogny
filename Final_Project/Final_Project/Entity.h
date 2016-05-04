@@ -151,7 +151,7 @@ public:
     
     
     
-    void DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix);
+    void virtual DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix, ShaderProgram* theUntexturedProgram);
 
     
     

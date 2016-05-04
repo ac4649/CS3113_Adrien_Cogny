@@ -10,6 +10,7 @@
 #define CoreFunctions_h
 
 #include <stdio.h>
+#include "ShaderProgram.h"
 //#include "LevelLoader.h"
 //#include "TileMapCollisionChecker.h"
 

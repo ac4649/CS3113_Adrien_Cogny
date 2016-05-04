@@ -551,7 +551,7 @@ bool ProcessGameEvents(float elapsed)
                     if (theFiredBullet != nullptr)
                     {
                         
-                        Mix_PlayChannel(-1, playerFireSound, 0);
+                        //Mix_PlayChannel(-1, playerFireSound, 0);
 
                         //if a bullet was fired;
                         playerBullets.push_back(theFiredBullet);

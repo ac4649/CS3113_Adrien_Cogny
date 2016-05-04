@@ -35,9 +35,15 @@ SDL_Window* displayWindow;
 #define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
 
 //helper objects
+
 LevelLoader* theLevelLoader;
 ShaderProgram* theProgram;
 TileMapCollisionChecker* theCollisionChecker;
+
+ShaderProgram* programUntextured;
+
+EnemyAI* theAI;
+ 
 CoreFunctions* coreFunctionObject;
 
 
@@ -159,6 +165,9 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glViewport(0, 0, 640, 360);
     ShaderProgram* program = new ShaderProgram(RESOURCE_FOLDER"vertex_textured.glsl", RESOURCE_FOLDER"fragment_textured.glsl");
     
+    programUntextured = new ShaderProgram(RESOURCE_FOLDER"vertex.glsl", RESOURCE_FOLDER"fragment.glsl");
+
+    
     //set the projection Matrix
     
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
@@ -168,6 +177,8 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
     glUseProgram(program->programID);
+    
+    glPointSize(10.0f);
 
     
     theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
@@ -181,6 +192,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     
     theCollisionChecker = new TileMapCollisionChecker();
+    theAI = new EnemyAI(theCollisionChecker,theLevelLoader);
     
     
     //translates the tile map model matrix so their 0,0 coincides with the top right corner of the screen
@@ -242,6 +254,10 @@ void DrawLevel(float elapsed)
     theProgram->setModelMatrix(tileMapModelMatrix);
     theProgram->setProjectionMatrix(projectionMatrix);
     theProgram->setViewMatrix(viewMatrix);
+    
+    programUntextured->setProjectionMatrix(projectionMatrix);
+    programUntextured->setViewMatrix(viewMatrix);
+    
     glBindTexture(GL_TEXTURE_2D, tileMapTexture);
     
     //tileMapModelMatrix.identity(); //resets to initial position
@@ -319,6 +335,8 @@ void DrawLevel(float elapsed)
 void DrawEntities(float elapsed)
 {
     
+    
+    
     const Uint8 *keys = SDL_GetKeyboardState(NULL);
     
     Entity* player = theLevelLoader->getEntityForIndex(0);
@@ -353,8 +371,17 @@ void DrawEntities(float elapsed)
         
         theCollisionChecker->checkAndResolveCollisionOnEdges(curEntity, theLevelLoader);
         
-        //check collisionChecker
         
+        if (curEntity->EntityType != "player" || curEntity->EntityType != "Player")
+        {
+            theAI->simpleBackForth((BaseEnemy* )curEntity);
+
+        }
+        
+        
+        
+        
+        //check collisionChecker   
         while (theCollisionChecker->isErrorCode() == true)
         {
             
@@ -402,7 +429,7 @@ void DrawEntities(float elapsed)
         Entity* theCurEntity = theLevelLoader->getEntityForIndex(i);
         
         //display the entity
-        theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix);
+        theCurEntity->DrawSpriteUnorderedSheetSprite(theProgram, projectionMatrix, viewMatrix, programUntextured);
 
     }
     
@@ -488,5 +515,6 @@ int main(int argc, char *argv[])
     }
     
     SDL_Quit();
+
     return 0;
 }

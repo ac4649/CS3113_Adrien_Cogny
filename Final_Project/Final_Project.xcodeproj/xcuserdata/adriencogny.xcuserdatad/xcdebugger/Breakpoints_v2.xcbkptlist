@@ -582,11 +582,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/main.cpp"
-            timestampString = "483572847.104701"
+            timestampString = "484006855.614419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "337"
             endingLineNumber = "337">
+=======
+            startingLineNumber = "355"
+            endingLineNumber = "355"
+            landmarkName = "DrawEntities(float elapsed)"
+            landmarkType = "7">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -596,11 +603,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/main.cpp"
-            timestampString = "483572847.104701"
+            timestampString = "484006855.614419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "180"
             endingLineNumber = "180">
+=======
+            startingLineNumber = "191"
+            endingLineNumber = "191"
+            landmarkName = "setup()"
+            landmarkType = "7">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -610,11 +624,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/BaseEnemy.h"
-            timestampString = "483570121.769201"
+            timestampString = "484012123.977719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "36"
             endingLineNumber = "36">
+=======
+            startingLineNumber = "46"
+            endingLineNumber = "46"
+            landmarkName = "class BaseEnemy"
+            landmarkType = "3">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -624,11 +645,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/BaseEnemy.cpp"
-            timestampString = "483570121.769201"
+            timestampString = "484011760.724394"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "32"
             endingLineNumber = "32">
+=======
+            startingLineNumber = "50"
+            endingLineNumber = "50"
+            landmarkName = "BaseEnemy::moveX(float elapsed)"
+            landmarkType = "5">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -638,11 +666,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/TileMapCollisionChecker.cpp"
-            timestampString = "483484591.64825"
+            timestampString = "483754653.053643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "436"
             endingLineNumber = "436">
+=======
+            startingLineNumber = "435"
+            endingLineNumber = "435"
+            landmarkName = "TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader)"
+            landmarkType = "5">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -652,11 +687,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/TileMapCollisionChecker.cpp"
-            timestampString = "483484591.64825"
+            timestampString = "483754653.053643"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "444"
             endingLineNumber = "444">
+=======
+            startingLineNumber = "443"
+            endingLineNumber = "443"
+            landmarkName = "TileMapCollisionChecker::checkAndResolveCollisionOnEdges(Entity* theEntityChecked,LevelLoader* theLevelLoader)"
+            landmarkType = "5">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -666,11 +708,18 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/main.cpp"
-            timestampString = "483572847.104701"
+            timestampString = "484006855.614419"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "353"
             endingLineNumber = "353">
+=======
+            startingLineNumber = "371"
+            endingLineNumber = "371"
+            landmarkName = "DrawEntities(float elapsed)"
+            landmarkType = "7">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -679,12 +728,113 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Final_Project/EnemyAI.h"
-            timestampString = "483570379.2387"
+            filePath = "Final_Project/BaseEnemy.h"
+            timestampString = "483640841.390181"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
+<<<<<<< HEAD
             startingLineNumber = "27"
             endingLineNumber = "27">
+=======
+            startingLineNumber = "14"
+            endingLineNumber = "14">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/main.cpp"
+            timestampString = "484006855.614419"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "DrawLevel(float elapsed)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/main.cpp"
+            timestampString = "484006855.614419"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "377"
+            endingLineNumber = "377"
+            landmarkName = "DrawEntities(float elapsed)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/main.cpp"
+            timestampString = "484006855.614419"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "DrawEntities(float elapsed)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/BaseEnemy.cpp"
+            timestampString = "484011760.724394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "145"
+            endingLineNumber = "145"
+            landmarkName = "BaseEnemy::drawDetectorPoints(ShaderProgram *theProgram, Matrix&amp; projectionMatrix, Matrix&amp; viewMatrix)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/BaseEnemy.cpp"
+            timestampString = "484011760.724394"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "159"
+            endingLineNumber = "159"
+            landmarkName = "BaseEnemy::drawDetectorPoints(ShaderProgram *theProgram, Matrix&amp; projectionMatrix, Matrix&amp; viewMatrix)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Final_Project/BaseEnemy.cpp"
+            timestampString = "484012520.131893"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
+            landmarkName = "BaseEnemy::updateTileMapVectorFromWorldVector(GeometricVector worldVector)"
+            landmarkType = "5">
+>>>>>>> CoreFunctions
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
