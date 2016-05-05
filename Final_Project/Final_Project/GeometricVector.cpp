@@ -12,7 +12,11 @@
 //constructors
 GeometricVector::GeometricVector()
 {
-    GeometricVector(0.0,0.0,0.0); //default is 0,0,0
+    x = 0.0f;
+    y = 0.0f;
+    z = 0.0f;
+    
+    //default is 0,0,0
     
 }
 

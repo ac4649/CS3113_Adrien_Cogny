@@ -218,6 +218,19 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
         
         if(key == "type")
         {
+            
+            
+            /*
+             
+             Entity Types:
+             
+             0 = Player
+             1 = Slime
+             2 = BlueSlime
+             
+             */
+            
+            
             type = value;
 
             if (type == "Player")
@@ -228,7 +241,7 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead->setTexture("playersprite.png", 0, 0, 66, 92, 66, 92);
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
-                curEntityRead->EntityType = type;
+                curEntityRead->EntityType = 0;
                 
                 
             }
@@ -240,7 +253,7 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead->setTexture("pinkslime.png", 0, 0, 66, 92, 66, 92);
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
-                curEntityRead->EntityType = type;
+                curEntityRead->EntityType = 1;
                 
                 curEntityRead->acceleration.setx(-1.0);
                 curEntityRead->velocity.setx(-1.0);
@@ -250,13 +263,23 @@ bool LevelLoader::readEntityData(ifstream& fileStream)
                 curEntityRead = new BaseEnemy();
                 
                 //set the spritesheet to use and the coordinates
-                curEntityRead->setTexture("bluelime.png", 0, 0, 66, 92, 66, 92);
+                curEntityRead->setTexture("blueSlime.png", 0, 0, 66, 92, 66, 92);
                 curEntityRead->width = TILE_SIZE;
                 curEntityRead->height = TILE_SIZE;
-                curEntityRead->EntityType = type;
+                curEntityRead->EntityType = 2;
                 
                 curEntityRead->acceleration.setx(-1.0);
                 curEntityRead->velocity.setx(-1.0);
+            }
+            else if (type == "Snail")
+            {
+                curEntityRead->setTexture("snail.png", 0, 0, 31, 53, 31, 53);
+                curEntityRead->width = TILE_SIZE;
+                curEntityRead->height = TILE_SIZE;
+                curEntityRead->EntityType = 3;
+                
+                curEntityRead->acceleration.setx(2.0);
+                curEntityRead->velocity.setx(0.0);
             }
         }
         else if(key == "location" && curEntityRead != nullptr)

@@ -136,7 +136,7 @@ public:
     
     void setTexture(const char *image_path, float locationX, float locationY, float width, float height,float textureSheedWidth, float textureSheetHeight);
     
-    std::string EntityType; // Player, Enemy etc...
+    int EntityType; // Player, Enemy etc...
     
     void updateTileMapCoordinatesFromWorldCoords(float tileSize);
     

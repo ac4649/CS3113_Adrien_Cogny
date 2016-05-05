@@ -47,7 +47,7 @@ void BaseEnemy::updateDetectorPoints(float tileSize)
 void BaseEnemy::moveX(float elapsed)
 {
     
-    std::cout << "Moving enemy X" << std::endl;
+    //std::cout << "Moving enemy X" << std::endl;
     //change the velocity x with respect to friction, gravity and acceleration
     velocity.setx(coreFunctionObject.lerp(velocity.getx(),0.0f, elapsed * friction.getx()));
     velocity.setx(velocity.getx() + acceleration.getx()*elapsed);
@@ -60,11 +60,14 @@ void BaseEnemy::moveX(float elapsed)
     
     updateDetectorPoints(coreFunctionObject.getTileSize());
     
+    Entity::outputEntityWorldPosition();
+    Entity::outputEntityTileMapPosition();
+    
 }
 
 void BaseEnemy::moveY(float elapsed)
 {
-    std::cout << "Moving enemy Y" << std::endl;
+    //std::cout << "Moving enemy Y" << std::endl;
     
     //change the velocity x with respect to friction, gravity and acceleration
     velocity.sety(coreFunctionObject.lerp(velocity.gety(), 0.0f, elapsed * friction.gety()));
@@ -165,7 +168,7 @@ void BaseEnemy::drawDetectorPoints(ShaderProgram *theProgram, Matrix& projection
     glDisableVertexAttribArray(theProgram->positionAttribute);
     glDisableVertexAttribArray(theProgram->texCoordAttribute);
     
-    
+    /*
     std::cout << "Detector Point Positions" << std::endl;
     
     
@@ -174,7 +177,7 @@ void BaseEnemy::drawDetectorPoints(ShaderProgram *theProgram, Matrix& projection
     std::cout << "Bottom Left: " << detectorPointBottomLeft.getx() << " , " << detectorPointBottomLeft.gety() << std::endl;
     
     std::cout << "Bottom Right: " << detectorPointBottomRight.getx() << " , " << detectorPointBottomRight.gety() << std::endl;
-     
+     */
 
 
 }

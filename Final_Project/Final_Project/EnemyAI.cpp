@@ -16,7 +16,7 @@ void EnemyAI::simpleBackForth(BaseEnemy* theEnemy)
     
     float enemyXVel = theEnemy->velocity.getx();
     
-    std::cout << " Enemy VelocityX = " << enemyXVel;
+    //std::cout << " Enemy VelocityX = " << enemyXVel << std::endl;
     
     if (enemyXVel < 0)
     {
@@ -26,12 +26,6 @@ void EnemyAI::simpleBackForth(BaseEnemy* theEnemy)
         
         Tile* theCheckedTileLeft = theLevelLoader->getLevelDataAtIndex(bottomLeft.gety(), bottomLeft.getx());
         
-        
-//        std::cout <<" Enemy X = " << theEnemy->position.getx() << std::endl;
-//        std::cout <<" Enemy Y = " << theEnemy->position.gety() << std::endl;
-//        std::cout << "CheckedTile Left X = " << theCheckedTileLeft->getTileLocationX() << std::endl;
-        
-//        std::cout << "CheckedTile Left Y = " << theCheckedTileLeft->getTileLocationY() << std::endl;
 
         if (theCheckedTileLeft == nullptr)
         {
@@ -50,6 +44,11 @@ void EnemyAI::simpleBackForth(BaseEnemy* theEnemy)
             theEnemy->velocity.setx(0);
         }
         
+
+    }
+    
+    else if (enemyXVel > 0)
+    {
         
         GeometricVector bottomRight = theEnemy->getTileMapDetectorPointBottomRight();
         
@@ -58,18 +57,11 @@ void EnemyAI::simpleBackForth(BaseEnemy* theEnemy)
         Tile* theCheckedTileRight = theLevelLoader->getLevelDataAtIndex(bottomRight.gety(), bottomRight.getx());
         
         
-//        std::cout <<" Enemy X = " << theEnemy->position.getx() << std::endl;
-//        std::cout <<" Enemy Y = " << theEnemy->position.gety() << std::endl;
-        
-//        std::cout << "CheckedTile Right X = " << theCheckedTileRight->getTileLocationX() << std::endl;
-        
-//        std::cout << "CheckedTile Right Y = " << theCheckedTileRight->getTileLocationY() << std::endl;
-        
         if (theCheckedTileRight == nullptr)
         {
             //revert the direction because edge of the map
             std::cout << "No right tile" << std::endl;
-
+            
             theEnemy->acceleration.setx(-theEnemy->acceleration.getx());
             theEnemy->velocity.setx(0);
         }
@@ -78,10 +70,10 @@ void EnemyAI::simpleBackForth(BaseEnemy* theEnemy)
         {
             //no more solid ground -> revert side
             std::cout << "Right tile not solid" << std::endl;
-
+            
             theEnemy->acceleration.setx(-theEnemy->acceleration.getx());
             theEnemy->velocity.setx(0);
         }
-
+        
     }
 }

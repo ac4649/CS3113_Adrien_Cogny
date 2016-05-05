@@ -339,14 +339,14 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
             
             //std::cout << "NEW MapCoordYCenter: "  << mapCoordYCenter << std::endl;
             
-            curEntity->outputEntityTileMapPosition();
-            curEntity->outputEntityWorldPosition();
+            //curEntity->outputEntityTileMapPosition();
+            //curEntity->outputEntityWorldPosition();
             
             curEntity->tileMapPosition.sety(mapCoordYCenter);
             curEntity->updateYWorldCoordinatesFromTileMapCoords(TILE_SIZE);
             
-            curEntity->outputEntityTileMapPosition();
-            curEntity->outputEntityWorldPosition();
+            //curEntity->outputEntityTileMapPosition();
+            //curEntity->outputEntityWorldPosition();
             
             collidedY = true;
             //curEntity->velocity.setx(0);

@@ -231,7 +231,7 @@ void processEvents(SDL_Event event)
                 
                 if (player->collidedBottom == true)
                 {
-                    player->velocity.sety(10.0);
+                    player->velocity.sety(30.0f);
                     player->collidedBottom = false;
 
                 }
@@ -372,8 +372,9 @@ void DrawEntities(float elapsed)
         theCollisionChecker->checkAndResolveCollisionOnEdges(curEntity, theLevelLoader);
         
         
-        if (curEntity->EntityType != "player" || curEntity->EntityType != "Player")
+        if (curEntity->EntityType != 0 || curEntity->EntityType != 0)
         {
+            std::cout << curEntity->EntityType << std::endl;
             theAI->simpleBackForth((BaseEnemy* )curEntity);
 
         }
@@ -395,7 +396,7 @@ void DrawEntities(float elapsed)
             {
                 std::cout << "Out of bounds on x" << std::endl;
                 
-                if (curEntity->EntityType == "Player" || curEntity->EntityType == "player")
+                if (curEntity->EntityType == 0 || curEntity->EntityType == 0)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
@@ -407,7 +408,7 @@ void DrawEntities(float elapsed)
             {
                 std::cout << "Out of bounds on y" << std::endl;
                 
-                if (curEntity->EntityType == "Player" || curEntity->EntityType == "player")
+                if (curEntity->EntityType == 0 || curEntity->EntityType == 0)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
