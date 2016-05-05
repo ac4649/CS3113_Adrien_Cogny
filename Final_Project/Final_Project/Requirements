@@ -3,16 +3,12 @@ Final project requirements:
 Must have a title screen and proper states for game over, etc.
 Must have a way to quit the game.
 Must have music and sound e ects.
-Must have at least 3 di erent levels or be procedurally generated.
-Must be either local multiplayer or have AI (or both!).
-Must have at least some animation or particle e ects.
-
-
-
-
+Must have at least 3 diferent levels or be procedurally generated.
+Must be either local multiplayer or have AI (or both!). - done
+Must have at least some animation or particle effects.
 
 Bonus points for...
 
 Getting it running on your phone.
 Having 3D elements.
-Having shader e ects.
+Having shader effects.

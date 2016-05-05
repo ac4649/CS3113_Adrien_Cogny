@@ -152,6 +152,11 @@ public:
     
     
     void virtual DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix, ShaderProgram* theUntexturedProgram);
+    
+    
+    Matrix centerPointModelMatrix;
+    
+    void drawCenterOfEntity(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix);
 
     
     

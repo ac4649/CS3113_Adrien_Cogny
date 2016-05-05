@@ -60,6 +60,7 @@ float lastFrameTicks = 0.0f;
 
 
 bool done = false;
+int state = 0; // 0 = menu state
 
 
 //Global Matrices
@@ -236,6 +237,15 @@ void processEvents(SDL_Event event)
 
                 }
 
+            }
+            //quitting when the player presses q
+            if (event.key.keysym.scancode == SDL_SCANCODE_Q)
+            {
+                //exit the game
+                
+                //for now just exit
+                done = true;
+                
             }
         }
         
@@ -422,6 +432,23 @@ void DrawEntities(float elapsed)
         
     }
 
+    
+    
+    // Check if the player won
+    
+    
+    
+    Tile* curPlayerTile = theLevelLoader->getLevelDataAtIndex(player->tileMapPosition.gety(), player->tileMapPosition.getx());
+    
+    if (curPlayerTile->getTileValue() == 55)
+    {
+        
+        std::cout << "PLAYER WON" << std::endl;
+        
+        //change state to exit game
+        
+        
+    }
 
     
     
@@ -466,6 +493,7 @@ int main(int argc, char *argv[])
     }
     
     
+    
     SDL_Event event;
 
     while (!done)
@@ -490,26 +518,38 @@ int main(int argc, char *argv[])
             fixedElapsed = FIXED_TIMESTEP * MAX_TIMESTEPS;
         }
         
-        
-        
-        
+
         while  (fixedElapsed >= FIXED_TIMESTEP)
         {
             fixedElapsed -= FIXED_TIMESTEP;
             
-            DrawLevel(FIXED_TIMESTEP);
-            DrawEntities(FIXED_TIMESTEP);
+            if (state == 0)
+            {
+                
+            }
+            else if (state == 1)
+            {
+                DrawLevel(FIXED_TIMESTEP);
+                DrawEntities(FIXED_TIMESTEP);
+            }
+            
             
         }
         
-        DrawLevel(fixedElapsed);
-        DrawEntities(fixedElapsed);
+        if (state == 0)
+        {
+            
+        }
+        else if (state == 1)
+        {
+            DrawLevel(fixedElapsed);
+            DrawEntities(fixedElapsed);
+            //place the player in the middle of the screen
+            viewMatrix.identity();
+            viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->position.getx(), -(theLevelLoader->getEntityForIndex(0))->position.gety(), 0);
+            
+        }
 
-        
-        //place the player in the middle of the screen
-        viewMatrix.identity();
-        viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->position.getx(), -(theLevelLoader->getEntityForIndex(0))->position.gety(), 0);
-        
         SDL_GL_SwapWindow(displayWindow);
 
         

@@ -137,7 +137,7 @@ void Entity::outputEntityWorldPosition()
     std::cout << "z = " << position.getz() << std::endl;
 }
 
-void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix, ShaderProgram* theUntexturedProgra)
+void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix, ShaderProgram* theUntexturedProgram)
 {
     //bind the texture
     glBindTexture(GL_TEXTURE_2D, textureID);
@@ -189,7 +189,40 @@ void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& p
     
     glDisableVertexAttribArray(theProgram->positionAttribute);
     glDisableVertexAttribArray(theProgram->texCoordAttribute);
+
+    drawCenterOfEntity(theUntexturedProgram,projectionMatrix,viewMatrix);
+
+
 }
+
+void Entity::drawCenterOfEntity(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix)
+{
+        
+    theProgram->setModelMatrix(centerPointModelMatrix);
+    theProgram->setProjectionMatrix(projectionMatrix);
+    theProgram->setViewMatrix(viewMatrix);
+    
+    float vertices[] =
+    {
+        
+        position.getx(), position.gety(),
+        
+    };
+    
+    glVertexAttribPointer(theProgram->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(theProgram->positionAttribute);
+    
+    
+    glDrawArrays(GL_POINTS, 0, 1);
+    
+    glDisableVertexAttribArray(theProgram->positionAttribute);
+    glDisableVertexAttribArray(theProgram->texCoordAttribute);
+    
+    
+}
+
+
+
 
 void Entity::moveX(float elapsed)
 {
@@ -206,6 +239,8 @@ void Entity::moveX(float elapsed)
 
     
 }
+
+
 
 void Entity::moveY(float elapsed)
 {
