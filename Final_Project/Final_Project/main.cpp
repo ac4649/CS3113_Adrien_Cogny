@@ -227,15 +227,23 @@ void processEvents(SDL_Event event)
             if (event.key.keysym.scancode == SDL_SCANCODE_SPACE)
             {
                 
-                //space set the velocity of the player in y to something other than 0
-                Entity* player = theLevelLoader->getEntityForIndex(0);
-                
-                if (player->collidedBottom == true)
+                if (state == 0)
                 {
-                    player->velocity.sety(30.0f);
-                    player->collidedBottom = false;
-
+                    state = 1;
                 }
+                else if (state == 1)
+                {
+                    //space set the velocity of the player in y to something other than 0
+                    Entity* player = theLevelLoader->getEntityForIndex(0);
+                    
+                    if (player->collidedBottom == true)
+                    {
+                        player->velocity.sety(30.0f);
+                        player->collidedBottom = false;
+                        
+                    }
+                }
+
 
             }
             //quitting when the player presses q
@@ -243,8 +251,14 @@ void processEvents(SDL_Event event)
             {
                 //exit the game
                 
-                //for now just exit
-                done = true;
+                if (state == 0)
+                {
+                    done = true;
+                }
+                else
+                {
+                    state = 0;
+                }
                 
             }
         }
@@ -256,6 +270,17 @@ void processEvents(SDL_Event event)
     
     
 }
+
+void DrawMenu(float elapsed)
+{
+    
+    
+    
+    
+    
+}
+
+
 
 void DrawLevel(float elapsed)
 {
@@ -444,7 +469,7 @@ void DrawEntities(float elapsed)
     {
         
         std::cout << "PLAYER WON" << std::endl;
-        
+        state = 2;
         //change state to exit game
         
         
@@ -525,7 +550,7 @@ int main(int argc, char *argv[])
             
             if (state == 0)
             {
-                
+                DrawMenu(FIXED_TIMESTEP);
             }
             else if (state == 1)
             {
@@ -538,7 +563,7 @@ int main(int argc, char *argv[])
         
         if (state == 0)
         {
-            
+            DrawMenu(fixedElapsed);
         }
         else if (state == 1)
         {
