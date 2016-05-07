@@ -141,8 +141,7 @@ void Entity::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix& p
 {
     //bind the texture
     glBindTexture(GL_TEXTURE_2D, textureID);
-    
-    
+        
     theProgram->setModelMatrix(modelMatrix);
     
     //displayedEntity->modelMatrix.identity();

@@ -186,7 +186,18 @@ void BaseEnemy::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix
 {
     
    // std::cout << "DRAWING ENTITY WITH DETECTOR POINTS" << std::endl;
+   
+    modelMatrix.identity();
 
+    
+    if (velocity.getx() > 0)
+    {
+        
+        modelMatrix.Scale(1.0f, 1.0f, 1.0f); // reverse the side
+
+    }
+    
+    
     //bind the texture
     glBindTexture(GL_TEXTURE_2D, textureID);
     
