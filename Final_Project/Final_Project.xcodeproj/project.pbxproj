@@ -36,6 +36,9 @@
 		4D8CBC0A1CD00A5A00DA5778 /* EnemyAI.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D8CBC081CD00A5A00DA5778 /* EnemyAI.cpp */; };
 		4D8CBC0D1CD00C6B00DA5778 /* BaseEnemy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4D8CBC0B1CD00C6B00DA5778 /* BaseEnemy.cpp */; };
 		4DCDDE7A1CD11ADC006676DC /* CoreFunctions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */; };
+		4DEDFC891CDEC4A50002C63E /* purpleBackground.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDFC861CDEC4A50002C63E /* purpleBackground.png */; };
+		4DEDFC8A1CDEC4A50002C63E /* sheet.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDFC871CDEC4A50002C63E /* sheet.png */; };
+		4DEDFC8B1CDEC4A50002C63E /* font1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDFC881CDEC4A50002C63E /* font1.png */; };
 		4DF6C39F1CDBF09E0008CE39 /* EntityCollisionChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6C39D1CDBF09E0008CE39 /* EntityCollisionChecker.cpp */; };
 		4DF6C3A11CDBF21B0008CE39 /* snail.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF6C3A01CDBF21B0008CE39 /* snail.png */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
@@ -84,6 +87,9 @@
 		4D8CBC0C1CD00C6B00DA5778 /* BaseEnemy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseEnemy.h; sourceTree = "<group>"; };
 		4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = CoreFunctions.cpp; sourceTree = "<group>"; };
 		4DCDDE791CD11ADC006676DC /* CoreFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreFunctions.h; sourceTree = "<group>"; };
+		4DEDFC861CDEC4A50002C63E /* purpleBackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = purpleBackground.png; sourceTree = "<group>"; };
+		4DEDFC871CDEC4A50002C63E /* sheet.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sheet.png; sourceTree = "<group>"; };
+		4DEDFC881CDEC4A50002C63E /* font1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = font1.png; sourceTree = "<group>"; };
 		4DF6C39D1CDBF09E0008CE39 /* EntityCollisionChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityCollisionChecker.cpp; sourceTree = "<group>"; };
 		4DF6C39E1CDBF09E0008CE39 /* EntityCollisionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityCollisionChecker.h; sourceTree = "<group>"; };
 		4DF6C3A01CDBF21B0008CE39 /* snail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snail.png; sourceTree = "<group>"; };
@@ -117,6 +123,9 @@
 		4D5719AE1CB1A80D00E14AFF /* Final_Project */ = {
 			isa = PBXGroup;
 			children = (
+				4DEDFC861CDEC4A50002C63E /* purpleBackground.png */,
+				4DEDFC871CDEC4A50002C63E /* sheet.png */,
+				4DEDFC881CDEC4A50002C63E /* font1.png */,
 				4D5719AF1CB1A80D00E14AFF /* Credits.rtf */,
 				4D5719B11CB1A80D00E14AFF /* InfoPlist.strings */,
 				4D5719B51CB1A80D00E14AFF /* Final_Project-Info.plist */,
@@ -273,6 +282,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DEDFC8B1CDEC4A50002C63E /* font1.png in Resources */,
 				4D5719DF1CB1A80D00E14AFF /* vertex.glsl in Resources */,
 				4D5719D41CB1A80D00E14AFF /* Level0.txt in Resources */,
 				4D5719CC1CB1A80D00E14AFF /* Credits.rtf in Resources */,
@@ -280,10 +290,12 @@
 				4D5719D31CB1A80D00E14AFF /* Level0.tmx in Resources */,
 				4D5719D11CB1A80D00E14AFF /* fragment_textured.glsl in Resources */,
 				4DF6C3A11CDBF21B0008CE39 /* snail.png in Resources */,
+				4DEDFC8A1CDEC4A50002C63E /* sheet.png in Resources */,
 				4D2CC69A1CCD5E7400348730 /* Level2.txt in Resources */,
 				4D5719E01CB1A80D00E14AFF /* vertex_textured.glsl in Resources */,
 				4D5719DE1CB1A80D00E14AFF /* tiles.png in Resources */,
 				4D5719D01CB1A80D00E14AFF /* fragment.glsl in Resources */,
+				4DEDFC891CDEC4A50002C63E /* purpleBackground.png in Resources */,
 				4D2CC6961CCD5C9000348730 /* pinkslime.png in Resources */,
 				4D5719D21CB1A80D00E14AFF /* Images.xcassets in Resources */,
 				4D1677B51CD943A200252137 /* Requirements in Resources */,

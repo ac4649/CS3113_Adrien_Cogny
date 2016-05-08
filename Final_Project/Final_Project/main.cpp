@@ -63,6 +63,16 @@ bool done = false;
 int state = 0; // 0 = menu state
 
 
+
+/* Menu */
+Matrix menuModelMatrix;
+
+Entity menuBackground;
+Entity menuButton;
+Entity menuText;
+
+
+
 //Global Matrices
 Matrix projectionMatrix;
 Matrix viewMatrix;
@@ -87,7 +97,98 @@ GLuint LoadTexture(const char *image_path)
 //level texture
 GLuint tileMapTexture;
 
-/*
+//drawing text function
+void DrawText(ShaderProgram *program, int fontTexture, std::string text, float size, float spacing, float startX,float startY)
+{
+    float texture_size = 1.0/16.0f;
+    std::vector<float> vertexData;
+    std::vector<float> texCoordData;
+    for(int i=0; i < text.size(); i++)
+    {
+        float texture_x = (float)(((int)text[i]) % 16) / 16.0f;
+        float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
+        
+        vertexData.insert(vertexData.end(),
+                          {
+                              (startX+(size+spacing) * i) + (-0.5f * size), 0.5f * size + startY,
+                              (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size + startY,
+                              (startX+(size+spacing) * i) + (0.5f * size), 0.5f * size + startY,
+                              (startX+(size+spacing) * i) + (0.5f * size),  -0.5f * size + startY,
+                              (startX+(size+spacing) * i) + (0.5f * size),  0.5f * size + startY,
+                              (startX+(size+spacing) * i) + (-0.5f * size),  -0.5f * size + startY,
+                          });
+        
+        texCoordData.insert(texCoordData.end(),
+                            {
+                                texture_x, texture_y,
+                                texture_x, texture_y + texture_size,
+                                texture_x + texture_size, texture_y,
+                                texture_x + texture_size, texture_y + texture_size,
+                                texture_x + texture_size, texture_y,
+                                texture_x, texture_y + texture_size,
+                            });
+    }
+    
+    glUseProgram(program->programID);
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertexData.data());
+    glEnableVertexAttribArray(program->positionAttribute);
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoordData.data());
+    glEnableVertexAttribArray(program->texCoordAttribute);
+    glBindTexture(GL_TEXTURE_2D, fontTexture);
+    glDrawArrays(GL_TRIANGLES, 0, text.size() * 6);
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+}
+
+// if the entity contains the sprite location as well as the height and width on the sprite sheet.
+void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEntity)
+{
+    
+    //bind the texture
+    glBindTexture(GL_TEXTURE_2D, displayedEntity->textureID);
+    
+    
+    program->setModelMatrix(displayedEntity->modelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
+    
+    float u = displayedEntity->textureLocationX / displayedEntity->textureSheetWidth;
+    float v = displayedEntity->textureLocationY / displayedEntity->textureSheetHeight;
+    float spriteNormalizedWidth = displayedEntity->textureWidth/displayedEntity->textureSheetWidth;
+    float spriteNormalizedHeight = displayedEntity->textureHeight/displayedEntity->textureSheetHeight;
+    
+    GLfloat texCoords[] = {
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v,
+        u, v,
+        u+spriteNormalizedWidth, v,
+        u, v+spriteNormalizedHeight,
+        u+spriteNormalizedWidth, v+spriteNormalizedHeight
+    };
+    
+    float vertices[] =
+    {
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2,
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
+        
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()+displayedEntity->height/2,
+        displayedEntity->position.getx()-displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2,
+        displayedEntity->position.getx()+displayedEntity->width/2, displayedEntity->position.gety()-displayedEntity->height/2
+        
+    };
+    
+    glVertexAttribPointer(program->positionAttribute, 2, GL_FLOAT, false, 0, vertices);
+    glEnableVertexAttribArray(program->positionAttribute);
+    
+    glVertexAttribPointer(program->texCoordAttribute, 2, GL_FLOAT, false, 0, texCoords);
+    glEnableVertexAttribArray(program->texCoordAttribute);
+    
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    
+    
+}
+
 void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
 {
     
@@ -144,7 +245,7 @@ void DrawSpriteUnorderedSheetSprite(Entity *displayedEntity)
     
     
 }
-*/
+
 
 
 ShaderProgram *setup() // will return the shaderProgram pointer
@@ -173,8 +274,6 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     projectionMatrix.setOrthoProjection(-totalUnitsWidth/2.0,totalUnitsWidth/2.0,-totalUnitsHeight/2,totalUnitsHeight/2,-1.0f, 1.0f);
     
-    SDL_ShowCursor(0);
-    
     //projectionMatrix.setPerspectiveProjection(65.0f, totalUnitsWidth/totalUnitsHeight, -1.0f, 1.0f);
     
     glUseProgram(program->programID);
@@ -201,6 +300,13 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     
     
     //tileMapModelMatrix.Translate(-totalUnitsWidth/2, totalUnitsHeight/2, 0);
+    
+    
+    
+    //load menu textures
+    menuBackground.textureID = LoadTexture("purpleBackground.png");
+    menuText.textureID = LoadTexture("font1.png");
+    menuButton.textureID = LoadTexture("sheet.png");
     
     
     //remove alpha
@@ -247,7 +353,7 @@ void processEvents(SDL_Event event)
 
             }
             //quitting when the player presses q
-            if (event.key.keysym.scancode == SDL_SCANCODE_Q)
+            else if (event.key.keysym.scancode == SDL_SCANCODE_Q)
             {
                 //exit the game
                 
@@ -261,8 +367,29 @@ void processEvents(SDL_Event event)
                 }
                 
             }
+            
         }
         
+        else if(event.type == SDL_MOUSEBUTTONDOWN)
+        {
+            
+            float unitX = (((float)event.button.x / windowSizeWidth) * totalUnitsWidth ) - totalUnitsWidth/2.0;
+            float unitY = (((float)(360-event.button.y) / windowSizeHeight) * totalUnitsHeight ) - totalUnitsHeight/2.0;
+            
+            std::cout << "Mouse Click :" << unitX << ", " << unitY << std::endl;
+            std::cout << "Target Click :" << menuButton.position.getx() << " +/- " << menuButton.width/2.0 << ", " << menuButton.position.gety() << " +/- " << menuButton.height/2.0 << std::endl;
+            
+            if (menuButton.position.getx() - menuButton.width/2.0 < unitX && unitX < menuButton.position.getx() + menuButton.width/2.0 )
+            {
+                if (menuButton.position.gety() - menuButton.height/2.0 < unitY && unitY < menuButton.position.gety() + menuButton.height/2.0 )
+                {
+                    state = 1;
+                    std::cout << "Starting Game" << std::endl;
+                    
+                }
+            }
+            
+        }
         
         
     }
@@ -271,12 +398,57 @@ void processEvents(SDL_Event event)
     
 }
 
-void DrawMenu(float elapsed)
+void updateMenu(ShaderProgram* program, float elapsed)
 {
+    //generate the background
+    menuBackground.position.setx(0);
+    menuBackground.position.sety(0);
+    menuBackground.height = totalUnitsHeight;
+    menuBackground.width = totalUnitsWidth;
+    
+    menuBackground.textureLocationX = 0;
+    menuBackground.textureLocationY = 0;
+    menuBackground.textureHeight = 256;
+    menuBackground.textureWidth = 256;
+    menuBackground.textureSheetHeight = 144;
+    menuBackground.textureSheetWidth = 256;
+    
+    //generate the button
+    menuButton.position.setx(0);
+    menuButton.position.sety(0);
+    menuButton.height = 0.6*39/222*totalUnitsHeight;
+    menuButton.width = 0.6*222/222*totalUnitsWidth;
+    
+    menuButton.textureLocationX = 0;
+    menuButton.textureLocationY = 0;
+    menuButton.textureHeight = 39;
+    menuButton.textureWidth = 222;
+    menuButton.textureSheetHeight = 1024;
+    menuButton.textureSheetWidth = 1024;
     
     
+}
+
+void renderMenu(ShaderProgram* program)
+{
+    //drawing Triangles
+    
+    program->setModelMatrix(menuModelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
     
     
+    menuModelMatrix.identity(); //resets to initial position
+    
+    DrawSpriteUnorderedSheetSprite(program, &menuBackground);
+    
+    glBindTexture(GL_TEXTURE_2D, menuButton.textureID);
+    DrawSpriteUnorderedSheetSprite(program, &menuButton);
+    
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+    
+    DrawText(program, menuText.textureID, "PLAY PLATFORMER", 0.3f, 0.00000000001f,0.0,0.0);
     
 }
 
@@ -491,7 +663,15 @@ void DrawEntities(float elapsed)
     
 }
 
-
+void DrawMenu(float elapsed)
+{
+    
+    updateMenu(theProgram, elapsed);
+    
+    renderMenu(theProgram);
+    
+    
+}
 
 
 
@@ -527,6 +707,15 @@ int main(int argc, char *argv[])
         float ticks = (float)SDL_GetTicks()/1000.0f;
         float elapsed = ticks - lastFrameTicks;
         lastFrameTicks = ticks;
+        
+        if (state == 0) {
+            SDL_ShowCursor(1);
+
+        }
+        else
+        {
+            SDL_ShowCursor(0);
+        }
         
         
         processEvents(event);

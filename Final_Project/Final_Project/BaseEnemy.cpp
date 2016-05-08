@@ -193,7 +193,7 @@ void BaseEnemy::DrawSpriteUnorderedSheetSprite(ShaderProgram *theProgram, Matrix
     if (velocity.getx() > 0)
     {
         
-        modelMatrix.Scale(1.0f, 1.0f, 1.0f); // reverse the side
+        //reverse the direction of the sprite
 
     }
     
