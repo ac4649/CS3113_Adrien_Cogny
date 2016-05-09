@@ -66,11 +66,19 @@ int state = 0; // 0 = menu state
 
 /* Menu */
 Matrix menuModelMatrix;
-
 Entity menuBackground;
 Entity menuButton;
 Entity menuText;
 
+Matrix deathModelMatrix;
+Entity deathBackground;
+Entity deathButton;
+Entity deathText;
+
+Matrix wonModelMatrix;
+Entity wonBackground;
+Entity wonButton;
+Entity wonText;
 
 
 //Global Matrices
@@ -429,6 +437,68 @@ void updateMenu(ShaderProgram* program, float elapsed)
     
 }
 
+void updateDeathScene(ShaderProgram* program, float elapsed)
+{
+    //generate the background
+    deathBackground.position.setx(0);
+    deathBackground.position.sety(0);
+    deathBackground.height = totalUnitsHeight;
+    deathBackground.width = totalUnitsWidth;
+    
+    deathBackground.textureLocationX = 0;
+    deathBackground.textureLocationY = 0;
+    deathBackground.textureHeight = 256;
+    deathBackground.textureWidth = 256;
+    deathBackground.textureSheetHeight = 144;
+    deathBackground.textureSheetWidth = 256;
+    
+    //generate the button
+    deathButton.position.setx(0);
+    deathButton.position.sety(0);
+    deathButton.height = 0.6*39/222*totalUnitsHeight;
+    deathButton.width = 0.6*222/222*totalUnitsWidth;
+    
+    deathButton.textureLocationX = 0;
+    deathButton.textureLocationY = 0;
+    deathButton.textureHeight = 39;
+    deathButton.textureWidth = 222;
+    deathButton.textureSheetHeight = 1024;
+    deathButton.textureSheetWidth = 1024;
+    
+    
+}
+
+void updateWonScene(ShaderProgram* program, float elapsed)
+{
+    //generate the background
+    wonBackground.position.setx(0);
+    wonBackground.position.sety(0);
+    wonBackground.height = totalUnitsHeight;
+    wonBackground.width = totalUnitsWidth;
+    
+    wonBackground.textureLocationX = 0;
+    wonBackground.textureLocationY = 0;
+    wonBackground.textureHeight = 256;
+    wonBackground.textureWidth = 256;
+    wonBackground.textureSheetHeight = 144;
+    wonBackground.textureSheetWidth = 256;
+    
+    //generate the button
+    wonButton.position.setx(0);
+    wonButton.position.sety(0);
+    wonButton.height = 0.6*39/222*totalUnitsHeight;
+    wonButton.width = 0.6*222/222*totalUnitsWidth;
+    
+    wonButton.textureLocationX = 0;
+    wonButton.textureLocationY = 0;
+    wonButton.textureHeight = 39;
+    wonButton.textureWidth = 222;
+    wonButton.textureSheetHeight = 1024;
+    wonButton.textureSheetWidth = 1024;
+    
+    
+}
+
 void renderMenu(ShaderProgram* program)
 {
     //drawing Triangles
@@ -452,6 +522,58 @@ void renderMenu(ShaderProgram* program)
     
 }
 
+
+
+void renderDeathScene(ShaderProgram* program)
+{
+    //drawing Triangles
+    
+    program->setModelMatrix(deathModelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
+    
+    
+    deathModelMatrix.identity(); //resets to initial position
+    
+    DrawSpriteUnorderedSheetSprite(program, &deathBackground);
+    
+    glBindTexture(GL_TEXTURE_2D, deathButton.textureID);
+    DrawSpriteUnorderedSheetSprite(program, &deathButton);
+    
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+    
+    string DisplayedString = "Number Of Deaths";
+    
+    DrawText(program, menuText.textureID, "Number of Deaths 0", 0.3f, 0.0,0.0,0.0);
+
+    
+    DrawText(program, menuText.textureID, "You Lost - Play Again?", 0.3f, 0.0,0.0,0.0);
+    
+}
+
+void renderWonScene(ShaderProgram* program)
+{
+    //drawing Triangles
+    
+    program->setModelMatrix(menuModelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
+    
+    
+    menuModelMatrix.identity(); //resets to initial position
+    
+    DrawSpriteUnorderedSheetSprite(program, &menuBackground);
+    
+    glBindTexture(GL_TEXTURE_2D, menuButton.textureID);
+    DrawSpriteUnorderedSheetSprite(program, &menuButton);
+    
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+    
+    DrawText(program, menuText.textureID, "PLAY PLATFORMER", 0.3f, 0.00000000001f,0.0,0.0);
+    
+}
 
 
 void DrawLevel(float elapsed)
@@ -607,6 +729,7 @@ void DrawEntities(float elapsed)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
+                    state = 3;
 
                 }
                 
@@ -619,6 +742,7 @@ void DrawEntities(float elapsed)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
+                    state = 3;
                 }
                 
 
@@ -666,6 +790,7 @@ void DrawEntities(float elapsed)
 void DrawMenu(float elapsed)
 {
     
+    viewMatrix.identity();
     updateMenu(theProgram, elapsed);
     
     renderMenu(theProgram);
@@ -673,6 +798,28 @@ void DrawMenu(float elapsed)
     
 }
 
+void DrawDeath(float elapsed)
+{
+    
+    viewMatrix.identity();
+    updateDeathScene(theProgram, elapsed);
+    
+    renderDeathScene(theProgram);
+    
+    
+}
+
+
+void DrawWon(float elapsed)
+{
+    
+    viewMatrix.identity();
+    updateWonScene(theProgram, elapsed);
+    
+    renderWonScene(theProgram);
+    
+    
+}
 
 
 int main(int argc, char *argv[])
@@ -746,6 +893,16 @@ int main(int argc, char *argv[])
                 DrawLevel(FIXED_TIMESTEP);
                 DrawEntities(FIXED_TIMESTEP);
             }
+            else if (state == 2)
+            {
+                
+                DrawWon(FIXED_TIMESTEP);
+                
+            }
+            else if (state == 3)
+            {
+                DrawDeath(FIXED_TIMESTEP);
+            }
             
             
         }
@@ -762,6 +919,20 @@ int main(int argc, char *argv[])
             viewMatrix.identity();
             viewMatrix.Translate(-(theLevelLoader->getEntityForIndex(0))->position.getx(), -(theLevelLoader->getEntityForIndex(0))->position.gety(), 0);
             
+        }
+        else if (state == 2)
+        {
+            DrawWon(fixedElapsed);
+        }
+        else if (state == 3)
+        {
+            
+            DrawDeath(fixedElapsed);
+            
+        }
+        else
+        {
+            std::cout << "Undefined State" << std::endl;
         }
 
         SDL_GL_SwapWindow(displayWindow);

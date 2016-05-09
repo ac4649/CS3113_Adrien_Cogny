@@ -414,6 +414,11 @@ void LevelLoader::addDeath()
     numberOfDeaths = numberOfDeaths + 1;
 }
 
+int LevelLoader::getDeathCount()
+{
+    return numberOfDeaths;
+}
+
 void LevelLoader::resetPlayerPosition(Entity* player)
 {
     
@@ -425,4 +430,9 @@ void LevelLoader::resetPlayerPosition(Entity* player)
     
     player->velocity.setxyz(0.0, 0.0, 0.0);
     
+}
+
+string LevelLoader::getCurLevelFileName()
+{
+    return filename;
 }

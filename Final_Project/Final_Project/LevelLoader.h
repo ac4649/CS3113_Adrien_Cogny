@@ -66,6 +66,7 @@ private:
     
 public:
     
+    
     LevelLoader(std::string theLevelFileName):filename(theLevelFileName){};
     
     void loadLevelData();
@@ -98,8 +99,11 @@ public:
     void outPutLevelSolid();
     
     void addDeath();
+    int getDeathCount();
     
     void resetPlayerPosition(Entity* player);
+    
+    string getCurLevelFileName();
     
     
 };
