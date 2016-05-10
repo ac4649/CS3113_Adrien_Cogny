@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/main.cpp"
-            timestampString = "484547540.377851"
+            timestampString = "484547735.232202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "841"
-            endingLineNumber = "841"
+            startingLineNumber = "850"
+            endingLineNumber = "850"
             landmarkName = "DrawEntities(float elapsed)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,28 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Final_Project/main.cpp"
-            timestampString = "484547540.377851"
+            timestampString = "484547735.232202"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "839"
-            endingLineNumber = "839"
+            startingLineNumber = "848"
+            endingLineNumber = "848"
             landmarkName = "DrawEntities(float elapsed)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Final_Project/main.cpp"
-            timestampString = "484547418.943515"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "401"
-            endingLineNumber = "401"
-            landmarkName = "processEvents(SDL_Event event)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

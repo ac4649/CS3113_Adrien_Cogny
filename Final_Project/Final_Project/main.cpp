@@ -60,7 +60,7 @@ float lastFrameTicks = 0.0f;
 
 
 bool done = false;
-int state = 0; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state
+int state = 0; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state, 4 = finished game
 
 
 
@@ -301,7 +301,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glPointSize(10.0f);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level1.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level0.txt");
     
     theLevelLoader->loadLevelData();
     
@@ -379,26 +379,35 @@ void processEvents(SDL_Event event)
                 {
                     //go to the next level
                     std::cout << "Go Next Level" << std::endl;
-                    theLevelLoader->goToNextLeve();
-                    theLevelLoader->loadLevelData();
-                    theLevelLoader->outPutLevelSolid();
-                    
-                    std::cout << "level Data: " << std::endl;
-                    
-                    for (int i = 1; i < 10; i++)
+                    bool nextLevelAvailable = theLevelLoader->goToNextLeve();
+                    if (!nextLevelAvailable)
                     {
-                        for (int j = 1; j < 10; j++)
+                        std::cout << "Congratulations on Finishing the Game" << std::endl;
+                        state = 4;
+                    }
+                    else
+                    {
+                        theLevelLoader->loadLevelData();
+                        theLevelLoader->outPutLevelSolid();
+                        
+                        std::cout << "level Data: " << std::endl;
+                        
+                        for (int i = 1; i < 10; i++)
                         {
-                            Tile* curLevelTile = theLevelLoader->getLevelDataAtIndex(i, j);
-                            
-                            int curLevel = curLevelTile->getTileValue();
-                            
-                            std::cout << curLevel << " " ;
+                            for (int j = 1; j < 10; j++)
+                            {
+                                Tile* curLevelTile = theLevelLoader->getLevelDataAtIndex(i, j);
+                                
+                                int curLevel = curLevelTile->getTileValue();
+                                
+                                std::cout << curLevel << " " ;
+                            }
+                            std::cout << std::endl;
                         }
-                        std::cout << std::endl;
+                        
+                        state = 1;
                     }
                     
-                    state = 1;
                     
                 }
                 else if (state == 3)
@@ -1000,6 +1009,11 @@ int main(int argc, char *argv[])
             
             DrawDeath(fixedElapsed);
             
+        }
+        else if (state == 4)
+        {
+            std::cout << "FINISHED GAME" << std::endl;
+            state = 0;
         }
         else
         {
