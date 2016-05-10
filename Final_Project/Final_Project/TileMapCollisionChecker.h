@@ -43,7 +43,7 @@ private:
      0 = nothing wrong;
      1 = Entity out of bounds X
      2 = Entity out of bounds Y
-     
+     3 = Enityt hit death Tile;
      */
     
     

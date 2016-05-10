@@ -57,6 +57,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (LeftXCenterY != nullptr && collidedX != true)
     {
+        if (LeftXCenterY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (LeftXCenterY->getSolidValue() == true)
         {
             
@@ -77,6 +82,7 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
             
         }
         
+        
     }
     
     
@@ -84,6 +90,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (LeftXTopY != nullptr  && collidedX != true)
     {
+        if (LeftXTopY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (LeftXTopY->getSolidValue() == true)
         {
             
@@ -109,6 +120,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (LeftXBottomYcheckX != nullptr  && collidedX != true)
     {
+        if (LeftXBottomYcheckX->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (LeftXBottomYcheckX->getSolidValue() == true)
         {
             
@@ -142,6 +158,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (RightXCenterY != nullptr  && collidedX != true)
     {
+        if (RightXCenterY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (RightXCenterY->getSolidValue() == true)
         {
             
@@ -170,6 +191,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (RightXTopY != nullptr  && collidedX != true)
     {
+        if (RightXTopY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (RightXTopY->getSolidValue() == true)
         {
             
@@ -196,6 +222,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionXWithEntity(Entity* theEnt
     
     if (RightXBottomYcheckX != nullptr  && collidedX != true)
     {
+        if (RightXBottomYcheckX->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (RightXBottomYcheckX->getSolidValue() == true)
         {
             
@@ -256,6 +287,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (CenterXTopY != nullptr && collidedY != true)
     {
+        if (CenterXTopY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (CenterXTopY->getSolidValue() == true)
         {
             mapCoordYCenter = mapCoordYCenter-fabs(CenterXTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
@@ -280,6 +316,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (LeftTopY != nullptr && collidedY != true)
     {
+        if (LeftTopY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (LeftTopY->getSolidValue() == true)
         {
             mapCoordYCenter = mapCoordYCenter-fabs(LeftTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
@@ -304,6 +345,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (RightTopY != nullptr && collidedY != true)
     {
+        if (RightTopY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (RightTopY->getSolidValue() == true)
         {
             mapCoordYCenter = mapCoordYCenter-fabs(RightTopY->getTileLocationY() - mapCoordYTop) - COLLISION_OFFSET_PUSHBACK;
@@ -330,6 +376,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (CenterXBottomY != nullptr && collidedY != true)
     {
+        if (CenterXBottomY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (CenterXBottomY->getSolidValue() == true)
         {
             
@@ -364,6 +415,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (LeftXBottomY != nullptr && collidedY != true)
     {
+        if (LeftXBottomY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (LeftXBottomY->getSolidValue() == true)
         {
             
@@ -393,6 +449,11 @@ void TileMapCollisionChecker::checkAndResolveCollisionYWithEntity(Entity* theEnt
     
     if (RightXBottomY != nullptr && collidedY != true)
     {
+        if (RightXBottomY->getDeathValue() == true)
+        {
+            errorCode.push(3);
+            return;
+        }
         if (RightXBottomY->getSolidValue() == true)
         {
             

@@ -62,12 +62,16 @@ private:
     
     
     int numberOfDeaths;
+    
+    void setLevelFileName(string theNewLevelString);
+
 
     
 public:
     
     
     LevelLoader(std::string theLevelFileName):filename(theLevelFileName){};
+    
     
     void loadLevelData();
     
@@ -104,6 +108,8 @@ public:
     void resetPlayerPosition(Entity* player);
     
     string getCurLevelFileName();
+    
+    bool goToNextLeve();
     
     
 };

@@ -9,9 +9,62 @@
 #include "LevelLoader.h"
 
 
+#ifdef _WINDOWS
+#define RESOURCE_FOLDER ""
+#else
+#define RESOURCE_FOLDER "Final_Project.app/Contents/Resources/"
+#endif
+
 void LevelLoader::loadLevelData()
 {
     
+    
+    //remove all previous things
+    
+    if (levelMatrix != nullptr)
+    {
+        if (mapHeight*mapWidth == mapSize) // this only happens if the level was properly initialized
+        {
+            
+            for (int i = 0; i < mapHeight; i ++)
+            {
+                
+                for (int j = 0; j < mapWidth; j++)
+                {
+                    Tile* curTile = (*(*levelMatrix)[i])[j];
+                    delete curTile;
+                }
+                
+            }
+        }
+        
+        
+    }
+    
+    
+    if (levelEntities.size() > 0)
+    {
+        levelEntities.clear();
+    }
+    
+    mapHeight = 0;
+    mapWidth = 0;
+    
+    spriteCountX = 0;
+    spriteCountY = 0;
+    
+    mapSize = 0;
+    
+    levelGravityX = 0;
+    levelGravityY = 0;
+    
+    defaultPlayerX = 0;
+    defaultPlayerY = 0;
+
+    
+    //start fresh
+    
+    std::cout << "Now Loading level: " << filename << std::endl;
     
     levelMatrix = new vector<vector<Tile*>*>; //initialize the levelMatrix
     
@@ -172,7 +225,7 @@ bool LevelLoader::readLayerData(ifstream& fileStream)
                     
                     bool deathValue = false;
 
-                    if (theValue == 36 || theValue  == 49 || theValue == 50)
+                    if (theValue == 35 || theValue  == 49 || theValue == 50 || theValue == 45)
                     {
                         deathValue = true;
                     }
@@ -436,3 +489,31 @@ string LevelLoader::getCurLevelFileName()
 {
     return filename;
 }
+
+bool LevelLoader::goToNextLeve()
+{
+    
+    if (filename == RESOURCE_FOLDER"level0.txt")
+    {
+        filename = RESOURCE_FOLDER"level1.txt";
+    }
+    else if (filename == RESOURCE_FOLDER"level1.txt")
+    {
+        filename = RESOURCE_FOLDER"level2.txt";
+    }
+    else if (filename == RESOURCE_FOLDER"level2.txt")
+    {
+        filename = RESOURCE_FOLDER"level3.txt";
+    }
+    else
+    {
+        return false;
+    }
+    
+    loadLevelData();
+    
+    return true;
+    
+}
+
+

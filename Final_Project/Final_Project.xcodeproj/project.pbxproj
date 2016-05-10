@@ -42,6 +42,8 @@
 		4DF6C39F1CDBF09E0008CE39 /* EntityCollisionChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6C39D1CDBF09E0008CE39 /* EntityCollisionChecker.cpp */; };
 		4DF6C3A11CDBF21B0008CE39 /* snail.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF6C3A01CDBF21B0008CE39 /* snail.png */; };
 		4DFFD8A81CE16B8500F3B54A /* Red_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFFD8A71CE16B8500F3B54A /* Red_Background.png */; };
+		4DFFD8AB1CE1988900F3B54A /* Level3.tmx in Resources */ = {isa = PBXBuildFile; fileRef = 4DFFD8A91CE1988900F3B54A /* Level3.tmx */; };
+		4DFFD8AC1CE1988900F3B54A /* Level3.txt in Resources */ = {isa = PBXBuildFile; fileRef = 4DFFD8AA1CE1988900F3B54A /* Level3.txt */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
 		6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */; };
@@ -95,6 +97,8 @@
 		4DF6C39E1CDBF09E0008CE39 /* EntityCollisionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityCollisionChecker.h; sourceTree = "<group>"; };
 		4DF6C3A01CDBF21B0008CE39 /* snail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snail.png; sourceTree = "<group>"; };
 		4DFFD8A71CE16B8500F3B54A /* Red_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red_Background.png; sourceTree = "<group>"; };
+		4DFFD8A91CE1988900F3B54A /* Level3.tmx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = Level3.tmx; sourceTree = "<group>"; };
+		4DFFD8AA1CE1988900F3B54A /* Level3.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Level3.txt; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* Final_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Final_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -148,6 +152,8 @@
 				4D5719BC1CB1A80D00E14AFF /* Level1.txt */,
 				4D2CC6971CCD5DDC00348730 /* Level2.tmx */,
 				4D2CC6991CCD5E7400348730 /* Level2.txt */,
+				4DFFD8A91CE1988900F3B54A /* Level3.tmx */,
+				4DFFD8AA1CE1988900F3B54A /* Level3.txt */,
 				4D5719BF1CB1A80D00E14AFF /* main.cpp */,
 				4DCDDE791CD11ADC006676DC /* CoreFunctions.h */,
 				4DCDDE781CD11ADC006676DC /* CoreFunctions.cpp */,
@@ -304,7 +310,9 @@
 				4D5719D21CB1A80D00E14AFF /* Images.xcassets in Resources */,
 				4D1677B51CD943A200252137 /* Requirements in Resources */,
 				4D2CC6981CCD5DDC00348730 /* Level2.tmx in Resources */,
+				4DFFD8AC1CE1988900F3B54A /* Level3.txt in Resources */,
 				4D5719CD1CB1A80D00E14AFF /* InfoPlist.strings in Resources */,
+				4DFFD8AB1CE1988900F3B54A /* Level3.tmx in Resources */,
 				4D5719D51CB1A80D00E14AFF /* Level1.tmx in Resources */,
 				4D5719CF1CB1A80D00E14AFF /* Final_Project-Info.plist in Resources */,
 				4D5719D61CB1A80D00E14AFF /* Level1.txt in Resources */,

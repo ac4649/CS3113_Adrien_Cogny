@@ -116,10 +116,10 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
         float texture_x = (float)(((int)text[i]) % 16) / 16.0f;
         float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
         
-        float textX = startX+(size+spacing) * i + (-0.5f * size);
+        //float textX = startX+(size+spacing) * i + (-0.5f * size);
         
-        std::cout << "textX " << textX << std::endl;
-        std::cout << "textY " << startY << std::endl;
+        //std::cout << "textX " << textX << std::endl;
+        //std::cout << "textY " << startY << std::endl;
 
         vertexData.insert(vertexData.end(),
                           {
@@ -301,7 +301,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glPointSize(10.0f);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level1.txt");
     
     theLevelLoader->loadLevelData();
     
@@ -363,14 +363,6 @@ void processEvents(SDL_Event event)
                 {
                     state = 1;
                 }
-                else if (state == 2)
-                {
-                    //go to the next level
-                }
-                else if (state == 3)
-                {
-                    state = 1;
-                }
                 else if (state == 1)
                 {
                     //space set the velocity of the player in y to something other than 0
@@ -383,8 +375,37 @@ void processEvents(SDL_Event event)
                         
                     }
                 }
-
-
+                else if (state == 2)
+                {
+                    //go to the next level
+                    std::cout << "Go Next Level" << std::endl;
+                    theLevelLoader->goToNextLeve();
+                    theLevelLoader->loadLevelData();
+                    theLevelLoader->outPutLevelSolid();
+                    
+                    std::cout << "level Data: " << std::endl;
+                    
+                    for (int i = 1; i < 10; i++)
+                    {
+                        for (int j = 1; j < 10; j++)
+                        {
+                            Tile* curLevelTile = theLevelLoader->getLevelDataAtIndex(i, j);
+                            
+                            int curLevel = curLevelTile->getTileValue();
+                            
+                            std::cout << curLevel << " " ;
+                        }
+                        std::cout << std::endl;
+                    }
+                    
+                    state = 1;
+                    
+                }
+                else if (state == 3)
+                {
+                    state = 1;
+                }
+                
             }
             //quitting when the player presses q
             else if (event.key.keysym.scancode == SDL_SCANCODE_Q)
@@ -407,21 +428,25 @@ void processEvents(SDL_Event event)
         else if(event.type == SDL_MOUSEBUTTONDOWN)
         {
             
-            float unitX = (((float)event.button.x / windowSizeWidth) * totalUnitsWidth ) - totalUnitsWidth/2.0;
-            float unitY = (((float)(360-event.button.y) / windowSizeHeight) * totalUnitsHeight ) - totalUnitsHeight/2.0;
-            
-            std::cout << "Mouse Click :" << unitX << ", " << unitY << std::endl;
-            std::cout << "Target Click :" << menuButton.position.getx() << " +/- " << menuButton.width/2.0 << ", " << menuButton.position.gety() << " +/- " << menuButton.height/2.0 << std::endl;
-            
-            if (menuButton.position.getx() - menuButton.width/2.0 < unitX && unitX < menuButton.position.getx() + menuButton.width/2.0 )
+            if (state == 0 || state == 2 || state == 3)
             {
-                if (menuButton.position.gety() - menuButton.height/2.0 < unitY && unitY < menuButton.position.gety() + menuButton.height/2.0 )
+                float unitX = (((float)event.button.x / windowSizeWidth) * totalUnitsWidth ) - totalUnitsWidth/2.0;
+                float unitY = (((float)(360-event.button.y) / windowSizeHeight) * totalUnitsHeight ) - totalUnitsHeight/2.0;
+                
+                std::cout << "Mouse Click :" << unitX << ", " << unitY << std::endl;
+                std::cout << "Target Click :" << menuButton.position.getx() << " +/- " << menuButton.width/2.0 << ", " << menuButton.position.gety() << " +/- " << menuButton.height/2.0 << std::endl;
+                
+                if (menuButton.position.getx() - menuButton.width/2.0 < unitX && unitX < menuButton.position.getx() + menuButton.width/2.0 )
                 {
-                    state = 1;
-                    std::cout << "Starting Game" << std::endl;
-                    
+                    if (menuButton.position.gety() - menuButton.height/2.0 < unitY && unitY < menuButton.position.gety() + menuButton.height/2.0 )
+                    {
+                        state = 1;
+                        std::cout << "Starting Game" << std::endl;
+                        
+                    }
                 }
             }
+            
             
         }
         
@@ -548,8 +573,8 @@ void renderMenu(ShaderProgram* program)
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
     
-    std::cout << "Menu X " << menuBackground.position.getx() << std::endl;
-    std::cout << "Menu Y " << menuBackground.position.gety() << std::endl;
+    //std::cout << "Menu X " << menuBackground.position.getx() << std::endl;
+    //std::cout << "Menu Y " << menuBackground.position.gety() << std::endl;
 
     
     DrawText(program, menuText.textureID, "PLAY PLATFORMER", 19.0f, 0.000f,-130.0,0.0);
@@ -787,6 +812,13 @@ void DrawEntities(float elapsed)
 
                 
             }
+            else if (errorCodeReceived == 3)
+            {
+                std::cout << "Touched Death Tile" << std::endl;
+                theLevelLoader->resetPlayerPosition(curEntity);
+                theLevelLoader->addDeath();
+                state = 3;
+            }
             
         }
         
@@ -878,7 +910,7 @@ int main(int argc, char *argv[])
             
             int curLevel = curLevelTile->getTileValue();
             
-            std::cout << curLevel;
+            std::cout << curLevel << " " ;
         }
         std::cout << std::endl;
     }
@@ -894,13 +926,13 @@ int main(int argc, char *argv[])
         float elapsed = ticks - lastFrameTicks;
         lastFrameTicks = ticks;
         
-        if (state == 0) {
-            SDL_ShowCursor(1);
+        if (state == 1) {
+            SDL_ShowCursor(0);
 
         }
         else
         {
-            SDL_ShowCursor(0);
+            SDL_ShowCursor(1);
         }
         
         
