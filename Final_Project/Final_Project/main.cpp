@@ -149,6 +149,13 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
 }
 
 // if the entity contains the sprite location as well as the height and width on the sprite sheet.
+void DrawColoredTriangle(ShaderProgram *program, Entity *displayedEntity)
+{
+    
+    
+}
+
+
 void DrawSpriteUnorderedSheetSprite(ShaderProgram *program, Entity *displayedEntity)
 {
     
@@ -317,6 +324,12 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     menuButton.textureID = LoadTexture("sheet.png");
     
     
+    
+    deathBackground.textureID = LoadTexture("Red_Background.png");
+    deathText.textureID = LoadTexture("font1.png");
+    deathButton.textureID = LoadTexture("sheet.png");
+    
+    
     //remove alpha
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -434,6 +447,9 @@ void updateMenu(ShaderProgram* program, float elapsed)
     menuButton.textureSheetHeight = 1024;
     menuButton.textureSheetWidth = 1024;
     
+    menuText.position.setx(0);
+    menuText.position.sety(0);
+    
     
 }
 
@@ -510,10 +526,10 @@ void renderMenu(ShaderProgram* program)
     
     menuModelMatrix.identity(); //resets to initial position
     
-    DrawSpriteUnorderedSheetSprite(program, &menuBackground);
+    DrawSpriteUnorderedSheetSprite(theProgram, &menuBackground);
     
     glBindTexture(GL_TEXTURE_2D, menuButton.textureID);
-    DrawSpriteUnorderedSheetSprite(program, &menuButton);
+   DrawSpriteUnorderedSheetSprite(program, &menuButton);
     
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
@@ -543,9 +559,11 @@ void renderDeathScene(ShaderProgram* program)
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
     
-    string DisplayedString = "Number Of Deaths";
+    string DisplayedString = "Number Of Deaths: ";
+    DisplayedString = DisplayedString + std::to_string(theLevelLoader->getDeathCount());
     
-    DrawText(program, menuText.textureID, "Number of Deaths 0", 0.3f, 0.0,0.0,0.0);
+    std::cout << DisplayedString << std::endl;
+    DrawText(program, menuText.textureID, DisplayedString , 1.0f, 0.0,0.0,0.0);
 
     
     DrawText(program, menuText.textureID, "You Lost - Play Again?", 0.3f, 0.0,0.0,0.0);
@@ -561,7 +579,7 @@ void renderWonScene(ShaderProgram* program)
     program->setViewMatrix(viewMatrix);
     
     
-    menuModelMatrix.identity(); //resets to initial position
+    wonModelMatrix.identity(); //resets to initial position
     
     DrawSpriteUnorderedSheetSprite(program, &menuBackground);
     

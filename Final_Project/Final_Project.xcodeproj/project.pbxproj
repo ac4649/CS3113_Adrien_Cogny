@@ -41,6 +41,7 @@
 		4DEDFC8B1CDEC4A50002C63E /* font1.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DEDFC881CDEC4A50002C63E /* font1.png */; };
 		4DF6C39F1CDBF09E0008CE39 /* EntityCollisionChecker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4DF6C39D1CDBF09E0008CE39 /* EntityCollisionChecker.cpp */; };
 		4DF6C3A11CDBF21B0008CE39 /* snail.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DF6C3A01CDBF21B0008CE39 /* snail.png */; };
+		4DFFD8A81CE16B8500F3B54A /* Red_Background.png in Resources */ = {isa = PBXBuildFile; fileRef = 4DFFD8A71CE16B8500F3B54A /* Red_Background.png */; };
 		6D5A86AE19AE5C710066C1FD /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86AD19AE5C710066C1FD /* Cocoa.framework */; };
 		6D5A86E319AE5CD10066C1FD /* SDL2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5A86E219AE5CD10066C1FD /* SDL2.framework */; };
 		6D5AC2D019AE6280004CB1BF /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D5AC2CF19AE6280004CB1BF /* OpenGL.framework */; };
@@ -93,6 +94,7 @@
 		4DF6C39D1CDBF09E0008CE39 /* EntityCollisionChecker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EntityCollisionChecker.cpp; sourceTree = "<group>"; };
 		4DF6C39E1CDBF09E0008CE39 /* EntityCollisionChecker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EntityCollisionChecker.h; sourceTree = "<group>"; };
 		4DF6C3A01CDBF21B0008CE39 /* snail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snail.png; sourceTree = "<group>"; };
+		4DFFD8A71CE16B8500F3B54A /* Red_Background.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Red_Background.png; sourceTree = "<group>"; };
 		6D5A86AA19AE5C710066C1FD /* Final_Project.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Final_Project.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D5A86AD19AE5C710066C1FD /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		6D5A86B019AE5C710066C1FD /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
@@ -126,6 +128,7 @@
 				4DEDFC861CDEC4A50002C63E /* purpleBackground.png */,
 				4DEDFC871CDEC4A50002C63E /* sheet.png */,
 				4DEDFC881CDEC4A50002C63E /* font1.png */,
+				4DFFD8A71CE16B8500F3B54A /* Red_Background.png */,
 				4D5719AF1CB1A80D00E14AFF /* Credits.rtf */,
 				4D5719B11CB1A80D00E14AFF /* InfoPlist.strings */,
 				4D5719B51CB1A80D00E14AFF /* Final_Project-Info.plist */,
@@ -285,6 +288,7 @@
 				4DEDFC8B1CDEC4A50002C63E /* font1.png in Resources */,
 				4D5719DF1CB1A80D00E14AFF /* vertex.glsl in Resources */,
 				4D5719D41CB1A80D00E14AFF /* Level0.txt in Resources */,
+				4DFFD8A81CE16B8500F3B54A /* Red_Background.png in Resources */,
 				4D5719CC1CB1A80D00E14AFF /* Credits.rtf in Resources */,
 				4D5719DA1CB1A80D00E14AFF /* playersprite.png in Resources */,
 				4D5719D31CB1A80D00E14AFF /* Level0.tmx in Resources */,
