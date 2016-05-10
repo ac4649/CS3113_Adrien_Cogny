@@ -60,7 +60,7 @@ float lastFrameTicks = 0.0f;
 
 
 bool done = false;
-int state = 0; // 0 = menu state
+int state = 0; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state
 
 
 
@@ -116,6 +116,11 @@ void DrawText(ShaderProgram *program, int fontTexture, std::string text, float s
         float texture_x = (float)(((int)text[i]) % 16) / 16.0f;
         float texture_y = (float)(((int)text[i]) / 16) / 16.0f;
         
+        float textX = startX+(size+spacing) * i + (-0.5f * size);
+        
+        std::cout << "textX " << textX << std::endl;
+        std::cout << "textY " << startY << std::endl;
+
         vertexData.insert(vertexData.end(),
                           {
                               (startX+(size+spacing) * i) + (-0.5f * size), 0.5f * size + startY,
@@ -358,6 +363,14 @@ void processEvents(SDL_Event event)
                 {
                     state = 1;
                 }
+                else if (state == 2)
+                {
+                    //go to the next level
+                }
+                else if (state == 3)
+                {
+                    state = 1;
+                }
                 else if (state == 1)
                 {
                     //space set the velocity of the player in y to something other than 0
@@ -518,7 +531,8 @@ void updateWonScene(ShaderProgram* program, float elapsed)
 void renderMenu(ShaderProgram* program)
 {
     //drawing Triangles
-    
+    viewMatrix.identity();
+
     program->setModelMatrix(menuModelMatrix);
     program->setProjectionMatrix(projectionMatrix);
     program->setViewMatrix(viewMatrix);
@@ -534,7 +548,11 @@ void renderMenu(ShaderProgram* program)
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
     
-    DrawText(program, menuText.textureID, "PLAY PLATFORMER", 0.3f, 0.00000000001f,0.0,0.0);
+    std::cout << "Menu X " << menuBackground.position.getx() << std::endl;
+    std::cout << "Menu Y " << menuBackground.position.gety() << std::endl;
+
+    
+    DrawText(program, menuText.textureID, "PLAY PLATFORMER", 19.0f, 0.000f,-130.0,0.0);
     
 }
 
@@ -543,7 +561,8 @@ void renderMenu(ShaderProgram* program)
 void renderDeathScene(ShaderProgram* program)
 {
     //drawing Triangles
-    
+    viewMatrix.identity();
+
     program->setModelMatrix(deathModelMatrix);
     program->setProjectionMatrix(projectionMatrix);
     program->setViewMatrix(viewMatrix);
@@ -563,17 +582,19 @@ void renderDeathScene(ShaderProgram* program)
     DisplayedString = DisplayedString + std::to_string(theLevelLoader->getDeathCount());
     
     std::cout << DisplayedString << std::endl;
-    DrawText(program, menuText.textureID, DisplayedString , 1.0f, 0.0,0.0,0.0);
+    DrawText(program, deathText.textureID, DisplayedString , 20.0f, 0.0,-150.0f,60.0f);
 
     
-    DrawText(program, menuText.textureID, "You Lost - Play Again?", 0.3f, 0.0,0.0,0.0);
+    DrawText(program, deathText.textureID, "You Lost - Play Again?", 13.0f, 0.0f,-140.0f,0.0);
+    
     
 }
 
 void renderWonScene(ShaderProgram* program)
 {
     //drawing Triangles
-    
+    viewMatrix.identity();
+
     program->setModelMatrix(menuModelMatrix);
     program->setProjectionMatrix(projectionMatrix);
     program->setViewMatrix(viewMatrix);
@@ -589,7 +610,7 @@ void renderWonScene(ShaderProgram* program)
     glDisableVertexAttribArray(program->positionAttribute);
     glDisableVertexAttribArray(program->texCoordAttribute);
     
-    DrawText(program, menuText.textureID, "PLAY PLATFORMER", 0.3f, 0.00000000001f,0.0,0.0);
+    DrawText(program, menuText.textureID, "Next Level?", 20, 0.000f,-130.0,0.0);
     
 }
 
