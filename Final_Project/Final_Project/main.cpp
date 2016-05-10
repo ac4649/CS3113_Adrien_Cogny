@@ -34,6 +34,22 @@ SDL_Window* displayWindow;
 #define FIXED_TIMESTEP 0.008333333333 //120 FPS
 #define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
 
+
+
+//SOUND
+
+#include <SDL_mixer.h>
+
+Mix_Chunk *playerJumpSound;
+Mix_Chunk *playerLand;
+Mix_Chunk *playerWin;
+Mix_Chunk *playerLoss;
+
+Mix_Music *menuMusic;
+Mix_Music *levelMusic;
+
+
+
 //helper objects
 
 LevelLoader* theLevelLoader;
@@ -340,6 +356,15 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     
+    //Initialize sound
+    Mix_OpenAudio( 44100, MIX_DEFAULT_FORMAT, 2, 4096 );
+    playerJumpSound = Mix_LoadWAV("jump.wav");
+    levelMusic = Mix_LoadMUS("FIGURATIVE_THEATRE_-_03_-_SATORI_vocal_mix.mp3");
+    
+    
+    Mix_PlayMusic(menuMusic, -1);
+    
+    
     return program;
 }
 
@@ -371,6 +396,8 @@ void processEvents(SDL_Event event)
                     if (player->collidedBottom == true)
                     {
                         player->velocity.sety(30.0f);
+                        Mix_PlayChannel(-1, playerJumpSound, 0);
+                        
                         player->collidedBottom = false;
                         
                     }
