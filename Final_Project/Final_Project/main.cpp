@@ -35,6 +35,15 @@ SDL_Window* displayWindow;
 #define MAX_TIMESTEPS 6 //maximum number of timesteps want to used
 
 
+//Annimation Timers
+float menuAnimationTimer;
+float deathAnimationTimer;
+float winAnimationTimer;
+
+bool animatingMenu;
+bool animatingDeath;
+bool animatingWin;
+
 
 //SOUND
 
@@ -365,6 +374,15 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     Mix_PlayMusic(menuMusic, -1);
     
     
+    menuAnimationTimer = 0.0;
+    deathAnimationTimer = 0.0;
+    winAnimationTimer = 0.0;
+    
+    animatingMenu = true;
+    animatingWin = false;
+    animatingDeath = false;
+    
+    
     return program;
 }
 
@@ -455,6 +473,7 @@ void processEvents(SDL_Event event)
                 else
                 {
                     state = 0;
+                    animatingMenu = true;
                 }
                 
             }
@@ -600,6 +619,20 @@ void renderMenu(ShaderProgram* program)
     
     
     menuModelMatrix.identity(); //resets to initial position
+    
+    std::cout << sin(menuAnimationTimer) << std::endl;
+    
+    if (animatingMenu)
+    {
+        viewMatrix.Scale(sin(menuAnimationTimer), sin(menuAnimationTimer), sin(menuAnimationTimer));
+    }
+    if (sin(menuAnimationTimer) > 0.9)
+    {
+        //stop the annimation
+        animatingMenu = false;
+        
+    }
+    
     
     DrawSpriteUnorderedSheetSprite(theProgram, &menuBackground);
     
@@ -897,6 +930,10 @@ void DrawEntities(float elapsed)
 void DrawMenu(float elapsed)
 {
     
+    //animatingMenu = true;
+    
+    menuAnimationTimer = menuAnimationTimer + elapsed;
+    
     viewMatrix.identity();
     updateMenu(theProgram, elapsed);
     
@@ -919,6 +956,7 @@ void DrawDeath(float elapsed)
 
 void DrawWon(float elapsed)
 {
+    
     
     viewMatrix.identity();
     updateWonScene(theProgram, elapsed);
@@ -957,6 +995,9 @@ int main(int argc, char *argv[])
 
     while (!done)
     {
+        if (!animatingMenu) {
+            menuAnimationTimer = 0.0f;
+        }
 
         float ticks = (float)SDL_GetTicks()/1000.0f;
         float elapsed = ticks - lastFrameTicks;
