@@ -492,7 +492,7 @@ string LevelLoader::getCurLevelFileName()
 
 bool LevelLoader::goToNextLeve()
 {
-    
+        
     if (filename == RESOURCE_FOLDER"level0.txt")
     {
         filename = RESOURCE_FOLDER"level1.txt";
@@ -514,6 +514,11 @@ bool LevelLoader::goToNextLeve()
     
     return true;
     
+}
+
+void LevelLoader::resetLevel()
+{
+    loadLevelData();
 }
 
 

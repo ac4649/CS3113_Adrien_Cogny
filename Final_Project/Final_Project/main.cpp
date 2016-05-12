@@ -664,6 +664,31 @@ void renderDeathScene(ShaderProgram* program)
     
     deathModelMatrix.identity(); //resets to initial position
     
+    
+    std::cout << sin(menuAnimationTimer) << std::endl;
+    
+    if (animatingDeath)
+    {
+        //viewMatrix.Rotate(deathAnimationTimer);
+        if (deathAnimationTimer < 2)
+        {
+            viewMatrix.Scale(deathAnimationTimer, 1, 1 );
+        }
+        else
+        {
+            viewMatrix.Scale(2-(deathAnimationTimer-3),1,1);
+        }
+        
+    }
+    if (deathAnimationTimer > 3)
+    {
+        //stop the annimation
+        animatingDeath = false;
+        
+    }
+    
+    
+    
     DrawSpriteUnorderedSheetSprite(program, &deathBackground);
     
     glBindTexture(GL_TEXTURE_2D, deathButton.textureID);
@@ -862,6 +887,9 @@ void DrawEntities(float elapsed)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
+                    theLevelLoader->resetLevel();
+                    animatingDeath = true;
+
                     state = 3;
 
                 }
@@ -875,6 +903,8 @@ void DrawEntities(float elapsed)
                 {
                     theLevelLoader->resetPlayerPosition(curEntity);
                     theLevelLoader->addDeath();
+                    theLevelLoader->resetLevel();
+                    animatingDeath = true;
                     state = 3;
                 }
                 
@@ -886,6 +916,8 @@ void DrawEntities(float elapsed)
                 std::cout << "Touched Death Tile" << std::endl;
                 theLevelLoader->resetPlayerPosition(curEntity);
                 theLevelLoader->addDeath();
+                theLevelLoader->resetLevel();
+                animatingDeath = true;
                 state = 3;
             }
             
@@ -906,6 +938,7 @@ void DrawEntities(float elapsed)
         
         std::cout << "PLAYER WON" << std::endl;
         state = 2;
+        animatingWin = true;
         //change state to exit game
         
         
@@ -945,6 +978,9 @@ void DrawMenu(float elapsed)
 void DrawDeath(float elapsed)
 {
     
+    deathAnimationTimer = deathAnimationTimer + elapsed;
+
+    
     viewMatrix.identity();
     updateDeathScene(theProgram, elapsed);
     
@@ -957,6 +993,7 @@ void DrawDeath(float elapsed)
 void DrawWon(float elapsed)
 {
     
+    winAnimationTimer = winAnimationTimer + elapsed;
     
     viewMatrix.identity();
     updateWonScene(theProgram, elapsed);
@@ -1082,6 +1119,8 @@ int main(int argc, char *argv[])
         {
             std::cout << "FINISHED GAME" << std::endl;
             state = 0;
+            animatingMenu = true;
+
         }
         else
         {

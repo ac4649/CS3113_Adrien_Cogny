@@ -70,7 +70,7 @@ private:
 public:
     
     
-    LevelLoader(std::string theLevelFileName):filename(theLevelFileName){};
+    LevelLoader(std::string theLevelFileName):filename(theLevelFileName){ numberOfDeaths = 0;};
     
     
     void loadLevelData();
@@ -110,6 +110,9 @@ public:
     string getCurLevelFileName();
     
     bool goToNextLeve();
+    
+    
+    void resetLevel();
     
     
 };
