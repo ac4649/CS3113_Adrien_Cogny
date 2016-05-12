@@ -379,7 +379,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     levelMusic = Mix_LoadMUS("FIGURATIVE_THEATRE_-_03_-_SATORI_vocal_mix.mp3");
     
     
-    Mix_PlayMusic(menuMusic, -1);
+    Mix_PlayMusic(levelMusic, -1);
     
     
     menuAnimationTimer = 0.0;

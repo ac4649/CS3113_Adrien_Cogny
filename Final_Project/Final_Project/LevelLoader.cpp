@@ -501,10 +501,10 @@ bool LevelLoader::goToNextLeve()
     {
         filename = RESOURCE_FOLDER"level2.txt";
     }
-    else if (filename == RESOURCE_FOLDER"level2.txt")
-    {
-        filename = RESOURCE_FOLDER"level3.txt";
-    }
+    //else if (filename == RESOURCE_FOLDER"level2.txt")
+    //{
+    //    filename = RESOURCE_FOLDER"level3.txt";
+    //}
     else
     {
         return false;
