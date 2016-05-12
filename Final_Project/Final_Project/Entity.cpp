@@ -32,13 +32,66 @@ Entity::Entity()
 bool Entity::collidesWithEntity(Entity* theEntity)
 {
     
-    if (position.getx() + width/2 < theEntity->position.getx() - theEntity->width/2 || position.getx() -width/2 > theEntity->position.getx() - theEntity->width/2 || position.gety() + height/2 < theEntity->position.gety() - theEntity->height/2 || position.gety()-height/2 > theEntity->position.gety() - theEntity->height/2)
+    bool test1 = false;
+    bool test2 = false;
+    bool test3 = false;
+    bool test4 = false;
+    
+
+    float leftPositionE1 = (position.getx() - width/2);
+    float rightPositionE1 = (position.getx() + width/2);
+    float topPositionE1 = (position.gety() + height/2);
+    float bottomPositionE1 = (position.gety() - height/2);
+    
+    float leftPositionE2 = (theEntity->position.getx() - theEntity->width/2);
+    float rightPositionE2 = (theEntity->position.getx() + theEntity->width/2);
+    float topPositionE2 = (theEntity->position.gety() + theEntity->height/2);
+    float bottomPositionE2 = (theEntity->position.gety() - theEntity->height/2);
+    
+
+    
+    if (rightPositionE1 < leftPositionE2)
     {
-        //No collision
+        
+        test1 = true;
+        //collide x
     }
-    else
+    
+    if (rightPositionE2 > leftPositionE1)
     {
-        std::cout << "Collision with entity" << std::endl;
+        test2 = true;
+        //collide x
+    }
+    
+    if (bottomPositionE2 < topPositionE1)
+    {
+        
+        test3 = true;
+        //collide y
+    }
+    
+    if (bottomPositionE1 > topPositionE2)
+    {
+        test4 = true;
+        //collide y
+    }
+    
+
+    
+    bool collideX = test1 ^ test2;
+    bool collideY = test3 ^ test4;
+    
+    std::cout << "test1 = " << test1 << std::endl;
+    std::cout << "test2 = " << test2 << std::endl;
+    std::cout << "test3 = " << test3 << std::endl;
+    std::cout << "test4 = " << test4<< std::endl;
+
+    std::cout << "X collision Detected = " << collideX << std::endl;
+    std::cout << "Y collision Detected = " << collideY << std::endl;
+
+    if (collideX && collideY)
+    {
+        std::cout << "Collision with entity on X" << std::endl;
         return true;
     }
     

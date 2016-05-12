@@ -1,4 +1,4 @@
-#ifdef _WINDOWS
+ #ifdef _WINDOWS
 #include <GL/glew.h>
 #endif
 #include <SDL.h>
@@ -326,7 +326,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glPointSize(10.0f);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level0.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
     
     theLevelLoader->loadLevelData();
     
@@ -943,6 +943,37 @@ void DrawEntities(float elapsed)
         
         
     }
+    
+    //do player collisions with entities.
+    
+    for (int i = 0; i < theLevelLoader->getNumEntities(); i++)
+    {
+        bool isColliding = false;
+        
+        Entity* curEntity = theLevelLoader->getEntityForIndex(i);
+        
+        if (i > 0)
+        {
+            
+            isColliding = player->collidesWithEntity(curEntity);
+
+        }
+        
+        if (isColliding == true)
+        {
+            std::cout << "COLLISION" << std::endl;
+            //die
+            theLevelLoader->resetPlayerPosition(curEntity);
+            theLevelLoader->addDeath();
+            theLevelLoader->resetLevel();
+            animatingDeath = true;
+            
+            state = 3;
+            
+        }
+
+    }
+    
 
     
     

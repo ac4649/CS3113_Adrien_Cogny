@@ -157,7 +157,7 @@ public:
     Matrix centerPointModelMatrix;
     
     void drawCenterOfEntity(ShaderProgram *theProgram, Matrix& projectionMatrix, Matrix& viewMatrix);
-
+    
     
     
 };
