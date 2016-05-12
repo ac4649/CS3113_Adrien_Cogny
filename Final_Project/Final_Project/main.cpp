@@ -85,7 +85,7 @@ float lastFrameTicks = 0.0f;
 
 
 bool done = false;
-int state = 0; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state, 4 = finished game
+int state = 4; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state, 4 = finished game
 
 
 
@@ -105,6 +105,10 @@ Entity wonBackground;
 Entity wonButton;
 Entity wonText;
 
+Matrix completedModelMatrix;
+Entity completedBackground;
+Entity completedButton;
+Entity completedText;
 
 //Global Matrices
 Matrix projectionMatrix;
@@ -326,7 +330,7 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     glPointSize(10.0f);
 
     
-    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level2.txt");
+    theLevelLoader = new LevelLoader(RESOURCE_FOLDER"level0.txt");
     
     theLevelLoader->loadLevelData();
     
@@ -358,6 +362,10 @@ ShaderProgram *setup() // will return the shaderProgram pointer
     deathBackground.textureID = LoadTexture("Red_Background.png");
     deathText.textureID = LoadTexture("font1.png");
     deathButton.textureID = LoadTexture("sheet.png");
+    
+    completedBackground.textureID = LoadTexture("purpleBackground.png");
+    completedText.textureID = LoadTexture("font1.png");
+    completedButton.textureID = LoadTexture("sheet.png");
     
     
     //remove alpha
@@ -429,6 +437,7 @@ void processEvents(SDL_Event event)
                     {
                         std::cout << "Congratulations on Finishing the Game" << std::endl;
                         state = 4;
+                        
                     }
                     else
                     {
@@ -466,11 +475,22 @@ void processEvents(SDL_Event event)
             {
                 //exit the game
                 
-                if (state == 0)
+                if (state == 0 || state == 4)
                 {
                     done = true;
                 }
                 else
+                {
+                    state = 0;
+                    animatingMenu = true;
+                }
+                
+            }
+            else if (event.key.keysym.scancode == SDL_SCANCODE_M)
+            {
+                //exit the game
+                
+                if (state == 4)
                 {
                     state = 0;
                     animatingMenu = true;
@@ -608,6 +628,39 @@ void updateWonScene(ShaderProgram* program, float elapsed)
     
 }
 
+
+void updateCompletedScene(ShaderProgram* program, float elapsed)
+{
+    //generate the background
+    completedBackground.position.setx(0);
+    completedBackground.position.sety(0);
+    completedBackground.height = totalUnitsHeight;
+    completedBackground.width = totalUnitsWidth;
+    
+    completedBackground.textureLocationX = 0;
+    completedBackground.textureLocationY = 0;
+    completedBackground.textureHeight = 256;
+    completedBackground.textureWidth = 256;
+    completedBackground.textureSheetHeight = 144;
+    completedBackground.textureSheetWidth = 256;
+    
+    //generate the button
+    completedButton.position.setx(0);
+    completedButton.position.sety(0);
+    completedButton.height = 0.6*39/222*totalUnitsHeight;
+    completedButton.width = totalUnitsWidth;
+    
+    completedButton.textureLocationX = 0;
+    completedButton.textureLocationY = 0;
+    completedButton.textureHeight = 39;
+    completedButton.textureWidth = 222;
+    completedButton.textureSheetHeight = 1024;
+    completedButton.textureSheetWidth = 1024;
+    
+    
+}
+
+
 void renderMenu(ShaderProgram* program)
 {
     //drawing Triangles
@@ -730,6 +783,40 @@ void renderWonScene(ShaderProgram* program)
     glDisableVertexAttribArray(program->texCoordAttribute);
     
     DrawText(program, menuText.textureID, "Next Level?", 20, 0.000f,-130.0,0.0);
+    
+}
+
+void renderCompletedScene(ShaderProgram* program)
+{
+    //drawing Triangles
+    viewMatrix.identity();
+    
+    program->setModelMatrix(completedModelMatrix);
+    program->setProjectionMatrix(projectionMatrix);
+    program->setViewMatrix(viewMatrix);
+    
+    
+    completedModelMatrix.identity(); //resets to initial position
+    
+    DrawSpriteUnorderedSheetSprite(program, &completedBackground);
+    
+    glBindTexture(GL_TEXTURE_2D, completedButton.textureID);
+    DrawSpriteUnorderedSheetSprite(program, &completedButton);
+    
+    glDisableVertexAttribArray(program->positionAttribute);
+    glDisableVertexAttribArray(program->texCoordAttribute);
+    
+    
+    DrawText(program, deathText.textureID, "Congratulations!!!" , 20.0f, 0.0,-150,100);
+
+    
+    string DisplayedString = "Number Of Deaths: ";
+    DisplayedString = DisplayedString + std::to_string(theLevelLoader->getDeathCount());
+    
+    std::cout << DisplayedString << std::endl;
+    DrawText(program, deathText.textureID, DisplayedString , 20.0f, 0.0,-150.0f,60.0f);
+    
+    DrawText(program, completedText.textureID, "(q)uit, (m)enu?", 15, 0.000f,-100,0.0);
     
 }
 
@@ -939,8 +1026,6 @@ void DrawEntities(float elapsed)
         std::cout << "PLAYER WON" << std::endl;
         state = 2;
         animatingWin = true;
-        //change state to exit game
-        
         
     }
     
@@ -1034,6 +1119,18 @@ void DrawWon(float elapsed)
     
 }
 
+void DrawCompleted(float elapsed)
+{
+    
+    winAnimationTimer = winAnimationTimer + elapsed;
+    
+    viewMatrix.identity();
+    updateCompletedScene(theProgram, elapsed);
+    
+    renderCompletedScene(theProgram);
+    
+    
+}
 
 int main(int argc, char *argv[])
 {
@@ -1119,6 +1216,10 @@ int main(int argc, char *argv[])
             {
                 DrawDeath(FIXED_TIMESTEP);
             }
+            else if (state == 4)
+            {
+                DrawCompleted(FIXED_TIMESTEP);
+            }
             
             
         }
@@ -1148,10 +1249,7 @@ int main(int argc, char *argv[])
         }
         else if (state == 4)
         {
-            std::cout << "FINISHED GAME" << std::endl;
-            state = 0;
-            animatingMenu = true;
-
+            DrawCompleted(fixedElapsed);
         }
         else
         {
