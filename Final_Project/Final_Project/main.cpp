@@ -85,7 +85,7 @@ float lastFrameTicks = 0.0f;
 
 
 bool done = false;
-int state = 4; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state, 4 = finished game
+int state = 0; // 0 = menu state, 1 = Game State, 2 = Won State, 3 = death state, 4 = finished game
 
 
 
